@@ -11,79 +11,25 @@ namespace SamuraiMM
     internal class ADOHandler
     {
         //laver en list til at kontrollere ting med
-        public List<ADOModel> ADOModels { get; set; }
+        private List<ADOModel> ADOModels { get; set; }
 
         public ADOHandler()
         {
-            ////refresher min liste hver gang klassen bliver kaldt
-            //CheckDataBase();
-
+            //refresher min liste hver gang klassen bliver kaldt
+            UpdateListWithData();
         }
+
+        /// <summary>
+        /// índsætter connection til database i en string
+        /// </summary>
         public string ConnectionString
         {
             get => "Data Source=DESKTOP-GV81FRQ\\TECH2DATABASE;Initial Catalog=SamuraiEksamen;Integrated Security=True";
         }
-        /// <summary>
-        /// laver en metode som opdatere i en Listte hvad der er i databasen.
-        /// </summary>
-        public List<ADOModel> CheckDataBase()
-        {
-            //refresher liste
-            ADOModels = new List<ADOModel>();
-            //instansiere objekt
-            ADOModel adoModel = new ADOModel();
-
-
-            using (SqlConnection connectionString = new SqlConnection(ConnectionString))
-            {
-                connectionString.Open();
-
-                //vælger alt fra ADOHandler
-                SqlCommand sqlCommand = new SqlCommand("Select * from ADOHandler", connectionString);
-
-                //så den kan læse dataen
-                SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
-
-                //jeg kører den i while så den får læst alt
-                while (sqlDataReader.Read())
-                {
-                    //tilføj
-                    adoModel.ID = Convert.ToInt32(sqlDataReader["id"]);
-                    adoModel.Firstname = sqlDataReader["FirstName"].ToString();
-                    adoModel.Lastname = sqlDataReader["LastName"].ToString();
-
-                    ADOModels.Add(adoModel);
-                }
-            }
-            return ADOModels;
-        }
-
-        //public void UpdateADOModelList()
-        //{
-        //    using (SqlConnection con = new SqlConnection(ConnectionString))
-        //    {
-        //        con.Open();
-
-
-        //        //vi bruger SqlDataReader for at kunne læse data'en fra databasen hvor vi indsætter vores commando
-        //        SqlDataReader reader = cmd.ExecuteReader();
-
-        //        //læser dataen
-        //        reader.Read();
-
-        //        //vi laver en nu model hvor vi indsætter værdierne
-        //        SamuraiModel sam = new SamuraiModel();
-
-        //        //de forskellige værdier fra databasen
-        //        adoModels.ID = Convert.ToInt32(reader["id"]);
-        //    }
-        //}
-
 
         /// <summary>
-        /// opretter connection string til database
+        /// Opretter tabellen
         /// </summary>
-
         public void CreateDataBase()
         {
             using (SqlConnection sqlConnection = new(ConnectionString))
@@ -97,41 +43,71 @@ namespace SamuraiMM
         }
 
         /// <summary>
+        /// laver en metode som opdatere i en Liste hvad der er i databasen.
+        /// </summary>
+        public void UpdateListWithData()
+        {
+            //refresher liste
+            ADOModels = new List<ADOModel>();
+            //instansiere objekt
+            ADOModel adoModel = new ADOModel();
+
+            //Bruger using for automatisk luk. og gør klar til at connecte i min database
+            using (SqlConnection connectionString = new SqlConnection(ConnectionString))
+            {
+                //åbner forbindelse
+                connectionString.Open();
+
+                //vælger alt fra ADOHandler
+                SqlCommand sqlCommand = new SqlCommand("Select * from ADOHandler", connectionString);
+
+                //så den kan læse dataen
+                SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+
+                //jeg kører den i while så den får læst alt
+                while (sqlDataReader.Read())
+                {
+                    //tilføj data til objekt
+                    adoModel.ID = Convert.ToInt32(sqlDataReader["id"]);
+                    adoModel.Firstname = sqlDataReader["FirstName"].ToString();
+                    adoModel.Lastname = sqlDataReader["LastName"].ToString();
+
+                    //tilføj obejkt til liste
+                    ADOModels.Add(adoModel);
+                }
+            }
+        }
+
+        /// <summary>
         /// laver en metode som filter input
         /// </summary>
         /// <param name="samuraiModel"></param>
         /// <param name="horseModel"></param>
         public void FilterInsertADOModel(SamuraiModel samuraiModel, HorseModel horseModel)
         {
-            List<ADOModel> checkID = new();
-
-            //First må gerne være null
-            //checkID.AddRange(adoModels.Where(x => x.ID <= 1));
-
-            //Tæller rækken hvis id er 0 opret database
-            if (checkID.Count() == 0)
-            {
-                CreateDataBase();
-            }
-
+            //tjekker indput
             if (samuraiModel != null)
             {
+                //indsætter data i mit objekt
                 ADOModel adoM = new()
                 {
                     SamuraiID = samuraiModel.ID,
                     Firstname = samuraiModel.FirstName,
                     Lastname = samuraiModel.LastName
                 };
+                //overfører data til at kunne indsætte
                 InsertIntoADODatabase(adoM);
             }
             else/*Måske smartere at bruge if? spørg flemming*/
             {
+                //indsætter data i mit objekt
                 ADOModel adoM = new()
                 {
                     HorseID = horseModel.ID,
                     Firstname = horseModel.Firstname,
                     HorsesSamuraiID = horseModel.SamuraiID
                 };
+                //overfører data til at kunne indsætte
                 InsertIntoADODatabase(adoM);
             }
 
@@ -158,14 +134,16 @@ namespace SamuraiMM
             {
                 sqlConnection.Open();
 
+                //gør klar commandoSting klar til at kunne slette
                 string sqlCommand = new($"Delete From ADOHandler where ID='{DatabaseID}'");
 
+                //Gør klar til sletning
                 SqlDataAdapter sqlDataAdapter = new();
 
-                //putter min sql commando og connectionstring i deleteCommand
+                //putter min sql commandoString og connectionstring i deleteCommand
                 sqlDataAdapter.DeleteCommand = new(sqlCommand, sqlConnection);
 
-                //eksekverer commandoen´og sletter rækken.
+                //eksekverer commandoen og sletter rækken.
                 sqlDataAdapter.DeleteCommand.ExecuteNonQuery();
             }
         }
@@ -174,12 +152,9 @@ namespace SamuraiMM
         /// </summary>
         public void FilterUpdateDataBase()
         {
+            List<ADOModel> FilteredData = new(ADOModels.Where(x => x.SamuraiID >= 0));
 
+            
         }
-        public void UpdateDatabase()
-        {
-
-        }
-
     }
 }

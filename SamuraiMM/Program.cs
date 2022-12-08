@@ -18,18 +18,8 @@
 //    FirstName = "Mathias",
 //    LastName = "Clausen"
 //};
-foreach(var item in a.CheckDataBase())
-{
-    Console.WriteLine($"id: {item.ID} navn: {item.Firstname} {item.Lastname}");
-    Console.ReadKey();
-}
 
 
-foreach (var item in a.CheckDataBase())
-{
-    Console.WriteLine($"id: {item.ID} navn: {item.Firstname} {item.Lastname}");
-    Console.ReadKey();
-}
 
 //a.FilterInsertADOModel(null, horse);
 
