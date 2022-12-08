@@ -16,10 +16,6 @@ namespace SamuraiMM.Repo
         /// <summary>
         /// laver en metode der laver en samurai tabel
         /// </summary>
-        /// 
-        public void CreateSamuraiSQLInjection()
-        { }
-
         public void CreateSamurai()
         {
             //fortæller hvad connectionen er til min database
@@ -29,7 +25,7 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //Fortæller hvad den skal gøre i SQL
-                using SqlCommand command = new SqlCommand($"CREATE TABLE Samurai(Id int, FirstName nvarchar(50), LastName nvarchar(50), Birthdate datetime); ", sqlConnection);
+                SqlCommand command = new SqlCommand($"CREATE TABLE Samurai(Id int, FirstName nvarchar(50), LastName nvarchar(50), Birthdate datetime); ", sqlConnection);
 
                 //opretter tablen
                 command.ExecuteNonQuery();
@@ -49,10 +45,7 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //istansiere SqlCommand klassen og indsætter i databasen
-                SqlCommand sqlCommand = new($"INSERT INTO Samurai (Id, FirstName, LastName, Birthdate) values('{samurai.ID}', '{samurai.FirstName}', '{samurai.LastName}', '{samurai.Birthdate}')");
-
-                //tilføjer min ConnectionString til sqlCommand object
-                sqlCommand.Connection = sqlConnection;
+                SqlCommand sqlCommand = new($"INSERT INTO Samurai (Id, FirstName, LastName, Birthdate) values('{samurai.ID}', '{samurai.FirstName}', '{samurai.LastName}', '{samurai.Birthdate}')", sqlConnection);
 
                 //sender til min database
                 sqlCommand.ExecuteNonQuery();
@@ -94,14 +87,11 @@ namespace SamuraiMM.Repo
                 //åbner vejen
                 sqlConnection.Open();
 
-                //Laver en SQLCommando for at update databasen
-                SqlCommand commandChange = new($"UPDATE Samurai SET FirstName = '{samurai.FirstName}', LastName = '{samurai.LastName}', Birthdate = @f3 Where ID = {samurai.ID}");
+                //Laver en SQLCommando for at update databasen og indsætter sqlConnection
+                SqlCommand commandChange = new($"UPDATE Samurai SET FirstName = '{samurai.FirstName}', LastName = '{samurai.LastName}', Birthdate = @f3 Where ID = {samurai.ID}", sqlConnection);
 
                 //Da database ikke kan forstå datetime, parse vi den ind i en variable for sig.
                 commandChange.Parameters.AddWithValue("@f3", samurai.Birthdate);
-
-                //indsætter connection
-                commandChange.Connection = sqlConnection;
 
                 //eksekver
                 commandChange.ExecuteNonQuery();
@@ -168,8 +158,8 @@ namespace SamuraiMM.Repo
                 sam.horse = new HorseModel()
                 {
                     ID = Convert.ToInt32(reader["ID"]),
-                    Name = reader["Name"].ToString(),
-                    SamuraiId = Convert.ToInt32(reader["SamuraiId"])
+                    Firstname = reader["Name"].ToString(),
+                    SamuraiID = Convert.ToInt32(reader["SamuraiId"])
                 };
 
                 //returner den nye model
