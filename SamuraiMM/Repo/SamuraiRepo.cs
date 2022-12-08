@@ -94,8 +94,7 @@ namespace SamuraiMM.Repo
         /// <param name="samurai"></param>
         public void UpdateSamurai(SamuraiModel samurai)
         {
-<<<<<<< HEAD
-=======
+
             using (SqlConnection sqlConnection = new(ADO.ConnectionString))
             {
                 //åbner vejen
@@ -113,7 +112,6 @@ namespace SamuraiMM.Repo
                 //eksekver
                 commandChange.ExecuteNonQuery();
             }
->>>>>>> 97445193919f4493c88b63f98a09efd4e4a776fe
         }
 
         /// <summary>
@@ -123,7 +121,6 @@ namespace SamuraiMM.Repo
         /// <returns></returns>
         public SamuraiModel ReadOneSamurai(int samuraiID)
         {
-<<<<<<< HEAD
             using SqlConnection con = new SqlConnection(ADO.ConnectionString);
             SqlCommand cmd = new SqlCommand($"select * from Samurai where id={samuraiID}", con);
             con.Open();
@@ -212,7 +209,6 @@ namespace SamuraiMM.Repo
                 //returner Listen med Data
                 return allSamurais;
             }
->>>>>>> 97445193919f4493c88b63f98a09efd4e4a776fe
         }
     }
 }
