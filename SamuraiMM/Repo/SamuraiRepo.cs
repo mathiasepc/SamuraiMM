@@ -11,7 +11,7 @@ namespace SamuraiMM.Repo
 {
     internal class SamuraiRepo : ISamurai
     {
-        public ADOHandler ADO = new();
+        ADOHandler ADO = new();
         
         /// <summary>
         /// laver en metode der laver en samurai tabel
