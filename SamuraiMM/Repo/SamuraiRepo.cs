@@ -94,10 +94,6 @@ namespace SamuraiMM.Repo
         /// <param name="samurai"></param>
         public void UpdateSamurai(SamuraiModel samurai)
         {
-<<<<<<< HEAD
-
-=======
->>>>>>> 875b60f26a6eea9b10f317507b6c4ccbee1fd3bb
             using (SqlConnection sqlConnection = new(ADO.ConnectionString))
             {
                 //åbner vejen
@@ -124,17 +120,31 @@ namespace SamuraiMM.Repo
         /// <returns></returns>
         public SamuraiModel ReadOneSamurai(int samuraiID)
         {
-            using SqlConnection con = new SqlConnection(ADO.ConnectionString);
-            SqlCommand cmd = new SqlCommand($"select * from Samurai where id={samuraiID}", con);
-            con.Open();
-            SqlDataReader reader = cmd.ExecuteReader();
-            reader.Read();
-            SamuraiModel sam = new SamuraiModel();
-            sam.ID = Convert.ToInt32(reader["id"]);
-            sam.FirstName = reader["FirstName"].ToString();
-            sam.LastName = reader["LastName"].ToString();
-            sam.Birthdate = Convert.ToDateTime(reader["BirthDate"]);
-            return sam;
+            using (SqlConnection con = new SqlConnection(ADO.ConnectionString))
+            {
+                //laver en sql commando
+                SqlCommand cmd = new SqlCommand($"select * from Samurai where id={samuraiID}", con);
+
+                con.Open();
+
+                //vi bruger SqlDataReader for at kunne læse data'en fra databasen hvor vi indsætter vores commando
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                //læser dataen
+                reader.Read();
+
+                //vi laver en nu model hvor vi indsætter værdierne
+                SamuraiModel sam = new SamuraiModel();
+
+                //de forskellige værdier fra databasen
+                sam.ID = Convert.ToInt32(reader["id"]);
+                sam.FirstName = reader["FirstName"].ToString();
+                sam.LastName = reader["LastName"].ToString();
+                sam.Birthdate = Convert.ToDateTime(reader["BirthDate"]);
+
+                //returner den nye model
+                return sam;
+            }
         }
 
         /// <summary>
@@ -172,4 +182,4 @@ namespace SamuraiMM.Repo
         }
     }
 }
-    
+
