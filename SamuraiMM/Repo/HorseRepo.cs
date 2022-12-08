@@ -27,6 +27,22 @@ namespace SamuraiMM.Repo
             }
         }
 
+        public void Create(SqlCommand cmd)
+        {
+            //fortæller hvad connectionen er til min database
+            using (SqlConnection sqlConnection = new(ADO.ConnectionString))
+            {
+                //åbner for connection
+                sqlConnection.Open();
+
+                //Fortæller hvad den skal gøre i SQL
+                using SqlCommand command = cmd;
+
+                //opretter tablen
+                command.ExecuteNonQuery();
+            }
+        }
+
         /// <summary>
         /// Laver en metode som indsætter i tabellen Samurai
         /// </summary>

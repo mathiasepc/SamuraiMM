@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SamuraiMM.Model
+namespace SamuraiMM.Interfaces
 {
-    internal interface ISamurai 
+    internal interface ISamurai
     {
         public void CreateSamurai();
 

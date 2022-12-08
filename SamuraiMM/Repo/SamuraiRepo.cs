@@ -1,4 +1,4 @@
-﻿using SamuraiMM.Model;
+﻿using SamuraiMM.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -16,6 +16,10 @@ namespace SamuraiMM.Repo
         /// <summary>
         /// laver en metode der laver en samurai tabel
         /// </summary>
+        /// 
+        public void CreateSamuraiSQLInjection()
+        { }
+
         public void CreateSamurai()
         {
             //fortæller hvad connectionen er til min database

@@ -10,7 +10,8 @@ namespace SamuraiMM.Model
     {
         public int ID { get; set; }
         public string EventTitle { get; set; }
-        public DateTime EventDate { get; set; }
+        public DateTime EventStartDate { get; set; }
+        public DateTime EventSlutDate { get; set; }
         public int SamuraiId { get; set; }  
     }
 }
