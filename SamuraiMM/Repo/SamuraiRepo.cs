@@ -89,32 +89,11 @@ namespace SamuraiMM.Repo
 
         public void UpdateSamurai(SamuraiModel samurai)
         {
-            using (SqlConnection sqlConnection = new(ADO.ConnectionString))
-            {
-                //åbner vejen
-                sqlConnection.Open();
-
-
-                //istansiere klassen SqlCommand
-                SqlCommand cmd = new SqlCommand($"UPDATE Samurai SET FirstName = '{samurai.FirstName}', LastName = '{samurai.LastName}', Birthdate = {samurai.Birthdate} Where ID = {samurai.ID}");
-
-                //Laver en string med Commando
-                string change = $"UPDATE Samurai SET FirstName = '{samurai.FirstName}', LastName = '{samurai.LastName}', Birthdate = {samurai.Birthdate} Where ID = {samurai.ID}";
-
-                //laver en adapter til sql sådan så den kan opdaterer min tabel
-                SqlDataAdapter sqlDataAdapter = new();
-
-                //putter min sql commando og connectionstring i deleteCommand
-                sqlDataAdapter.DeleteCommand = new(change, sqlConnection);
-
-                //eksekverer commandoen
-                cmd.ExecuteNonQuery();
-            }
         }
 
         public SamuraiModel ReadSamurai(int samuraiID)
         {
-            SqlConnection con = new SqlConnection(ADO.ConnectionString);
+            using SqlConnection con = new SqlConnection(ADO.ConnectionString);
             SqlCommand cmd = new SqlCommand($"select * from Samurai where id={samuraiID}", con);
             con.Open();
             SqlDataReader reader = cmd.ExecuteReader();
@@ -124,12 +103,11 @@ namespace SamuraiMM.Repo
             sam.FirstName = reader["FirstName"].ToString();
             sam.LastName = reader["LastName"].ToString();
             sam.Birthdate = Convert.ToDateTime(reader["BirthDate"]);
-            con.Close();
             return sam;
         }
         public List<SamuraiModel> ReadSamurais()
         {
-            List<SamuraiModel> samurais = new List<SamuraiModel>();
+            List<SamuraiModel> samurais = new();
 
             SqlConnection con = new SqlConnection(ADO.ConnectionString);
             con.Open();
@@ -142,8 +120,6 @@ namespace SamuraiMM.Repo
                 SamuraiModel sam = new SamuraiModel() { ID = reader.GetInt32(0), FirstName = reader.GetString(1), LastName = reader.GetString(2), Birthdate = reader.GetDateTime(3) };
                 samurais.Add(sam);
             }
-
-            con.Close();
             return samurais;
         }
     }
