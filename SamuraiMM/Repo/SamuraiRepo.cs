@@ -94,6 +94,8 @@ namespace SamuraiMM.Repo
         /// <param name="samurai"></param>
         public void UpdateSamurai(SamuraiModel samurai)
         {
+<<<<<<< HEAD
+=======
             using (SqlConnection sqlConnection = new(ADO.ConnectionString))
             {
                 //åbner vejen
@@ -111,6 +113,7 @@ namespace SamuraiMM.Repo
                 //eksekver
                 commandChange.ExecuteNonQuery();
             }
+>>>>>>> 97445193919f4493c88b63f98a09efd4e4a776fe
         }
 
         /// <summary>
@@ -120,6 +123,36 @@ namespace SamuraiMM.Repo
         /// <returns></returns>
         public SamuraiModel ReadOneSamurai(int samuraiID)
         {
+<<<<<<< HEAD
+            using SqlConnection con = new SqlConnection(ADO.ConnectionString);
+            SqlCommand cmd = new SqlCommand($"select * from Samurai where id={samuraiID}", con);
+            con.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            reader.Read();
+            SamuraiModel sam = new SamuraiModel();
+            sam.ID = Convert.ToInt32(reader["id"]);
+            sam.FirstName = reader["FirstName"].ToString();
+            sam.LastName = reader["LastName"].ToString();
+            sam.Birthdate = Convert.ToDateTime(reader["BirthDate"]);
+            return sam;
+        }
+        public List<SamuraiModel> ReadSamurais()
+        {
+            List<SamuraiModel> samurais = new();
+
+            SqlConnection con = new SqlConnection(ADO.ConnectionString);
+            con.Open();
+
+            SqlCommand command = new SqlCommand("SELECT * FROM Samurai", con);
+            SqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                SamuraiModel sam = new SamuraiModel() { ID = reader.GetInt32(0), FirstName = reader.GetString(1), LastName = reader.GetString(2), Birthdate = reader.GetDateTime(3) };
+                samurais.Add(sam);
+            }
+            return samurais;
+=======
             using (SqlConnection con = new SqlConnection(ADO.ConnectionString))
             {
                 //laver en sql commando
@@ -179,6 +212,7 @@ namespace SamuraiMM.Repo
                 //returner Listen med Data
                 return allSamurais;
             }
+>>>>>>> 97445193919f4493c88b63f98a09efd4e4a776fe
         }
     }
 }

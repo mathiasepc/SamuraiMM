@@ -3,6 +3,7 @@ using SamuraiMM.Repo;
 
 SamuraiRepo s = new();
 
+//s.CreateSamurai();
 
 
 //SamuraiModel newSamurai = new()
@@ -12,8 +13,6 @@ SamuraiRepo s = new();
 //    LastName = "Test2",
 //    Birthdate = DateTime.Now
 //};
-
-////s.CreateSamurai();
 
 //s.InsertSamurai(newSamurai);
 
@@ -45,7 +44,7 @@ SamuraiModel updateSamurai = new()
 
 
 
-//s.UpdateSamurai(updateSamurai);
+s.UpdateSamurai(updateSamurai);
 
 //Console.WriteLine("Samurai Update");
 
