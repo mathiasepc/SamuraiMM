@@ -1,6 +1,14 @@
 ﻿SamuraiRepo s = new();
 
 
-var sam = s.ReadSamuraisHouse(1);
+var lam = s.ReadAllSamuraiAndQuotes();
 
-Console.WriteLine($"Samurai Navn: {sam.FirstName} {sam.LastName} Hest navn: {sam.horse.Name}");  
+
+foreach (var d in lam)
+{
+    Console.WriteLine($"{d.FirstName} {d.LastName}");
+    foreach (var lemo in d.Quotes)
+    {
+        Console.WriteLine(lemo.QuoteText);
+    }
+}

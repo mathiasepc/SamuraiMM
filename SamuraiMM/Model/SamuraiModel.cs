@@ -13,5 +13,6 @@ namespace SamuraiMM.Model
         public string LastName { get; set; }
         public DateTime Birthdate { get; set; }
         public HorseModel horse { get; set; }
+        public List<QuoteModel> Quotes { get; set; }
     }
 }

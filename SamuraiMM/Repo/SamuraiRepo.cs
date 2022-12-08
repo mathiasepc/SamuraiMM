@@ -148,7 +148,7 @@ namespace SamuraiMM.Repo
             {
                 //laver en sql commando
                 SqlCommand cmd = new SqlCommand($"select * from Samurai, Horse where Horse.SamuraiId={samuraiID} AND Samurai.Id = {samuraiID}", con);
-                
+
                 con.Open();
 
                 //vi bruger SqlDataReader for at kunne læse data'en fra databasen hvor vi indsætter vores commando
@@ -202,6 +202,69 @@ namespace SamuraiMM.Repo
                     //laver en midlertidig model for at kunne overfører den ene person til vores List
                     SamuraiModel samTemp = new SamuraiModel() { ID = reader.GetInt32(0), FirstName = reader.GetString(1), LastName = reader.GetString(2), Birthdate = reader.GetDateTime(3) };
 
+                    //overfører den ene person til List
+                    allSamurais.Add(samTemp);
+                }
+
+                //returner Listen med Data
+                return allSamurais;
+            }
+        }
+
+        public SamuraiModel ReadSamuraisQuotes(int samuraiID)
+        {
+            using (SqlConnection con = new SqlConnection(ADO.ConnectionString))
+            {
+                //laver en sql commando
+                SqlCommand cmd = new SqlCommand($"select * from Samurai, Quotes where Quotes.SamuraiId={samuraiID} AND Samurai.Id = {samuraiID}", con);
+
+                con.Open();
+
+                //vi bruger SqlDataReader for at kunne læse data'en fra databasen hvor vi indsætter vores commando
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                //vi laver en nu model hvor vi indsætter værdierne
+                SamuraiModel sam = new SamuraiModel();
+                //vi laver en list som vi kan putte værdierne ind i
+                sam.Quotes = new List<QuoteModel>();
+                while (reader.Read())
+                {
+
+                    //de forskellige værdier fra databasen
+                    sam.ID = Convert.ToInt32(reader["id"]);
+                    sam.FirstName = reader["FirstName"].ToString();
+                    sam.LastName = reader["LastName"].ToString();
+                    sam.Quotes.Add(new QuoteModel() { QuoteText = reader["QuoteText"].ToString() });
+                }
+                return sam;
+            }
+        }
+        public List<SamuraiModel> ReadAllSamuraiAndQuotes()
+        {
+            //vi laver en list som vi indsætter data'en i
+            List<SamuraiModel> allSamurais = new();
+
+            using (SqlConnection con = new SqlConnection(ADO.ConnectionString))
+            {
+                con.Open();
+
+                //Laver en SqlCommando
+                SqlCommand command = new SqlCommand("SELECT * FROM Samurai INNER JOIN Quotes ON Quotes.SamuraiId = Samurai.Id", con);
+
+                //vi bruger SqlDataReader for at kunne læse data'en fra databasen hvor vi indsætter vores commando
+                SqlDataReader reader = command.ExecuteReader();
+
+                //laver et while loop for at få alt data fra databasen
+                while (reader.Read())
+                {
+                    //laver en midlertidig model for at kunne overfører den ene person til vores List
+                    SamuraiModel samTemp = new SamuraiModel();
+                    samTemp.Quotes = new List<QuoteModel>();
+
+                    samTemp.ID = Convert.ToInt32(reader["id"]);
+                    samTemp.FirstName = reader["FirstName"].ToString();
+                    samTemp.LastName = reader["LastName"].ToString();
+                    samTemp.Quotes.Add(new QuoteModel() { QuoteText = reader["QuoteText"].ToString() });
                     //overfører den ene person til List
                     allSamurais.Add(samTemp);
                 }
