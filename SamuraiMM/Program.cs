@@ -26,6 +26,7 @@ SamuraiRepo s = new();
 //Console.WriteLine("Færdig");
 
 //Console.ReadKey();
+
 //SamuraiModel updateSamurai = new()
 //{
 //    ID = 1,
@@ -33,6 +34,15 @@ SamuraiRepo s = new();
 //    LastName = "Hej2",
 //    Birthdate = DateTime.Now
 //};
+
+SamuraiModel updateSamurai = new()
+{
+    ID = 1,
+    FirstName = "Hej",
+    LastName = "Hej2",
+    Birthdate = Convert.ToDateTime(DateTime.Now)
+};
+
 
 
 //s.UpdateSamurai(updateSamurai);
