@@ -19,7 +19,10 @@
 //    LastName = "Clausen"
 //};
 
-
+foreach(var item in a.FilterDataBase())
+{
+    Console.WriteLine($"id: {item.ID} navn: {item.Firstname} {item.Lastname}");
+}
 
 //a.FilterInsertADOModel(null, horse);
 

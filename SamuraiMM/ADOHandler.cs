@@ -150,11 +150,11 @@ namespace SamuraiMM
         /// <summary>
         /// laver et filter for update
         /// </summary>
-        public void FilterUpdateDataBase()
+        public List<ADOModel> FilterDataBase()
         {
-            List<ADOModel> FilteredData = new(ADOModels.Where(x => x.SamuraiID >= 0));
+            List<ADOModel> FilteredData = new(ADOModels.Where(x => x.ID >= 0));
 
-            
+            return FilteredData;
         }
     }
 }
