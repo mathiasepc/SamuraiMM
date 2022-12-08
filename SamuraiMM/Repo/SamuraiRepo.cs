@@ -15,7 +15,8 @@ namespace SamuraiMM.Repo
         public ADOHandler ADO = new();
         //istansiere min list og Model.
         public List<SamuraiModel> Samurai { get; set; }
-        SamuraiModel samuraiM = new();
+        SamuraiModel SamuraiM = new();
+
         public SamuraiRepo()
         {
             //instantiere min liste
@@ -40,6 +41,7 @@ namespace SamuraiMM.Repo
                 command.ExecuteNonQuery();
             }
         }
+
         /// <summary>
         /// indsætter i min database
         /// </summary>
@@ -87,6 +89,10 @@ namespace SamuraiMM.Repo
             }
         }
 
+        /// <summary>
+        /// Vi laver en metode som skal opdatere databasen
+        /// </summary>
+        /// <param name="samurai"></param>
         public void UpdateSamurai(SamuraiModel samurai)
         {
             using (SqlConnection sqlConnection = new(ADO.ConnectionString))
@@ -94,56 +100,87 @@ namespace SamuraiMM.Repo
                 //åbner vejen
                 sqlConnection.Open();
 
-                //Laver en string med Commando
-                string change = $"UPDATE Samurai SET FirstName = '{samurai.FirstName}', LastName = '{samurai.LastName}', Birthdate = {samurai.Birthdate} Where ID = {samurai.ID}";
+                //Laver en SQLCommando for at update databasen
+                SqlCommand commandChange = new($"UPDATE Samurai SET FirstName = '{samurai.FirstName}', LastName = '{samurai.LastName}', Birthdate = @f3 Where ID = {samurai.ID}");
 
-                //laver en adapter til sql sådan så den kan opdaterer min tabel
-                SqlDataAdapter sqlDataAdapter = new();
+                //Da database ikke kan forstå datetime, parse vi den ind i en variable for sig.
+                commandChange.Parameters.AddWithValue("@f3", samurai.Birthdate);
 
-                //putter min sql commando og connectionstring i deleteCommand
-                sqlDataAdapter.DeleteCommand = new(change, sqlConnection);
+                //indsætter connection
+                commandChange.Connection = sqlConnection;
 
-                //eksekverer commandoen
-                sqlDataAdapter.DeleteCommand.ExecuteNonQuery();
+                //eksekver
+                commandChange.ExecuteNonQuery();
 
-                //sletter rækken
-                sqlDataAdapter.Dispose();
             }
         }
 
-        public SamuraiModel ReadSamurai(int samuraiID)
+        /// <summary>
+        /// Denne metode læser kun en samurai fra databasen
+        /// </summary>
+        /// <param name="samuraiID"></param>
+        /// <returns></returns>
+        public SamuraiModel ReadOneSamurai(int samuraiID)
         {
-            SqlConnection con = new SqlConnection(ADO.ConnectionString);
-            SqlCommand cmd = new SqlCommand($"select * from Samurai where id={samuraiID}", con);
-            con.Open();
-            SqlDataReader reader = cmd.ExecuteReader();
-            reader.Read();
-            SamuraiModel sam = new SamuraiModel();
-            sam.ID = Convert.ToInt32(reader["id"]);
-            sam.FirstName = reader["FirstName"].ToString();
-            sam.LastName = reader["LastName"].ToString();
-            sam.Birthdate = Convert.ToDateTime(reader["BirthDate"]);
-            con.Close();
-            return sam;
-        }
-        public List<SamuraiModel> ReadSamurais()
-        {
-            List<SamuraiModel> samurais = new List<SamuraiModel>();
-
-            SqlConnection con = new SqlConnection(ADO.ConnectionString);
-            con.Open();
-
-            SqlCommand command = new SqlCommand("SELECT * FROM Samurai", con);
-            SqlDataReader reader = command.ExecuteReader();
-
-            while (reader.Read())
+            using (SqlConnection con = new SqlConnection(ADO.ConnectionString))
             {
-                SamuraiModel sam = new SamuraiModel() { ID = reader.GetInt32(0), FirstName = reader.GetString(1), LastName = reader.GetString(2), Birthdate = reader.GetDateTime(3) };
-                samurais.Add(sam);
-            }
+                //laver en sql commando
+                SqlCommand cmd = new SqlCommand($"select * from Samurai where id={samuraiID}", con);
 
-            con.Close();
-            return samurais;
+                con.Open();
+
+                //vi bruger SqlDataReader for at kunne læse data'en fra databasen hvor vi indsætter vores commando
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                //læser dataen
+                reader.Read();
+
+                //vi laver en nu model hvor vi indsætter værdierne
+                SamuraiModel sam = new SamuraiModel();
+
+                //de forskellige værdier fra databasen
+                sam.ID = Convert.ToInt32(reader["id"]);
+                sam.FirstName = reader["FirstName"].ToString();
+                sam.LastName = reader["LastName"].ToString();
+                sam.Birthdate = Convert.ToDateTime(reader["BirthDate"]);
+
+                //returner den nye model
+                return sam;
+            }
+        }
+
+        /// <summary>
+        /// Den læser alle samurai's fra databasen
+        /// </summary>
+        /// <returns></returns>
+        public List<SamuraiModel> ReadAllSamurais()
+        {
+            //vi laver en list som vi indsætter data'en i
+            List<SamuraiModel> allSamurais = new();
+
+            using (SqlConnection con = new SqlConnection(ADO.ConnectionString))
+            {
+                con.Open();
+
+                //Laver en SqlCommando
+                SqlCommand command = new SqlCommand("SELECT * FROM Samurai", con);
+
+                //vi bruger SqlDataReader for at kunne læse data'en fra databasen hvor vi indsætter vores commando
+                SqlDataReader reader = command.ExecuteReader();
+
+                //laver et while loop for at få alt data fra databasen
+                while (reader.Read())
+                {
+                    //laver en midlertidig model for at kunne overfører den ene person til vores List
+                    SamuraiModel samTemp = new SamuraiModel() { ID = reader.GetInt32(0), FirstName = reader.GetString(1), LastName = reader.GetString(2), Birthdate = reader.GetDateTime(3) };
+
+                    //overfører den ene person til List
+                    allSamurais.Add(samTemp);
+                }
+
+                //returner Listen med Data
+                return allSamurais;
+            }
         }
     }
 }
