@@ -30,7 +30,7 @@ SamuraiModel updateSamurai = new()
     ID = 1,
     FirstName = "Hej",
     LastName = "Hej2",
-    Birthdate = DateTime.Now
+    Birthdate = Convert.ToDateTime(DateTime.Now)
 };
 
 
