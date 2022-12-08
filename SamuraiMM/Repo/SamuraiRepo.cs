@@ -84,6 +84,11 @@ namespace SamuraiMM.Repo
                 sqlDataAdapter.DeleteCommand.ExecuteNonQuery();
             }
         }
+
+        public void UpdateSamurai()
+        {
+
+        }
     }
 }
     
