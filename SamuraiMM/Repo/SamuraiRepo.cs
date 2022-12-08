@@ -144,7 +144,7 @@ namespace SamuraiMM.Repo
             {
                 //laver en sql commando
                 SqlCommand cmd = new SqlCommand($"select * from Samurai, Horse where Horse.SamuraiId={samuraiID} AND Samurai.Id = {samuraiID}", con);
-
+                
                 con.Open();
 
                 //vi bruger SqlDataReader for at kunne læse data'en fra databasen hvor vi indsætter vores commando
