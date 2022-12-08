@@ -11,9 +11,6 @@ namespace SamuraiMM.Repo
 {
     internal class SamuraiRepo : ISamurai
     {
-<<<<<<< HEAD
-
-=======
         public ADOHandler ADO = new();
         //istansiere min list og Model.
         public List<SamuraiModel> Samurai { get; set; }
@@ -93,7 +90,41 @@ namespace SamuraiMM.Repo
         {
 
         }
->>>>>>> a0922f221396fcc2def262c3e828974f491d88e4
+
+        public SamuraiModel ReadSamurai(int samuraiID)
+        {
+            SqlConnection con = new SqlConnection(ADO.ConnectionString);
+            SqlCommand cmd = new SqlCommand($"select * from Samurai where id={samuraiID}", con);
+            con.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            reader.Read();
+            SamuraiModel sam = new SamuraiModel();
+            sam.ID = Convert.ToInt32(reader["id"]);
+            sam.FirstName = reader["FirstName"].ToString();
+            sam.LastName = reader["LastName"].ToString();
+            sam.Birthdate = Convert.ToDateTime(reader["BirthDate"]);
+            con.Close();
+            return sam;
+        }
+        public List<SamuraiModel> ReadSamurais()
+        {
+            List<SamuraiModel> samurais = new List<SamuraiModel>();
+
+            SqlConnection con = new SqlConnection(ADO.ConnectionString);
+            con.Open();
+
+            SqlCommand command = new SqlCommand("SELECT * FROM Samurai", con);
+            SqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                SamuraiModel sam = new SamuraiModel() { ID = reader.GetInt32(0), FirstName = reader.GetString(1), LastName = reader.GetString(2), Birthdate = reader.GetDateTime(3) };
+                samurais.Add(sam);
+            }
+
+            con.Close();
+            return samurais;
+        }
     }
 }
     
