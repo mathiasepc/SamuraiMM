@@ -107,10 +107,10 @@ namespace SamuraiMM.Repo
         {
             using (SqlConnection con = new SqlConnection(ADO.ConnectionString))
             {
+                con.Open(); 
+
                 //laver en sql commando
                 SqlCommand cmd = new SqlCommand($"select * from Samurai where id={samuraiID}", con);
-
-                con.Open();
 
                 //vi bruger SqlDataReader for at kunne læse data'en fra databasen hvor vi indsætter vores commando
                 SqlDataReader reader = cmd.ExecuteReader();

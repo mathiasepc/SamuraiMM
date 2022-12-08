@@ -1,38 +1,44 @@
 ﻿ADOHandler a = new();
 
-HorseModel horse = new();
+//HorseModel horse = new();
 
-horse = new()
+//horse = new()
+//{
+//    ID = 1,
+//    Firstname = "FASTRIDE",
+//    SamuraiID = 1
+//};
+
+
+//SamuraiModel samurai = new();
+
+//samurai = new()
+//{
+//    ID = 1,
+//    FirstName = "Mathias",
+//    LastName = "Clausen"
+//};
+foreach(var item in a.CheckDataBase())
 {
-    ID = 1,
-    Firstname = "FASTRIDE",
-    SamuraiID = 1
-};
+    Console.WriteLine($"id: {item.ID} navn: {item.Firstname} {item.Lastname}");
+    Console.ReadKey();
+}
 
 
-SamuraiModel samurai = new();
-
-samurai = new()
+foreach (var item in a.CheckDataBase())
 {
-    ID = 1,
-    FirstName = "Mathias",
-    LastName = "Clausen"
-};
+    Console.WriteLine($"id: {item.ID} navn: {item.Firstname} {item.Lastname}");
+    Console.ReadKey();
+}
 
-//a.CreateDataBase();
+//a.FilterInsertADOModel(null, horse);
 
-//Console.WriteLine("Database lavet");
+//Console.WriteLine("Hest gemt");
 
 //Console.ReadKey();
 
-a.InsertIntoADOModel(null, horse);
+//a.FilterInsertADOModel(samurai, null);
 
-Console.WriteLine("Hest gemt");
+//Console.WriteLine("Samurai indsat");
 
-Console.ReadKey();
-
-a.InsertIntoADOModel(samurai, null);
-
-Console.WriteLine("Samurai indsat");
-
-Console.ReadKey();
+//Console.ReadKey();
