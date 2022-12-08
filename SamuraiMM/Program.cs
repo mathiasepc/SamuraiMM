@@ -1,7 +1,4 @@
-﻿using SamuraiMM.Model;
-using SamuraiMM.Repo;
-
-SamuraiRepo s = new();
+﻿SamuraiRepo s = new();
 
 //s.CreateSamurai();
 

@@ -9,11 +9,11 @@ namespace SamuraiMM
     internal class ADOHandler
     {
         /// <summary>
-        /// opretteer min connection string til database
+        /// opretter connection string til database
         /// </summary>
         public string ConnectionString
         {
-            get => "Data Source=Martin-PC;Initial Catalog=TEC;Integrated Security=True";
+            get => "DData Source=DESKTOP-GV81FRQ\\TECH2DATABASE;Initial Catalog=SamuraiEksamen;Integrated Security=True";
         }
     }
 }
