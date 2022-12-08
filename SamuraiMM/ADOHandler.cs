@@ -148,7 +148,7 @@ namespace SamuraiMM
             }
         }
         /// <summary>
-        /// laver et filter for update
+        /// laver et eksempel for en filter metode
         /// </summary>
         public List<ADOModel> FilterDataBase()
         {
