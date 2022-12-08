@@ -23,7 +23,7 @@ namespace SamuraiMM.Repo
         }
 
         /// <summary>
-        /// laver et table for biler
+        /// laver en metode der laver en samurai tabel
         /// </summary>
         public void CreateSamurai()
         {
@@ -42,9 +42,9 @@ namespace SamuraiMM.Repo
         }
 
         /// <summary>
-        /// indsætter i min database
+        /// Laver en metode som indsætter i tabellen Samurai
         /// </summary>
-        /// <param name="car"></param>
+        /// <param name="samurai"></param>
         public void InsertSamurai(SamuraiModel samurai)/*Kan bare base CarModel i stedet for alle propperty i Modellen.*/
         {
             //laver en vej til min server bruger using for at den selv lukker.
@@ -65,9 +65,9 @@ namespace SamuraiMM.Repo
         }
 
         /// <summary>
-        /// laver en metode som kan slette i databasen.
+        /// laver en metode som kan slette i samurai tabellen.
         /// </summary>
-        /// <param name="carID"></param>
+        /// <param name="samuraiID"></param>
         public void DeleteSamurai(int samuraiID)
         {
             using (SqlConnection sqlConnection = new(ADO.ConnectionString))
