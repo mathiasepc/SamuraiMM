@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace SamuraiMM.Model
 {
-    internal class HorseModel
+    internal class BattleModel
     {
         public int ID { get; set; }
-        public string Name { get; set; }
-        public int SamuraiId { get; set; }
+        public string EventTitle { get; set; }
+        public DateTime EventDate { get; set; }
+        public int SamuraiId { get; set; }  
     }
 }
