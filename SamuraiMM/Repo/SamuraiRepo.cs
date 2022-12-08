@@ -95,19 +95,10 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //istansiere klassen SqlCommand
-                string change = $"UPDATE Samurai SET FirstName = '{samurai.FirstName}', LastName = '{samurai.LastName}', Birthdate = {samurai.Birthdate} Where ID = {samurai.ID}";
-
-                //laver en adapter til sql sådan så den kan opdaterer min tabel
-                SqlDataAdapter sqlDataAdapter = new();
-
-                //putter min sql commando og connectionstring i deleteCommand
-                sqlDataAdapter.DeleteCommand = new(change, sqlConnection);
+                SqlCommand cmd = new SqlCommand($"UPDATE Samurai SET FirstName = '{samurai.FirstName}', LastName = '{samurai.LastName}', Birthdate = {samurai.Birthdate} Where ID = {samurai.ID}");
 
                 //eksekverer commandoen
-                sqlDataAdapter.DeleteCommand.ExecuteNonQuery();
-
-                //sletter rækken
-                sqlDataAdapter.Dispose();
+                cmd.ExecuteNonQuery();
             }
         }
 

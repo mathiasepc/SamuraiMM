@@ -4,6 +4,7 @@ using SamuraiMM.Repo;
 SamuraiRepo s = new();
 
 
+
 //SamuraiModel newSamurai = new()
 //{
 //    ID = 1,
@@ -25,17 +26,17 @@ SamuraiRepo s = new();
 //Console.WriteLine("Færdig");
 
 //Console.ReadKey();
-SamuraiModel updateSamurai = new()
-{
-    ID = 1,
-    FirstName = "Hej",
-    LastName = "Hej2",
-    Birthdate = DateTime.Now
-};
+//SamuraiModel updateSamurai = new()
+//{
+//    ID = 1,
+//    FirstName = "Hej",
+//    LastName = "Hej2",
+//    Birthdate = DateTime.Now
+//};
 
 
-s.UpdateSamurai(updateSamurai);
+//s.UpdateSamurai(updateSamurai);
 
-Console.WriteLine("Samurai Update");
+//Console.WriteLine("Samurai Update");
 
-Console.ReadKey();
+//Console.ReadKey();
