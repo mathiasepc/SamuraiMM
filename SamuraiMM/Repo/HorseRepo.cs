@@ -8,5 +8,6 @@ namespace SamuraiMM.Repo
 {
     internal class HorseRepo
     {
+        
     }
 }
