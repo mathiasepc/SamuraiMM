@@ -13,7 +13,7 @@ namespace SamuraiMM
         /// </summary>
         public string ConnectionString
         {
-            get => "DData Source=DESKTOP-GV81FRQ\\TECH2DATABASE;Initial Catalog=SamuraiEksamen;Integrated Security=True";
+            get => "Data Source=DESKTOP-GV81FRQ\\TECH2DATABASE;Initial Catalog=SamuraiEksamen;Integrated Security=True";
         }
     }
 }
