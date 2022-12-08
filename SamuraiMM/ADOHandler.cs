@@ -40,7 +40,7 @@ namespace SamuraiMM
                     Firstname = samuraiModel.FirstName,
                     Lastname = samuraiModel.LastName
                 };
-                InsertIntoADOModel(adoM);   
+                InsertIntoADODatabase(adoM);   
             }
             else
             {
@@ -49,12 +49,12 @@ namespace SamuraiMM
                     ID = horseModel.ID,
                     Firstname = horseModel.Firstname
                 };
-                InsertIntoADOModel(adoM);
+                InsertIntoADODatabase(adoM);
             }
 
         }
 
-        public void InsertIntoADOModel(ADOModel adoM)
+        public void InsertIntoADODatabase(ADOModel adoM)
         {
             using (SqlConnection sqlConnection= new(ConnectionString))
             {
