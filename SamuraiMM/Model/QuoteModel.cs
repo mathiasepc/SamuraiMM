@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace SamuraiMM.Model
 {
-    internal class SamuraiModel
+    internal class QuoteModel
     {
         public int ID { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public DateTime Birthdate { get; set; }
+        public string QuoteText { get; set; }
+        public int SamuraiId { get; set; }
     }
 }
