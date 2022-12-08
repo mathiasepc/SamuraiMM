@@ -143,7 +143,7 @@ namespace SamuraiMM.Repo
             using (SqlConnection con = new SqlConnection(ADO.ConnectionString))
             {
                 //laver en sql commando
-                SqlCommand cmd = new SqlCommand($"select * from Samurai, Horse where Samurai.Id={samuraiID} AND Horse.SamuraiId = {samuraiID}", con);
+                SqlCommand cmd = new SqlCommand($"select * from Samurai, Horse where Horse.SamuraiId={samuraiID} AND Samurai.Id = {samuraiID}", con);
 
                 con.Open();
 
