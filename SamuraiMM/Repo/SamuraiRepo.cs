@@ -11,16 +11,7 @@ namespace SamuraiMM.Repo
 {
     internal class SamuraiRepo : ISamurai
     {
-        public ADOHandler ADO = new();
-        //istansiere min list og Model.
-        public List<SamuraiModel> Samurai { get; set; }
-        SamuraiModel SamuraiM = new();
-
-        public SamuraiRepo()
-        {
-            //instantiere min liste
-            Samurai = new List<SamuraiModel>();
-        }
+        ADOHandler ADO = new();
 
         /// <summary>
         /// laver en metode der laver en samurai tabel
@@ -141,6 +132,41 @@ namespace SamuraiMM.Repo
                 sam.FirstName = reader["FirstName"].ToString();
                 sam.LastName = reader["LastName"].ToString();
                 sam.Birthdate = Convert.ToDateTime(reader["BirthDate"]);
+
+                //returner den nye model
+                return sam;
+            }
+        }
+
+        public SamuraiModel ReadSamuraisHouse(int samuraiID)
+        {
+            using (SqlConnection con = new SqlConnection(ADO.ConnectionString))
+            {
+                //laver en sql commando
+                SqlCommand cmd = new SqlCommand($"select * from Samurai, Horse where Samurai.Id={samuraiID} AND Horse.SamuraiId = {samuraiID}", con);
+
+                con.Open();
+
+                //vi bruger SqlDataReader for at kunne læse data'en fra databasen hvor vi indsætter vores commando
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                //læser dataen
+                reader.Read();
+
+                //vi laver en nu model hvor vi indsætter værdierne
+                SamuraiModel sam = new SamuraiModel();
+
+                //de forskellige værdier fra databasen
+                sam.ID = Convert.ToInt32(reader["id"]);
+                sam.FirstName = reader["FirstName"].ToString();
+                sam.LastName = reader["LastName"].ToString();
+                sam.Birthdate = Convert.ToDateTime(reader["BirthDate"]);
+                sam.horse = new HorseModel()
+                {
+                    ID = Convert.ToInt32(reader["ID"]),
+                    Name = reader["Name"].ToString(),
+                    SamuraiId = Convert.ToInt32(reader["SamuraiId"])
+                };
 
                 //returner den nye model
                 return sam;
