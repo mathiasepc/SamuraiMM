@@ -103,13 +103,6 @@ namespace SamuraiMM.Repo
                 //Laver en SQLCommando for at update databasen
                 SqlCommand commandChange = new($"UPDATE Samurai SET FirstName = '{samurai.FirstName}', LastName = '{samurai.LastName}', Birthdate = @f3 Where ID = {samurai.ID}");
 
-                //istansiere klassen SqlCommand
-                SqlCommand cmd = new SqlCommand($"UPDATE Samurai SET FirstName = '{samurai.FirstName}', LastName = '{samurai.LastName}', Birthdate = {samurai.Birthdate} Where ID = {samurai.ID}");
-
-                //Laver en string med Commando
-                string change = $"UPDATE Samurai SET FirstName = '{samurai.FirstName}', LastName = '{samurai.LastName}', Birthdate = {samurai.Birthdate} Where ID = {samurai.ID}";
-
-
                 //Da database ikke kan forstå datetime, parse vi den ind i en variable for sig.
                 commandChange.Parameters.AddWithValue("@f3", samurai.Birthdate);
 
@@ -118,9 +111,6 @@ namespace SamuraiMM.Repo
 
                 //eksekver
                 commandChange.ExecuteNonQuery();
-
-                //eksekverer commandoen
-                cmd.ExecuteNonQuery();
             }
         }
 
