@@ -12,16 +12,7 @@ namespace SamuraiMM.Repo
     internal class SamuraiRepo : ISamurai
     {
         public ADOHandler ADO = new();
-        //istansiere min list og Model.
-        public List<SamuraiModel> Samurai { get; set; }
-        SamuraiModel SamuraiM = new();
-
-        public SamuraiRepo()
-        {
-            //instantiere min liste
-            Samurai = new List<SamuraiModel>();
-        }
-
+        
         /// <summary>
         /// laver en metode der laver en samurai tabel
         /// </summary>
