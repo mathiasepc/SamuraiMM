@@ -13,5 +13,6 @@ namespace SamuraiMM.Model
         public DateTime EventStartDate { get; set; }
         public DateTime EventSlutDate { get; set; }
         public int SamuraiID { get; set; }  
+        public List<SamuraiModel> Samurais { get; set; }
     }
 }
