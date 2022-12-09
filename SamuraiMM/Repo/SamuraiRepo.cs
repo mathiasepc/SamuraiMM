@@ -195,7 +195,6 @@ namespace SamuraiMM.Repo
                     //overfører den ene person til List
                     allSamurais.Add(samTemp);
                 }
-
                 //returner Listen med Data
                 return allSamurais;
             }

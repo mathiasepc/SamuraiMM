@@ -13,12 +13,6 @@ namespace SamuraiMM
         //laver en list til at kontrollere ting med
         public List<ADOModel> ADOModels { get; set; }
 
-        public ADOHandler()
-        {
-            //refresher min liste hver gang klassen bliver kaldt
-            //UpdateListWithData();
-        }
-
         /// <summary>
         /// índsætter connection til database i en string
         /// </summary>
@@ -42,59 +36,20 @@ namespace SamuraiMM
             }
         }
 
-        /// <summary>
-        /// laver en metode som opdatere i en Liste hvad der er i databasen.
-        /// </summary>
-        public void UpdateListWithData()
-        {
-            //refresher liste
-            ADOModels = new List<ADOModel>();
-            //instansiere objekt
-            ADOModel adoModel = new ADOModel();
-
-            //Bruger using for automatisk luk. og gør klar til at connecte i min database
-            using (SqlConnection connectionString = new SqlConnection(ConnectionString))
-            {
-                //åbner forbindelse
-                connectionString.Open();
-
-                //vælger alt fra ADOHandler
-                SqlCommand sqlCommand = new SqlCommand("Select * from ADOHandler", connectionString);
-
-                //så den kan læse dataen
-                SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
-
-                //jeg kører den i while så den får læst alt
-                while (sqlDataReader.Read())
-                {
-                    //tilføj data til objekt
-                    adoModel.ID = Convert.ToInt32(sqlDataReader["ID"]);
-                    adoModel.Firstname = sqlDataReader["Firstname"].ToString();
-                    adoModel.Lastname = sqlDataReader["Lastname"].ToString();
-                    adoModel.SamuraiID = Convert.ToInt32(sqlDataReader["SamuraiID"]);
-                    adoModel.HorseID = Convert.ToInt32(sqlDataReader["HorseID"]);
-
-                    //tilføj obejkt til liste
-                    ADOModels.Add(adoModel);
-                }
-            }
-        }
         public void FilterInsertADOModel2(object model)
         {
-            var temp = model;
-
-            string SQL = $"INSERT INTO {model.GetType().Name}(Firstname) values('";
+            var temp = model; 
+            string SQL = $"INSERT INTO {model.GetType().Name}(test) values('{test2}')";
             foreach (var item in model.GetType().GetProperties())
             {
                 var test = item;
                 var test2 = item.GetValue(model);
-                //var propperty = model.GetType().GetProperty($"{item}").GetValue(model);
+                //var propperty = model.GetType().GetProperty($"{test}").GetValue(model);
             }
 
             //{((SamuraiModel)model).Firstname}')";
 
             //string SQL = $"INSERT INTO Horse(Firstname) values('{((HorseModel)model).Firstname}')";
-
         }
         /// <summary>
         /// laver en metode som filter input
