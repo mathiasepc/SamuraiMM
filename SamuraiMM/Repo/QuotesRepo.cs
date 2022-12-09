@@ -105,7 +105,7 @@ namespace SamuraiMM.Repo
                 while (reader.Read())
                 {
                     //laver en midlertidig model for at kunne overfører den ene person til vores List
-                    QuoteModel quoteTemp = new QuoteModel() { ID = reader.GetInt32(0), QuoteText = reader.GetString(1), SamuraiID = reader.GetInt32(3) };
+                    QuoteModel quoteTemp = new QuoteModel() { ID = reader.GetInt32(0), QuoteText = reader.GetString(1), SamuraiID = reader.GetInt32(2) };
 
                     //overfører den ene person til List
                     allQuotes.Add(quoteTemp);

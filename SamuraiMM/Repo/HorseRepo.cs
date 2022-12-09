@@ -21,7 +21,7 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //Fortæller hvad den skal gøre i SQL
-                SqlCommand command = new SqlCommand($"CREATE TABLE Horse(ID int Identity(1,1) Primary Key, Firstname nvarchar(50), SamuraiID int Foreign KEY references Samurai(ID)); ", sqlConnection);
+                SqlCommand command = new SqlCommand($"CREATE TABLE Horse(ID int Identity(1,1) Primary Key, FirstName nvarchar(50), HorseRace nvarchar(50), SamuraiID int Foreign KEY references Samurai(ID)); ", sqlConnection);
 
                 //opretter tablen
                 command.ExecuteNonQuery();
@@ -41,7 +41,7 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //istansiere SqlCommand klassen og indsætter i databasen
-                SqlCommand sqlCommand = new($"INSERT INTO Horse (Firstname, SamuraiID) values('{horse.FirstName}', '{horse.SamuraiID}')", sqlConnection);
+                SqlCommand sqlCommand = new($"INSERT INTO Horse (FirstName, SamuraiID) values('{horse.FirstName}', '{horse.SamuraiID}', '{horse.HorseRace}')", sqlConnection);
 
 
                 //sender til min database
@@ -81,7 +81,7 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //Laver en SQLCommando for at update databasen og indsætter sqlConnection
-                SqlCommand commandChange = new($"UPDATE Horse SET FirstName = '{horse.FirstName}', SamuraiId = {horse.SamuraiID} Where ID = {horse.ID}", sqlConnection);
+                SqlCommand commandChange = new($"UPDATE Horse SET FirstName = '{horse.FirstName}', SamuraiId = '{horse.SamuraiID}', HorseRace = '{horse.HorseRace}' Where ID = {horse.ID}", sqlConnection);
 
                 //eksekver
                 commandChange.ExecuteNonQuery();
@@ -107,7 +107,7 @@ namespace SamuraiMM.Repo
                 while (reader.Read())
                 {
                     //laver en midlertidig model for at kunne overfører den ene person til vores List
-                    HorseModel horseTemp = new HorseModel() { ID = reader.GetInt32(0), FirstName = reader.GetString(1), SamuraiID = reader.GetInt32(3)};
+                    HorseModel horseTemp = new HorseModel() { ID = reader.GetInt32(0), FirstName = reader.GetString(1), HorseRace = reader.GetString(2), SamuraiID = reader.GetInt32(3)};
 
                     //overfører den ene person til List
                     allHorses.Add(horseTemp);

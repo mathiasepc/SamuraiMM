@@ -25,7 +25,7 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //Fortæller hvad den skal gøre i SQL
-                SqlCommand command = new SqlCommand($"CREATE TABLE Samurai(ID int Identity(1,1) Primary Key, Firstname nvarchar(50), Lastname nvarchar(50), Birthdate datetime); ", sqlConnection);
+                SqlCommand command = new SqlCommand($"CREATE TABLE Samurai(ID int Identity(1,1) Primary Key, FirstName nvarchar(50), LastName nvarchar(50), Birthdate datetime); ", sqlConnection);
 
                 //opretter tablen
                 command.ExecuteNonQuery();
@@ -45,7 +45,7 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //istansiere SqlCommand klassen og indsætter i databasen
-                SqlCommand sqlCommand = new($"INSERT INTO Samurai (Firstname, Lastname) values('{samurai.FirstName}', '{samurai.LastName}')", sqlConnection);
+                SqlCommand sqlCommand = new($"INSERT INTO Samurai (FirstName, LastName) values('{samurai.FirstName}', '{samurai.LastName}')", sqlConnection);
 
                 //sender til min database
                 sqlCommand.ExecuteNonQuery();
