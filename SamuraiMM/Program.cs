@@ -9,7 +9,7 @@ SamuraiRepo s = new();
 
 //h.CreateHorse();
 
-HorseModel horse = new();
+QuoteModel horse = new();
 
 horse = new()
 {
