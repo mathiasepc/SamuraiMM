@@ -25,7 +25,7 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //Fortæller hvad den skal gøre i SQL
-                SqlCommand command = new SqlCommand($"CREATE TABLE Samurai(Id int, FirstName nvarchar(50), LastName nvarchar(50), Birthdate datetime); ", sqlConnection);
+                SqlCommand command = new SqlCommand($"CREATE TABLE Samurai(ID int, Firstname nvarchar(50), Lastname nvarchar(50), Birthdate datetime); ", sqlConnection);
 
                 //opretter tablen
                 command.ExecuteNonQuery();
@@ -45,7 +45,7 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //istansiere SqlCommand klassen og indsætter i databasen
-                SqlCommand sqlCommand = new($"INSERT INTO Samurai (Id, FirstName, LastName, Birthdate) values('{samurai.ID}', '{samurai.FirstName}', '{samurai.LastName}', '{samurai.Birthdate}')", sqlConnection);
+                SqlCommand sqlCommand = new($"INSERT INTO Samurai (ID, Firstname, Lastname) values('{samurai.ID}', '{samurai.Firstname}', '{samurai.Lastname}')", sqlConnection);
 
                 //sender til min database
                 sqlCommand.ExecuteNonQuery();
@@ -88,7 +88,7 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //Laver en SQLCommando for at update databasen og indsætter sqlConnection
-                SqlCommand commandChange = new($"UPDATE Samurai SET FirstName = '{samurai.FirstName}', LastName = '{samurai.LastName}', Birthdate = @f3 Where ID = {samurai.ID}", sqlConnection);
+                SqlCommand commandChange = new($"UPDATE Samurai SET FirstName = '{samurai.Firstname}', LastName = '{samurai.Lastname}', Birthdate = @f3 Where ID = {samurai.ID}", sqlConnection);
 
                 //Da database ikke kan forstå datetime, parse vi den ind i en variable for sig.
                 commandChange.Parameters.AddWithValue("@f3", samurai.Birthdate);
@@ -123,8 +123,8 @@ namespace SamuraiMM.Repo
 
                 //de forskellige værdier fra databasen
                 sam.ID = Convert.ToInt32(reader["id"]);
-                sam.FirstName = reader["FirstName"].ToString();
-                sam.LastName = reader["LastName"].ToString();
+                sam.Firstname = reader["FirstName"].ToString();
+                sam.Lastname = reader["LastName"].ToString();
                 sam.Birthdate = Convert.ToDateTime(reader["BirthDate"]);
 
                 //returner den nye model
@@ -152,8 +152,8 @@ namespace SamuraiMM.Repo
 
                 //de forskellige værdier fra databasen
                 sam.ID = Convert.ToInt32(reader["id"]);
-                sam.FirstName = reader["FirstName"].ToString();
-                sam.LastName = reader["LastName"].ToString();
+                sam.Firstname = reader["FirstName"].ToString();
+                sam.Lastname = reader["LastName"].ToString();
                 sam.Birthdate = Convert.ToDateTime(reader["BirthDate"]);
                 sam.horse = new HorseModel()
                 {
@@ -190,7 +190,7 @@ namespace SamuraiMM.Repo
                 while (reader.Read())
                 {
                     //laver en midlertidig model for at kunne overfører den ene person til vores List
-                    SamuraiModel samTemp = new SamuraiModel() { ID = reader.GetInt32(0), FirstName = reader.GetString(1), LastName = reader.GetString(2), Birthdate = reader.GetDateTime(3) };
+                    SamuraiModel samTemp = new SamuraiModel() { ID = reader.GetInt32(0), Firstname = reader.GetString(1), Lastname = reader.GetString(2), Birthdate = reader.GetDateTime(3) };
 
                     //overfører den ene person til List
                     allSamurais.Add(samTemp);
@@ -222,8 +222,8 @@ namespace SamuraiMM.Repo
 
                     //de forskellige værdier fra databasen
                     sam.ID = Convert.ToInt32(reader["id"]);
-                    sam.FirstName = reader["FirstName"].ToString();
-                    sam.LastName = reader["LastName"].ToString();
+                    sam.Firstname = reader["FirstName"].ToString();
+                    sam.Lastname = reader["LastName"].ToString();
                     sam.Quotes.Add(new QuoteModel() { QuoteText = reader["QuoteText"].ToString() });
                 }
                 return sam;
@@ -252,8 +252,8 @@ namespace SamuraiMM.Repo
                     samTemp.Quotes = new List<QuoteModel>();
 
                     samTemp.ID = Convert.ToInt32(reader["id"]);
-                    samTemp.FirstName = reader["FirstName"].ToString();
-                    samTemp.LastName = reader["LastName"].ToString();
+                    samTemp.Firstname = reader["FirstName"].ToString();
+                    samTemp.Lastname = reader["LastName"].ToString();
                     samTemp.Quotes.Add(new QuoteModel() { QuoteText = reader["QuoteText"].ToString() });
                     //overfører den ene person til List
                     allSamurais.Add(samTemp);

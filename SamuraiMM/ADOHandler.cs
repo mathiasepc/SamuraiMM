@@ -11,12 +11,12 @@ namespace SamuraiMM
     internal class ADOHandler
     {
         //laver en list til at kontrollere ting med
-        private List<ADOModel> ADOModels { get; set; }
+        public List<ADOModel> ADOModels { get; set; }
 
         public ADOHandler()
         {
             //refresher min liste hver gang klassen bliver kaldt
-            UpdateListWithData();
+            //UpdateListWithData();
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace SamuraiMM
             {
                 sqlConnection.Open();
 
-                SqlCommand sqlCommand = new("CREATE TABLE ADOHandler(ID int, Firstname nvarchar(50), Lastname nvarchar(50)) ", sqlConnection);
+                SqlCommand sqlCommand = new("CREATE TABLE ADOHandler(ID int, Firstname nvarchar(50), Lastname nvarchar(50), HorsesSamuraiID int, SamuraiID int) ", sqlConnection);
 
                 sqlCommand.ExecuteNonQuery();
             }
@@ -68,9 +68,11 @@ namespace SamuraiMM
                 while (sqlDataReader.Read())
                 {
                     //tilføj data til objekt
-                    adoModel.ID = Convert.ToInt32(sqlDataReader["id"]);
-                    adoModel.Firstname = sqlDataReader["FirstName"].ToString();
-                    adoModel.Lastname = sqlDataReader["LastName"].ToString();
+                    adoModel.ID = Convert.ToInt32(sqlDataReader["HorseID"]);
+                    adoModel.Firstname = sqlDataReader["Firstname"].ToString();
+                    adoModel.Lastname = sqlDataReader["Lastname"].ToString();
+                    adoModel.SamuraiID = Convert.ToInt32(sqlDataReader["SamuraiID"]);
+                    adoModel.HorseID = Convert.ToInt32(sqlDataReader["HorseID"]);
 
                     //tilføj obejkt til liste
                     ADOModels.Add(adoModel);
@@ -83,7 +85,7 @@ namespace SamuraiMM
         /// </summary>
         /// <param name="samuraiModel"></param>
         /// <param name="horseModel"></param>
-        public void FilterInsertADOModel(SamuraiModel samuraiModel, HorseModel horseModel)
+        public void FilterInsertADOModel(SamuraiModel samuraiModel, HorseModel horseModel, int id)
         {
             //tjekker indput
             if (samuraiModel != null)
@@ -92,8 +94,9 @@ namespace SamuraiMM
                 ADOModel adoM = new()
                 {
                     SamuraiID = samuraiModel.ID,
-                    Firstname = samuraiModel.FirstName,
-                    Lastname = samuraiModel.LastName
+                    Firstname = samuraiModel.Firstname,
+                    Lastname = samuraiModel.Lastname,
+                    ID = id
                 };
                 //overfører data til at kunne indsætte
                 InsertIntoADODatabase(adoM);
@@ -105,7 +108,8 @@ namespace SamuraiMM
                 {
                     HorseID = horseModel.ID,
                     Firstname = horseModel.Firstname,
-                    HorsesSamuraiID = horseModel.SamuraiID
+                    HorsesSamuraiID = horseModel.SamuraiID,
+                    ID = id
                 };
                 //overfører data til at kunne indsætte
                 InsertIntoADODatabase(adoM);

@@ -20,23 +20,7 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //Fortæller hvad den skal gøre i SQL
-                SqlCommand command = new SqlCommand($"CREATE TABLE Horse(ID int, Name nvarchar(50), SamuraiId int); ", sqlConnection);
-
-                //opretter tablen
-                command.ExecuteNonQuery();
-            }
-        }
-
-        public void Create(SqlCommand cmd)
-        {
-            //fortæller hvad connectionen er til min database
-            using (SqlConnection sqlConnection = new(ADO.ConnectionString))
-            {
-                //åbner for connection
-                sqlConnection.Open();
-
-                //Fortæller hvad den skal gøre i SQL
-                SqlCommand command = cmd;
+                SqlCommand command = new SqlCommand($"CREATE TABLE Horse(ID int, Firstname nvarchar(50), SamuraiID int); ", sqlConnection);
 
                 //opretter tablen
                 command.ExecuteNonQuery();
@@ -56,10 +40,8 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //istansiere SqlCommand klassen og indsætter i databasen
-                SqlCommand sqlCommand = new($"INSERT INTO Horse (ID, Firstname, SamuraiID) values('{horse.ID}', '{horse.Firstname}', '{horse.SamuraiID}')");
+                SqlCommand sqlCommand = new($"INSERT INTO Horse (ID, Firstname, SamuraiID) values('{horse.ID}', '{horse.Firstname}', '{horse.SamuraiID}')", sqlConnection);
 
-                //tilføjer min ConnectionString til sqlCommand object
-                sqlCommand.Connection = sqlConnection;
 
                 //sender til min database
                 sqlCommand.ExecuteNonQuery();
