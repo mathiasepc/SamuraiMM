@@ -10,6 +10,7 @@ namespace SamuraiMM.Model
     {
         public int ID { get; set; } 
         public string Name { get; set; }
-        public int SamuraiId { get; set; }
+        public string Description { get; set; }
+        public int SamuraiID { get; set; }
     }
 }

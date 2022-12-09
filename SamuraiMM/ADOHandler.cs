@@ -39,7 +39,7 @@ namespace SamuraiMM
         public void FilterInsertADOModel2(object model)
         {
             var temp = model; 
-            string SQL = $"INSERT INTO {model.GetType().Name}(test) values('{test2}')";
+            //string SQL = $"INSERT INTO {model.GetType().Name}(test) values('{test2}')";
             foreach (var item in model.GetType().GetProperties())
             {
                 var test = item;
@@ -65,8 +65,8 @@ namespace SamuraiMM
                 ADOModel adoM = new()
                 {
                     SamuraiID = samuraiModel.ID,
-                    Firstname = samuraiModel.Firstname,
-                    Lastname = samuraiModel.Lastname,
+                    Firstname = samuraiModel.FirstName,
+                    Lastname = samuraiModel.LastName,
                     ID = ID
                 };
                 //overfører data til at kunne indsætte
@@ -78,7 +78,7 @@ namespace SamuraiMM
                 ADOModel adoM = new()
                 {
                     HorseID = horseModel.ID,
-                    Firstname = horseModel.Firstname,
+                    Firstname = horseModel.FirstName,
                     HorsesSamuraiID = horseModel.SamuraiID,
                     ID = ID
                 };
