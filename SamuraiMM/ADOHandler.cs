@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 
 namespace SamuraiMM
 {
+    //hej
     internal class ADOHandler
     {
         //laver en list til at kontrollere ting med
