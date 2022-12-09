@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 
 namespace SamuraiMM.Repo
 {
-    internal class HorseRepo
+    internal class QuotesRepo
     {
         ADOHandler ADO = new();
-
-        public void CreateHorse()
+        public void CreateQuotes()
         {
             //fortæller hvad connectionen er til min database
             using (SqlConnection sqlConnection = new(ADO.ConnectionString))
@@ -20,18 +19,14 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //Fortæller hvad den skal gøre i SQL
-                SqlCommand command = new SqlCommand($"CREATE TABLE Horse(ID int Identity(1,1) Primary Key, Firstname nvarchar(50), SamuraiID int Foreign KEY references Samurai(ID)); ", sqlConnection);
+                using SqlCommand command = new SqlCommand($"CREATE TABLE Quotes(Id int, QuoteText nvarchar(50), SamuraiId int); ", sqlConnection);
 
                 //opretter tablen
                 command.ExecuteNonQuery();
             }
         }
 
-        /// <summary>
-        /// Laver en metode som indsætter i tabellen Samurai
-        /// </summary>
-        /// <param name="horse"></param>
-        public void InsertHorse(HorseModel horse)/*Kan bare base CarModel i stedet for alle propperty i Modellen.*/
+        public void InsertQuotes(QuoteModel quotes)/*Kan bare base CarModel i stedet for alle propperty i Modellen.*/
         {
             //laver en vej til min server bruger using for at den selv lukker.
             using (SqlConnection sqlConnection = new(ADO.ConnectionString))
@@ -40,12 +35,15 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //istansiere SqlCommand klassen og indsætter i databasen
-                SqlCommand sqlCommand = new($"INSERT INTO Horse (ID, Firstname, SamuraiID) values('{horse.ID}', '{horse.Firstname}', '{horse.SamuraiID}')", sqlConnection);
+                SqlCommand sqlCommand = new($"INSERT INTO Quotes(Id, QuoteText, SamuraiId) values('{quotes.ID}', '{quotes.QuoteText}', '{quotes.SamuraiId}')");
 
+                //tilføjer min ConnectionString til sqlCommand object
+                sqlCommand.Connection = sqlConnection;
 
                 //sender til min database
                 sqlCommand.ExecuteNonQuery();
             }
         }
+
     }
 }
