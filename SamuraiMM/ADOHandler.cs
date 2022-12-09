@@ -68,7 +68,7 @@ namespace SamuraiMM
                 while (sqlDataReader.Read())
                 {
                     //tilføj data til objekt
-                    adoModel.ID = Convert.ToInt32(sqlDataReader["HorseID"]);
+                    adoModel.ID = Convert.ToInt32(sqlDataReader["ID"]);
                     adoModel.Firstname = sqlDataReader["Firstname"].ToString();
                     adoModel.Lastname = sqlDataReader["Lastname"].ToString();
                     adoModel.SamuraiID = Convert.ToInt32(sqlDataReader["SamuraiID"]);
@@ -79,13 +79,29 @@ namespace SamuraiMM
                 }
             }
         }
+        public void FilterInsertADOModel2(object model)
+        {
+            var temp = model;
 
+            string SQL = $"INSERT INTO {model.GetType().Name}(Firstname) values('";
+            foreach (var item in model.GetType().GetProperties())
+            {
+                var test = item;
+                var test2 = item.GetValue(model);
+                //var propperty = model.GetType().GetProperty($"{item}").GetValue(model);
+            }
+
+            //{((SamuraiModel)model).Firstname}')";
+
+            //string SQL = $"INSERT INTO Horse(Firstname) values('{((HorseModel)model).Firstname}')";
+
+        }
         /// <summary>
         /// laver en metode som filter input
         /// </summary>
         /// <param name="samuraiModel"></param>
         /// <param name="horseModel"></param>
-        public void FilterInsertADOModel(SamuraiModel samuraiModel, HorseModel horseModel, int id)
+        public void FilterInsertADOModel(SamuraiModel samuraiModel, HorseModel horseModel, int ID)
         {
             //tjekker indput
             if (samuraiModel != null)
@@ -96,7 +112,7 @@ namespace SamuraiMM
                     SamuraiID = samuraiModel.ID,
                     Firstname = samuraiModel.Firstname,
                     Lastname = samuraiModel.Lastname,
-                    ID = id
+                    ID = ID
                 };
                 //overfører data til at kunne indsætte
                 InsertIntoADODatabase(adoM);
@@ -109,12 +125,11 @@ namespace SamuraiMM
                     HorseID = horseModel.ID,
                     Firstname = horseModel.Firstname,
                     HorsesSamuraiID = horseModel.SamuraiID,
-                    ID = id
+                    ID = ID
                 };
                 //overfører data til at kunne indsætte
                 InsertIntoADODatabase(adoM);
             }
-
         }
         /// <summary>
         /// Metoden som indsætter i databasen Bliver kaldt af FilterInsertADOModel()
@@ -126,7 +141,7 @@ namespace SamuraiMM
             {
                 sqlConnection.Open();
 
-                SqlCommand sqlCommand = new($"INSERT INTO ADOHandler(ID, Firstname, Lastname) values('{adoM.ID}', '{adoM.Firstname}', '{adoM.Lastname}')", sqlConnection);
+                SqlCommand sqlCommand = new($"INSERT INTO ADOHandler(ID, Firstname, Lastname, SamuraiID, HorseID) values('{adoM.ID}', '{adoM.Firstname}', '{adoM.Lastname}', '{adoM.SamuraiID}', '{adoM.HorsesSamuraiID}')", sqlConnection);
 
                 sqlCommand.ExecuteNonQuery();
             }

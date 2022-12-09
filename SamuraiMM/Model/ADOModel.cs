@@ -16,6 +16,5 @@ namespace SamuraiMM.Model
         public string Lastname { get; set; }
         //hestens samuraiID
         public int HorsesSamuraiID { get; set; }
-
     }
 }

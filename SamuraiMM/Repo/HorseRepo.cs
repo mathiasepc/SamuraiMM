@@ -20,7 +20,7 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //Fortæller hvad den skal gøre i SQL
-                SqlCommand command = new SqlCommand($"CREATE TABLE Horse(ID int, Firstname nvarchar(50), SamuraiID int); ", sqlConnection);
+                SqlCommand command = new SqlCommand($"CREATE TABLE Horse(ID int Identity(1,1) Primary Key, Firstname nvarchar(50), SamuraiID int Foreign KEY references Samurai(ID)); ", sqlConnection);
 
                 //opretter tablen
                 command.ExecuteNonQuery();

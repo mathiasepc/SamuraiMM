@@ -5,9 +5,9 @@ SamuraiRepo s = new();
 //    Console.WriteLine($"id: {item.ID} navn: {item.Firstname} {item.Lastname}");
 //}
 
-//h.CreateHorse();
-
 //s.CreateSamurai();
+
+//h.CreateHorse();
 
 HorseModel horse = new();
 
@@ -18,11 +18,11 @@ horse = new()
     SamuraiID = 1
 };
 
-//h.InsertHorse(horse);
+////h.InsertHorse(horse);
 
-//Console.WriteLine("Hest er lavet");
+////Console.WriteLine("Hest er lavet");
 
-//Console.ReadKey();
+////Console.ReadKey();
 
 SamuraiModel samurai = new();
 
@@ -33,24 +33,28 @@ samurai = new()
     Lastname = "Clausen",
 };
 
-//s.InsertSamurai(samurai);
+////s.InsertSamurai(samurai);
 
-//Console.WriteLine("Samurai oprettet");
+////Console.WriteLine("Samurai oprettet");
 
-//Console.ReadKey();
+////Console.ReadKey();
 
 ADOHandler a = new();
 
-//a.CreateDataBase();
+//a.FilterInsertADOModel2(horse);
 
-a.FilterInsertADOModel(null, horse, 1);
+a.FilterInsertADOModel2(samurai);
 
-Console.WriteLine("Hest gemt");
+////a.CreateDataBase();
 
-Console.ReadKey();
+//a.FilterInsertADOModel(null, horse, 1);
 
-a.FilterInsertADOModel(samurai, null, 1);
+//Console.WriteLine("Hest gemt");
 
-Console.WriteLine("Samurai indsat");
+//Console.ReadKey();
 
-Console.ReadKey();
+//a.FilterInsertADOModel(samurai, null, 1);
+
+//Console.WriteLine("Samurai indsat");
+
+//Console.ReadKey();

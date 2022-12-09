@@ -25,7 +25,7 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //Fortæller hvad den skal gøre i SQL
-                SqlCommand command = new SqlCommand($"CREATE TABLE Samurai(ID int, Firstname nvarchar(50), Lastname nvarchar(50), Birthdate datetime); ", sqlConnection);
+                SqlCommand command = new SqlCommand($"CREATE TABLE Samurai(ID int Identity(1,1) Primary Key, Firstname nvarchar(50), Lastname nvarchar(50), Birthdate datetime); ", sqlConnection);
 
                 //opretter tablen
                 command.ExecuteNonQuery();
@@ -215,11 +215,11 @@ namespace SamuraiMM.Repo
 
                 //vi laver en nu model hvor vi indsætter værdierne
                 SamuraiModel sam = new SamuraiModel();
+
                 //vi laver en list som vi kan putte værdierne ind i
                 sam.Quotes = new List<QuoteModel>();
                 while (reader.Read())
                 {
-
                     //de forskellige værdier fra databasen
                     sam.ID = Convert.ToInt32(reader["id"]);
                     sam.Firstname = reader["FirstName"].ToString();
@@ -258,7 +258,6 @@ namespace SamuraiMM.Repo
                     //overfører den ene person til List
                     allSamurais.Add(samTemp);
                 }
-
                 //returner Listen med Data
                 return allSamurais;
             }
