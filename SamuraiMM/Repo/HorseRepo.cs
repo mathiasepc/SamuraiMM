@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SamuraiMM.Repo
 {
-    internal class HorseRepo
+    internal class HorseRepo : IHorse
     {
         ADOHandler ADO = new();
 

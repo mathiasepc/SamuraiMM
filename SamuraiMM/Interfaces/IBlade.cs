@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace SamuraiMM.Interfaces
 {
-    internal class IBlade
+    internal interface IBlade
     {
+        public void CreateBlade();
+        public void InsertBlade(BladeModel blade);
+        public void DeleteClan(int ID);
+        public void UpdateClan(BladeModel blade);
+        public List<BladeModel> ReadAllBlades();
     }
 }

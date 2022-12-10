@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SamuraiMM.Repo
 {
-    internal class QuotesRepo
+    internal class QuotesRepo : IQuotes
     {
         ADOHandler ADO = new();
 

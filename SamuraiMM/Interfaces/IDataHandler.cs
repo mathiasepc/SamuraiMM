@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace SamuraiMM.Interfaces
 {
-    internal class IDataHandler
+    internal interface IDataHandler
     {
+        public void CreateDataBase();
+        public void DeleteADODatabase(int DatabaseID);
     }
 }

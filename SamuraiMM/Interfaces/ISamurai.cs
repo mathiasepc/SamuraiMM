@@ -12,5 +12,11 @@ namespace SamuraiMM.Interfaces
 
         public void InsertSamurai(SamuraiModel samurai);
         public void DeleteSamurai(int SamuraiID);
+        public void UpdateSamurai(SamuraiModel samurai);
+        public SamuraiModel ReadOneSamurai(int samuraiID);
+        public SamuraiModel ReadSamuraisHouse(int samuraiID);
+        public List<SamuraiModel> ReadAllSamurais();
+        public SamuraiModel ReadSamuraisQuotes(int samuraiID);
+        public List<SamuraiModel> ReadAllSamuraiAndQuotes();
     }
 }

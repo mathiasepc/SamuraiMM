@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SamuraiMM.Repo
 {
-    internal class BattlesRepo
+    internal class BattlesRepo : IBattle
     {
         ADOHandler ADO = new();
 
@@ -40,7 +40,7 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //istansiere SqlCommand klassen og indsætter i databasen
-                SqlCommand sqlCommand = new($"INSERT INTO Battle (Name, Description, SamuraiID) values('{Battle.Name}', '{Battle.Description}','{Battle.SamuraiID}')", sqlConnection);
+                SqlCommand sqlCommand = new($"INSERT INTO Battle (Name, Description, SamuraiID) values('{Battle.EventTitle}', '{Battle.Description}','{Battle.SamuraiID}')", sqlConnection);
 
                 //sender til min database
                 sqlCommand.ExecuteNonQuery();
@@ -79,7 +79,7 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //Laver en SQLCommando for at update databasen og indsætter sqlConnection
-                SqlCommand commandChange = new($"UPDATE Battle SET Name = '{Battle.Name}', Description = '{Battle.Description}', SamuraiID = '{Battle.SamuraiID}', Where ID = {Battle.ID}", sqlConnection);
+                SqlCommand commandChange = new($"UPDATE Battle SET Name = '{Battle.EventTitle}', Description = '{Battle.Description}', SamuraiID = '{Battle.SamuraiID}', Where ID = {Battle.ID}", sqlConnection);
 
                 //eksekver
                 commandChange.ExecuteNonQuery();
@@ -105,7 +105,7 @@ namespace SamuraiMM.Repo
                 while (reader.Read())
                 {
                     //laver en midlertidig model for at kunne overfører den ene person til vores List
-                    BattleModel BattleTemp = new BattleModel() { ID = reader.GetInt32(0), Name = reader.GetString(1), Description = reader.GetString(2), SamuraiID = reader.GetInt32(3) };
+                    BattleModel BattleTemp = new BattleModel() { ID = reader.GetInt32(0), EventTitle = reader.GetString(1), Description = reader.GetString(2), SamuraiID = reader.GetInt32(3) };
 
                     //overfører den ene person til List
                     allBattles.Add(BattleTemp);

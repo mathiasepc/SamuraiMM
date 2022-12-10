@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SamuraiMM.Repo
 {
-    internal class DataHandler
+    internal class DataHandler : IDataHandler
     {
         //opretter klassen med connectionString
         ADOHandler ado = new();
