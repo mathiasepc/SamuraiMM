@@ -10,23 +10,15 @@ namespace SamuraiMM.Repo
 {
     internal class DataHandler
     {
-        //laver en list til at kontrollere ting med
-        public List<DataModel> ADOModels { get; set; }
-
-        /// <summary>
-        /// índsætter connection til database i en string
-        /// </summary>
-        public string ConnectionString
-        {
-            get => "Data Source=DESKTOP-GV81FRQ\\TECH2DATABASE;Initial Catalog=SamuraiEksamen;Integrated Security=True";
-        }
+        //opretter klassen med connectionString
+        ADOHandler ado = new();
 
         /// <summary>
         /// Opretter tabellen
         /// </summary>
         public void CreateDataBase()
         {
-            using (SqlConnection sqlConnection = new(ConnectionString))
+            using (SqlConnection sqlConnection = new(ado.ConnectionString))
             {
                 sqlConnection.Open();
 
@@ -62,7 +54,7 @@ namespace SamuraiMM.Repo
             if (samuraiModel != null)
             {
                 //indsætter data i mit objekt
-                DataModel adoM = new()
+                DataHandlerModel adoM = new()
                 {
                     SamuraiID = samuraiModel.ID,
                     FirstName = samuraiModel.FirstName,
@@ -75,7 +67,7 @@ namespace SamuraiMM.Repo
             else/*Måske smartere at bruge if? spørg flemming*/
             {
                 //indsætter data i mit objekt
-                DataModel adoM = new()
+                DataHandlerModel adoM = new()
                 {
                     HorseID = horseModel.ID,
                     FirstName = horseModel.FirstName,
@@ -90,9 +82,9 @@ namespace SamuraiMM.Repo
         /// Metoden som indsætter i databasen Bliver kaldt af FilterInsertADOModel()
         /// </summary>
         /// <param name="inserDataInDataModel"></param>
-        public void InsertIntoADODatabase(object inserDataInDataModel)
+        public void InsertIntoADODatabase(DataHandlerModel inserDataInDataModel)
         {
-            using (SqlConnection sqlConnection = new(ConnectionString))
+            using (SqlConnection sqlConnection = new(ado.ConnectionString))
             {
                 sqlConnection.Open();
 
@@ -104,7 +96,7 @@ namespace SamuraiMM.Repo
 
         public void DeleteADODatabase(int DatabaseID)
         {
-            using (SqlConnection sqlConnection = new(ConnectionString))
+            using (SqlConnection sqlConnection = new(ado.ConnectionString))
             {
                 sqlConnection.Open();
 

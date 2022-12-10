@@ -11,9 +11,6 @@ namespace SamuraiMM
     //hej
     internal class ADOHandler
     {
-        //laver en list til at kontrollere ting med
-        public List<ADOModel> ADOModels { get; set; }
-
         /// <summary>
         /// índsætter connection til database i en string
         /// </summary>
