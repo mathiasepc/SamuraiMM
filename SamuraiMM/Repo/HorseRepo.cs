@@ -12,7 +12,7 @@ namespace SamuraiMM.Repo
     {
         ADOHandler ADO = new();
 
-        public void CreateHorse()
+        public void CreateTableHorse()
         {
             //fortæller hvad connectionen er til min database
             using (SqlConnection sqlConnection = new(ADO.ConnectionString))

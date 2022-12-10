@@ -11,7 +11,7 @@ namespace SamuraiMM.Repo
     {
         ADOHandler ADO = new();
 
-        public void CreateBattles()
+        public void CreateTableBattles()
         {
             //fortæller hvad connectionen er til min database
             using (SqlConnection sqlConnection = new(ADO.ConnectionString))
@@ -20,7 +20,7 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //Fortæller hvad den skal gøre i SQL
-                SqlCommand command = new SqlCommand($"CREATE TABLE Battle(ID int Identity(1,1) Primary Key, Name nvarchar(50), Description nvarchar(200), SamuraiID int Foreign KEY references Samurai(ID)); ", sqlConnection);
+                SqlCommand command = new SqlCommand($"CREATE TABLE Battle(ID int Identity(1,1) Primary Key, EventTitle nvarchar(50), Description nvarchar(200), SamuraiID int Foreign KEY references Samurai(ID)); ", sqlConnection);
 
                 //opretter tablen
                 command.ExecuteNonQuery();
@@ -40,7 +40,7 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //istansiere SqlCommand klassen og indsætter i databasen
-                SqlCommand sqlCommand = new($"INSERT INTO Battle (Name, Description, SamuraiID) values('{Battle.EventTitle}', '{Battle.Description}','{Battle.SamuraiID}')", sqlConnection);
+                SqlCommand sqlCommand = new($"INSERT INTO Battle (EventTitle, Description, SamuraiID) values('{Battle.EventTitle}', '{Battle.Description}','{Battle.SamuraiID}')", sqlConnection);
 
                 //sender til min database
                 sqlCommand.ExecuteNonQuery();
@@ -79,7 +79,7 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //Laver en SQLCommando for at update databasen og indsætter sqlConnection
-                SqlCommand commandChange = new($"UPDATE Battle SET Name = '{Battle.EventTitle}', Description = '{Battle.Description}', SamuraiID = '{Battle.SamuraiID}', Where ID = {Battle.ID}", sqlConnection);
+                SqlCommand commandChange = new($"UPDATE Battle SET EventTitle = '{Battle.EventTitle}', Description = '{Battle.Description}', SamuraiID = '{Battle.SamuraiID}', Where ID = {Battle.ID}", sqlConnection);
 
                 //eksekver
                 commandChange.ExecuteNonQuery();

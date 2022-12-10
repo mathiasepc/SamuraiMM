@@ -8,7 +8,7 @@ namespace SamuraiMM.Interfaces
 {
     internal interface IHorse
     {
-        public void CreateHorse();
+        public void CreateTableHorse();
         public void InsertHorse(HorseModel horse);
         public void DeleteHorse(int ID);
         public void UpdateHorse(HorseModel horse);

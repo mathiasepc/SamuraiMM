@@ -16,7 +16,7 @@ namespace SamuraiMM.Repo
         /// <summary>
         /// laver en metode der laver en samurai tabel
         /// </summary>
-        public void CreateSamurai()
+        public void CreateTableSamurai()
         {
             //fortæller hvad connectionen er til min database
             using (SqlConnection sqlConnection = new(ADO.ConnectionString))

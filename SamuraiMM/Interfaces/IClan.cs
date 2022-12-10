@@ -8,7 +8,7 @@ namespace SamuraiMM.Interfaces
 {
     internal interface IClan
     {
-        public void CreateClan();
+        public void CreateTableClan();
         public void InsertClan(ClanModel clan);
         public void DeleteClan(int ID);
         public void UpdateClan(ClanModel clan);

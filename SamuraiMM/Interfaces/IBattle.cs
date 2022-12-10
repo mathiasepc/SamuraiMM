@@ -8,7 +8,7 @@ namespace SamuraiMM.Interfaces
 {
     internal interface IBattle
     {
-        public void CreateBattles();
+        public void CreateTableBattles();
         public void InsertBattles(BattleModel Battle);
         public void DeleteBattle(int ID);
         public void UpdateBattle(BattleModel Battle);

@@ -8,7 +8,7 @@ namespace SamuraiMM.Interfaces
 {
     internal interface ISamurai
     {
-        public void CreateSamurai();
+        public void CreateTableSamurai();
 
         public void InsertSamurai(SamuraiModel samurai);
         public void DeleteSamurai(int SamuraiID);

@@ -11,7 +11,7 @@ namespace SamuraiMM.Repo
     {
         ADOHandler ADO = new();
 
-        public void CreateClan()
+        public void CreateTableClan()
         {
             //fortæller hvad connectionen er til min database
             using (SqlConnection sqlConnection = new(ADO.ConnectionString))
