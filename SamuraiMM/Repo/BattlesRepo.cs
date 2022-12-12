@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SamuraiMM.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //Fortæller hvad den skal gøre i SQL
-                SqlCommand command = new SqlCommand($"CREATE TABLE Battle(ID int Identity(1,1) Primary Key, EventTitle nvarchar(50), Description nvarchar(200), SamuraiID int Foreign KEY references Samurai(ID)); ", sqlConnection);
+                SqlCommand command = new SqlCommand($"CREATE TABLE Battle(ID int Identity(1,1) Primary Key, EventTitle nvarchar(50), Description nvarchar(200), EventStartDate datetime, EventSlutDate datetime, SamuraiID int Foreign KEY references Samurai(ID)); ", sqlConnection);
 
                 //opretter tablen
                 command.ExecuteNonQuery();
@@ -40,7 +41,7 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //istansiere SqlCommand klassen og indsætter i databasen
-                SqlCommand sqlCommand = new($"INSERT INTO Battle (EventTitle, Description, SamuraiID) values('{Battle.EventTitle}', '{Battle.Description}','{Battle.SamuraiID}')", sqlConnection);
+                SqlCommand sqlCommand = new($"INSERT INTO Battle (EventTitle, Description, EventStartDate, EventSlutDate, SamuraiID) values('{Battle.EventTitle}', '{Battle.Description}','{Battle.EventStartDate}','{Battle.EventSlutDate}','{Battle.SamuraiID}')", sqlConnection);
 
                 //sender til min database
                 sqlCommand.ExecuteNonQuery();
@@ -79,7 +80,11 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //Laver en SQLCommando for at update databasen og indsætter sqlConnection
-                SqlCommand commandChange = new($"UPDATE Battle SET EventTitle = '{Battle.EventTitle}', Description = '{Battle.Description}', SamuraiID = '{Battle.SamuraiID}', Where ID = {Battle.ID}", sqlConnection);
+                SqlCommand commandChange = new($"UPDATE Battle SET EventTitle = '{Battle.EventTitle}', Description = '{Battle.Description}',EventStartDate = @f3, EventSlutDate = @f4, SamuraiID = '{Battle.SamuraiID}', Where ID = {Battle.ID}", sqlConnection);
+
+                //Da database ikke kan forstå datetime, parse vi den ind i en variable for sig.
+                commandChange.Parameters.AddWithValue("@f3", Battle.EventStartDate);
+                commandChange.Parameters.AddWithValue("@f4", Battle.EventSlutDate);
 
                 //eksekver
                 commandChange.ExecuteNonQuery();
@@ -105,7 +110,7 @@ namespace SamuraiMM.Repo
                 while (reader.Read())
                 {
                     //laver en midlertidig model for at kunne overfører den ene person til vores List
-                    BattleModel BattleTemp = new BattleModel() { ID = reader.GetInt32(0), EventTitle = reader.GetString(1), Description = reader.GetString(2), SamuraiID = reader.GetInt32(3) };
+                    BattleModel BattleTemp = new BattleModel() { ID = reader.GetInt32(0), EventTitle = reader.GetString(1), Description = reader.GetString(2), EventStartDate = reader.GetDateTime(3), EventSlutDate = reader.GetDateTime(4), SamuraiID = reader.GetInt32(5) };
 
                     //overfører den ene person til List
                     allBattles.Add(BattleTemp);
