@@ -1,4 +1,5 @@
-﻿using SamuraiMM.Model;
+﻿using SamuraiMM.Interfaces;
+using SamuraiMM.Model;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -43,6 +44,26 @@ namespace SamuraiMM.Repo
                 //istansiere SqlCommand klassen og indsætter i databasen
                 SqlCommand sqlCommand = new($"INSERT INTO Horse (FirstName, SamuraiID) values('{horse.FirstName}', '{horse.SamuraiID}', '{horse.HorseRace}')", sqlConnection);
 
+
+                //sender til min database
+                sqlCommand.ExecuteNonQuery();
+            }
+        }
+
+        public void InsertHorseAvoidInjection(HorseModel horse)/*Kan bare base CarModel i stedet for alle propperty i Modellen.*/
+        {
+            //laver en vej til min server bruger using for at den selv lukker.
+            using (SqlConnection sqlConnection = new(ADO.ConnectionString))
+            {
+                //åbner vejen
+                sqlConnection.Open();
+
+                //istansiere SqlCommand klassen og indsætter i databasen
+                SqlCommand sqlCommand = new($"INSERT INTO Horse (FirstName, SamuraiID) values(@f1, @f2, @f3)", sqlConnection);
+
+                sqlCommand.Parameters.AddWithValue("@f1", horse.FirstName);
+                sqlCommand.Parameters.AddWithValue("@f2", horse.SamuraiID);
+                sqlCommand.Parameters.AddWithValue("@f3", horse.HorseRace);
 
                 //sender til min database
                 sqlCommand.ExecuteNonQuery();
