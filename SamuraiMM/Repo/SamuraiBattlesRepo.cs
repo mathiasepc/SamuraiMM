@@ -90,12 +90,46 @@ namespace SamuraiMM.Repo
                     connection.Open();
                     SqlCommand command = new SqlCommand(query, connection);
                     SqlDataReader reader = command.ExecuteReader();
+
+                    reader.Read();
+                    Console.WriteLine($"{reader["SamuraiName"]} participated in: ");
+
                     while (reader.Read())
                     {
-                        Console.WriteLine($"{reader["SamuraiName"]} participated in {reader["Title"]}. \nEvent Description: {reader["Description"]} \nStart: {reader["StartDate"]} End: {reader["EndDate"]} \n");
+                        Console.WriteLine($"{reader["SamuraiName"]} participated in: ");
+                        Console.Write($"{reader["Title"]}. \nEvent Description: {reader["Description"]} \nStart: {reader["StartDate"]} End: {reader["EndDate"]} \n");
                     }
                     reader.Close();
                 }
+            }
+        }
+
+        public SamuraiModel ReadOneSamuraiBattles2(int samuraiID)
+        {
+            using (SqlConnection con = new SqlConnection(ADO.ConnectionString))
+            {
+                //laver en sql commando
+                SqlCommand cmd = new SqlCommand($"select * from Samurai JOIN BattleSchema ON Samurai.ID = BattleSchema.SamuraiID JOIN Battle ON BattleSchema.BattlesID = Battle.ID WHERE Samurai.ID={samuraiID}", con);
+
+                con.Open();
+
+                //vi bruger SqlDataReader for at kunne læse data'en fra databasen hvor vi indsætter vores commando
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                //vi laver en nu model hvor vi indsætter værdierne
+                SamuraiModel sam = new SamuraiModel();
+
+                //vi laver en list som vi kan putte værdierne ind i
+                sam.Battles = new List<BattleModel>();
+                while (reader.Read())
+                {
+                    //de forskellige værdier fra databasen
+                    sam.ID = Convert.ToInt32(reader["id"]);
+                    sam.FirstName = reader["FirstName"].ToString();
+                    sam.LastName = reader["LastName"].ToString();
+                    sam.Battles.Add(new BattleModel() { EventTitle = reader["EventTitle"].ToString() });
+                }
+                return sam;
             }
         }
 
@@ -111,6 +145,7 @@ namespace SamuraiMM.Repo
                 connection.Open();
                 SqlCommand command = new SqlCommand(query, connection);
                 SqlDataReader reader = command.ExecuteReader();
+
                 while (reader.Read())
                 {
                     Console.WriteLine($"{reader["SamuraiName"]} participated in {reader["Title"]}. \nEvent Description: {reader["Description"]} \nStart: {reader["StartDate"]} End: {reader["EndDate"]} \n");

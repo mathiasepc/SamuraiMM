@@ -1,4 +1,6 @@
-﻿BattlesRepo b = new();
+﻿using SamuraiMM.Repo;
+
+BattlesRepo b = new();
 
 //b.CreateTableBattles();
 
@@ -21,8 +23,6 @@ BattleModel m2 = new BattleModel()
 
 //b.InsertBattles(m);
 //b.InsertBattles(m2);
-
-SamuraiRepo s = new();
 
 //s.CreateTableSamurai();
 
@@ -70,8 +70,18 @@ BattlesSamuariModel m7 = new BattlesSamuariModel()
 //sb.InsertBattleSamurais(m6);
 //sb.InsertBattleSamurais(m7);
 
-//sb.ReadAllBattlesAndSamurais();
-//sb.ReadOneBattlesSamurais(1);
-sb.ReadOneSamuraiBattles(1);
+sb.ReadAllBattlesAndSamurais();
+
+//SamuraiBattlesRepo s = new();
+
+//var lam = s.ReadOneSamuraiBattles2(1);
+
+//Console.WriteLine(lam.FirstName + " " +lam.LastName + " participated in: ");
+//foreach (var item in lam.Battles)
+//{
+//    Console.WriteLine(item.EventTitle + " " + item.Description);
+//}
+
+
 
 
