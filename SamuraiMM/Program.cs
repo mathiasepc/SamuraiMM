@@ -70,17 +70,26 @@ BattlesSamuariModel m7 = new BattlesSamuariModel()
 //sb.InsertBattleSamurais(m6);
 //sb.InsertBattleSamurais(m7);
 
-sb.ReadAllBattlesAndSamurais();
+//sb.CreateTableSamuraiBattles();
 
-//SamuraiBattlesRepo s = new();
+SamuraiBattlesRepo s = new();
 
 //var lam = s.ReadOneSamuraiBattles2(1);
 
-//Console.WriteLine(lam.FirstName + " " +lam.LastName + " participated in: ");
+//Console.WriteLine(lam.FirstName + " " + lam.LastName + " participated in: ");
 //foreach (var item in lam.Battles)
 //{
 //    Console.WriteLine(item.EventTitle + " " + item.Description);
 //}
+
+var lam = s.ReadOneBattlesSamurais2(2);
+
+Console.WriteLine("Title: " + lam.EventTitle + " \nParticipants: ");
+foreach (var item in lam.Samurais)
+{
+    Console.WriteLine(item.FirstName + " " + item.LastName);
+}
+Console.WriteLine("Description: " + lam.Description);
 
 
 

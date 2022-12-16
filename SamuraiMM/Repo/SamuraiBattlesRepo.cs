@@ -24,7 +24,7 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //Fortæller hvad den skal gøre i SQL
-                SqlCommand command = new SqlCommand($"CREATE TABLE BattleSchema(ID int Identity(1,1) Primary Key, SamuraiID int Foreign KEY references Samurai(ID), BattlesID int Foreign KEY references Battle(ID)); ", sqlConnection);
+                SqlCommand command = new SqlCommand($"CREATE TABLE BattleSchema(SamuraiID int Foreign KEY references Samurai(ID), BattlesID int Foreign KEY references Battle(ID), PRIMARY KEY(SamuraiID, BattlesID)); ", sqlConnection);
 
                 //opretter tablen
                 command.ExecuteNonQuery();
@@ -130,6 +130,35 @@ namespace SamuraiMM.Repo
                     sam.Battles.Add(new BattleModel() { EventTitle = reader["EventTitle"].ToString() });
                 }
                 return sam;
+            }
+        }
+
+        public BattleModel ReadOneBattlesSamurais2(int battlesID)
+        {
+            using (SqlConnection con = new SqlConnection(ADO.ConnectionString))
+            {
+                //laver en sql commando
+                SqlCommand cmd = new SqlCommand($"select * from Samurai JOIN BattleSchema ON Samurai.ID = BattleSchema.SamuraiID JOIN Battle ON BattleSchema.BattlesID = Battle.ID WHERE Battle.ID={battlesID}", con);
+
+                con.Open();
+
+                //vi bruger SqlDataReader for at kunne læse data'en fra databasen hvor vi indsætter vores commando
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                //vi laver en nu model hvor vi indsætter værdierne
+                BattleModel bat = new BattleModel();
+
+                //vi laver en list som vi kan putte værdierne ind i
+                bat.Samurais = new List<SamuraiModel>();
+                while (reader.Read())
+                {
+                    //de forskellige værdier fra databasen
+                    bat.ID = Convert.ToInt32(reader["id"]);
+                    bat.EventTitle = reader["EventTitle"].ToString();
+                    bat.Description = reader["Description"].ToString();
+                    bat.Samurais.Add(new SamuraiModel() { FirstName = reader["FirstName"].ToString(), LastName = reader["LastName"].ToString() });
+                }
+                return bat;
             }
         }
 
