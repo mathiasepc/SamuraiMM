@@ -59,7 +59,7 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //istansiere SqlCommand klassen og indsætter i databasen
-                SqlCommand sqlCommand = new($"INSERT INTO Horse (FirstName, SamuraiID) values(@f1, @f2, @f3)", sqlConnection);
+                SqlCommand sqlCommand = new($"INSERT INTO Horse (FirstName, SamuraiID, HorseRace) values(@f1, @f2, @f3)", sqlConnection);
 
                 sqlCommand.Parameters.AddWithValue("@f1", horse.FirstName);
                 sqlCommand.Parameters.AddWithValue("@f2", horse.SamuraiID);
@@ -106,6 +106,34 @@ namespace SamuraiMM.Repo
 
                 //eksekver
                 commandChange.ExecuteNonQuery();
+            }
+        }
+
+        public HorseModel ReadOneHorse(int horseID)
+        {
+            using (SqlConnection con = new SqlConnection(ADO.ConnectionString))
+            {
+                con.Open();
+
+                //laver en sql commando
+                SqlCommand cmd = new SqlCommand($"select * from Horse where id={horseID}", con);
+
+                //vi bruger SqlDataReader for at kunne læse data'en fra databasen hvor vi indsætter vores commando
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                //læser dataen
+                reader.Read();
+
+                //vi laver en nu model hvor vi indsætter værdierne
+                HorseModel hor = new HorseModel();
+
+                //de forskellige værdier fra databasen
+                hor.ID = Convert.ToInt32(reader["id"]);
+                hor.FirstName = reader["FirstName"].ToString();
+                hor.HorseRace = reader["HorseRace"].ToString();
+
+                //returner den nye model
+                return hor;
             }
         }
 

@@ -48,7 +48,7 @@ namespace SamuraiMM.Repo
             }
         }
 
-        public void DeleteClan(int ID)
+        public void DeleteBlade(int ID)
         {
             using (SqlConnection sqlConnection = new(ADO.ConnectionString))
             {
@@ -72,7 +72,7 @@ namespace SamuraiMM.Repo
         /// Vi laver en metode som skal opdatere databasen
         /// </summary>
         /// <param name="samurai"></param>
-        public void UpdateClan(BladeModel blade)
+        public void UpdateBlade(BladeModel blade)
         {
             using (SqlConnection sqlConnection = new(ADO.ConnectionString))
             {
@@ -84,6 +84,34 @@ namespace SamuraiMM.Repo
 
                 //eksekver
                 commandChange.ExecuteNonQuery();
+            }
+        }
+
+        public BladeModel ReadOneBlade(int bladeID)
+        {
+            using (SqlConnection con = new SqlConnection(ADO.ConnectionString))
+            {
+                con.Open();
+
+                //laver en sql commando
+                SqlCommand cmd = new SqlCommand($"select * from Blade where id={bladeID}", con);
+
+                //vi bruger SqlDataReader for at kunne læse data'en fra databasen hvor vi indsætter vores commando
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                //læser dataen
+                reader.Read();
+
+                //vi laver en nu model hvor vi indsætter værdierne
+                BladeModel bla = new BladeModel();
+
+                //de forskellige værdier fra databasen
+                bla.ID = Convert.ToInt32(reader["id"]);
+                bla.Name = reader["Name"].ToString();
+                bla.Description = reader["Description"].ToString();
+
+                //returner den nye model
+                return bla;
             }
         }
 
