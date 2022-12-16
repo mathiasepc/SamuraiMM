@@ -45,7 +45,9 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //istansiere SqlCommand klassen og indsætter i databasen
-                SqlCommand sqlCommand = new($"INSERT INTO Samurai (FirstName, LastName) values('{samurai.FirstName}', '{samurai.LastName}')", sqlConnection);
+                SqlCommand sqlCommand = new($"INSERT INTO Samurai (FirstName, LastName, Birthdate) values('{samurai.FirstName}', '{samurai.LastName}', @f3)", sqlConnection);
+
+                sqlCommand.Parameters.AddWithValue("@f3", samurai.Birthdate);
 
                 //sender til min database
                 sqlCommand.ExecuteNonQuery();

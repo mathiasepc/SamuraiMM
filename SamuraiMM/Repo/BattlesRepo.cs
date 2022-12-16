@@ -21,7 +21,7 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //Fortæller hvad den skal gøre i SQL
-                SqlCommand command = new SqlCommand($"CREATE TABLE Battle(ID int Identity(1,1) Primary Key, EventTitle nvarchar(50), Description nvarchar(200), EventStartDate datetime, EventSlutDate datetime, SamuraiID int Foreign KEY references Samurai(ID)); ", sqlConnection);
+                SqlCommand command = new SqlCommand($"CREATE TABLE Battle(ID int Identity(1,1) Primary Key, EventTitle nvarchar(50), Description nvarchar(200), EventStartDate datetime, EventSlutDate datetime); ", sqlConnection);
 
                 //opretter tablen
                 command.ExecuteNonQuery();
@@ -41,7 +41,10 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //istansiere SqlCommand klassen og indsætter i databasen
-                SqlCommand sqlCommand = new($"INSERT INTO Battle (EventTitle, Description, EventStartDate, EventSlutDate, SamuraiID) values('{Battle.EventTitle}', '{Battle.Description}','{Battle.EventStartDate}','{Battle.EventSlutDate}','{Battle.SamuraiID}')", sqlConnection);
+                SqlCommand sqlCommand = new($"INSERT INTO Battle (EventTitle, Description, EventStartDate, EventSlutDate) values('{Battle.EventTitle}', '{Battle.Description}',@f3,@f4)", sqlConnection);
+
+                sqlCommand.Parameters.AddWithValue("@f3", Battle.EventStartDate);
+                sqlCommand.Parameters.AddWithValue("@f4", Battle.EventSlutDate);
 
                 //sender til min database
                 sqlCommand.ExecuteNonQuery();
@@ -80,7 +83,7 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //Laver en SQLCommando for at update databasen og indsætter sqlConnection
-                SqlCommand commandChange = new($"UPDATE Battle SET EventTitle = '{Battle.EventTitle}', Description = '{Battle.Description}',EventStartDate = @f3, EventSlutDate = @f4, SamuraiID = '{Battle.SamuraiID}', Where ID = {Battle.ID}", sqlConnection);
+                SqlCommand commandChange = new($"UPDATE Battle SET EventTitle = '{Battle.EventTitle}', Description = '{Battle.Description}',EventStartDate = @f3, EventSlutDate = @f4, Where ID = {Battle.ID}", sqlConnection);
 
                 //Da database ikke kan forstå datetime, parse vi den ind i en variable for sig.
                 commandChange.Parameters.AddWithValue("@f3", Battle.EventStartDate);
@@ -88,6 +91,36 @@ namespace SamuraiMM.Repo
 
                 //eksekver
                 commandChange.ExecuteNonQuery();
+            }
+        }
+
+        public BattleModel ReadOneBattle(int battleID)
+        {
+            using (SqlConnection con = new SqlConnection(ADO.ConnectionString))
+            {
+                con.Open();
+
+                //laver en sql commando
+                SqlCommand cmd = new SqlCommand($"select * from Battle where id={battleID}", con);
+
+                //vi bruger SqlDataReader for at kunne læse data'en fra databasen hvor vi indsætter vores commando
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                //læser dataen
+                reader.Read();
+
+                //vi laver en nu model hvor vi indsætter værdierne
+                BattleModel bat = new BattleModel();
+
+                //de forskellige værdier fra databasen
+                bat.ID = Convert.ToInt32(reader["id"]);
+                bat.EventTitle = reader["EventTitle"].ToString();
+                bat.Description = reader["Description"].ToString();
+                bat.EventStartDate = Convert.ToDateTime(reader["EventStartDate"]);
+                bat.EventSlutDate = Convert.ToDateTime(reader["EventSlutDate"]);
+
+                //returner den nye model
+                return bat;
             }
         }
 
@@ -110,7 +143,7 @@ namespace SamuraiMM.Repo
                 while (reader.Read())
                 {
                     //laver en midlertidig model for at kunne overfører den ene person til vores List
-                    BattleModel BattleTemp = new BattleModel() { ID = reader.GetInt32(0), EventTitle = reader.GetString(1), Description = reader.GetString(2), EventStartDate = reader.GetDateTime(3), EventSlutDate = reader.GetDateTime(4), SamuraiID = reader.GetInt32(5) };
+                    BattleModel BattleTemp = new BattleModel() { ID = reader.GetInt32(0), EventTitle = reader.GetString(1), Description = reader.GetString(2), EventStartDate = reader.GetDateTime(3), EventSlutDate = reader.GetDateTime(4)};
 
                     //overfører den ene person til List
                     allBattles.Add(BattleTemp);

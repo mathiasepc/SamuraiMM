@@ -86,6 +86,33 @@ namespace SamuraiMM.Repo
             }
         }
 
+        public QuoteModel ReadOneQuote(int quoteID)
+        {
+            using (SqlConnection con = new SqlConnection(ADO.ConnectionString))
+            {
+                con.Open();
+
+                //laver en sql commando
+                SqlCommand cmd = new SqlCommand($"select * from Samurai where id={quoteID}", con);
+
+                //vi bruger SqlDataReader for at kunne læse data'en fra databasen hvor vi indsætter vores commando
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                //læser dataen
+                reader.Read();
+
+                //vi laver en nu model hvor vi indsætter værdierne
+                QuoteModel quo = new QuoteModel();
+
+                //de forskellige værdier fra databasen
+                quo.ID = Convert.ToInt32(reader["id"]);
+                quo.QuoteText = reader["QuoteText"].ToString();
+
+                //returner den nye model
+                return quo;
+            }
+        }
+
         public List<QuoteModel> ReadAllQuotes()
         {
             //vi laver en list som vi indsætter data'en i

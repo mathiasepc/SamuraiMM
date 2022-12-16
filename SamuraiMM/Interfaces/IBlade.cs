@@ -10,8 +10,8 @@ namespace SamuraiMM.Interfaces
     {
         public void CreateTableBlade();
         public void InsertBlade(BladeModel blade);
-        public void DeleteClan(int ID);
-        public void UpdateClan(BladeModel blade);
+        public void DeleteBlade(int ID);
+        public void UpdateBlade(BladeModel blade);
         public List<BladeModel> ReadAllBlades();
     }
 }

@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 
 namespace SamuraiMM.Model
 {
-    internal class BattleModel
+    internal class BattlesSamuariModel
     {
         public int ID { get; set; }
-        public string EventTitle { get; set; }
-        public string Description { get; set; }
-        public DateTime EventStartDate { get; set; }
-        public DateTime EventSlutDate { get; set; }
+
+        public int SamuraiID { get; set; }  
         public List<SamuraiModel> Samurais { get; set; }
+
+        public int BattlesID { get; set; }  
+        public List<BattleModel> Battles { get; set; }
     }
 }

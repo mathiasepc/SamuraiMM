@@ -86,6 +86,33 @@ namespace SamuraiMM.Repo
             }
         }
 
+        public ClanModel ReadOneClan(int clanID)
+        {
+            using (SqlConnection con = new SqlConnection(ADO.ConnectionString))
+            {
+                con.Open();
+
+                //laver en sql commando
+                SqlCommand cmd = new SqlCommand($"select * from Blade where id={clanID}", con);
+
+                //vi bruger SqlDataReader for at kunne læse data'en fra databasen hvor vi indsætter vores commando
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                //læser dataen
+                reader.Read();
+
+                //vi laver en nu model hvor vi indsætter værdierne
+                ClanModel cla = new ClanModel();
+
+                //de forskellige værdier fra databasen
+                cla.ID = Convert.ToInt32(reader["id"]);
+                cla.ClanName = reader["ClanName"].ToString();
+
+                //returner den nye model
+                return cla;
+            }
+        }
+
         public List<ClanModel> ReadAllClans()
         {
             //vi laver en list som vi indsætter data'en i
