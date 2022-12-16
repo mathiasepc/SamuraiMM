@@ -164,6 +164,7 @@ namespace SamuraiMM.Repo
 
         public void ReadAllBattlesAndSamurais()
         {
+            //laver en sql commando
             string query = "SELECT Samurai.FirstName + ' ' + Samurai.LastName as SamuraiName, Battle.EventTitle as Title, Battle.Description as Description, Battle.EventStartDate as StartDate, Battle.EventSlutDate as EndDate " +
                "FROM Samurai " +
                "JOIN BattleSchema ON Samurai.ID = BattleSchema.SamuraiID " +
