@@ -98,13 +98,13 @@ foreach (var item in lam)
 {
     foreach (var battles in item.Battles)
     {
-        Console.WriteLine(battles.EventTitle + " " + battles.Description);
+        Console.WriteLine(battles.EventTitle + " - " + battles.Description);
+    }
 
-        foreach (var samurais in item.Samurais)
-        {
-            Console.WriteLine(samurais.FirstName + " " + samurais.LastName);
-        }
-    }  
+    foreach (var samurais in item.Samurais)
+    {
+        Console.WriteLine(samurais.FirstName + "  " + samurais.LastName);
+    }
 }
 
 //HorseRepo h = new();
