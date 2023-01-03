@@ -87,21 +87,37 @@ SamuraiBattlesRepo s = new();
 //Console.WriteLine("Title: " + lam.EventTitle + " \nParticipants: ");
 //foreach (var item in lam.Samurais)
 //{
-//    Console.WriteLine(item.FirstName + " " + item.LastName);
+//    
 //}
 //Console.WriteLine("Description: " + lam.Description);
 
-HorseRepo h = new();
+var lam = s.ReadAllBattlesAndSamurais();
+
+
+foreach (var item in lam)
+{
+    foreach (var battles in item.Battles)
+    {
+        Console.WriteLine(battles.EventTitle + " " + battles.Description);
+
+        foreach (var samurais in item.Samurais)
+        {
+            Console.WriteLine(samurais.FirstName + " " + samurais.LastName);
+        }
+    }  
+}
+
+//HorseRepo h = new();
 //h.CreateTableHorse();
 
-HorseModel h1 = new()
-{
-    FirstName = "test",
-    SamuraiID = 1,
-    HorseRace = "sort"
-};
+//HorseModel h1 = new()
+//{
+//    FirstName = "test",
+//    SamuraiID = 1,
+//    HorseRace = "sort"
+//};
 
-h.InsertHorse(h1);
+//h.InsertHorse(h1);
 
 
 
