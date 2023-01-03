@@ -1,0 +1,37 @@
+﻿@page "/hestCreate"
+@inject IHorse _horse
+@inject NavigationManager NavManager
+
+<EditForm Model="@horse" OnValidSubmit="CreateHorse">
+    <div class="form-control">
+        FirstName <input type="text" @bind="horse.FirstName" />
+    </div>
+    <div class="form-control">
+        HorseRace <input type="text" @bind="horse.HorseRace" />
+    </div>
+    <div class="form-control">
+        SamuraiID <input type="text" @bind="horse.SamuraiID" />
+    </div>
+    <button type="submit">Create Horsies</button>
+    
+</EditForm>
+<button @onclick="Back">Back</button>
+<h3>TestCreate</h3>
+
+@code {
+    public void Back()
+    {
+        // navigate back to another page - NavManager....
+        NavManager.NavigateTo("/hest");
+    }
+
+    // maybe need an object with all the data
+    HorseModel horse = new HorseModel();
+    // here we need a create method
+    public void CreateHorse()
+    {
+        //console app here I come...!!
+        _horse.InsertHorse(horse);
+    }
+    // we can make a navigate back button
+}

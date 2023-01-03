@@ -4,21 +4,21 @@ BattlesRepo b = new();
 
 //b.CreateTableBattles();
 
-BattleModel m = new BattleModel()
-{
-    EventTitle = "Battle of The Century",
-    Description = "It was the fiercest battle in the 1800",
-    EventStartDate = new DateTime(1800, 12, 31),
-    EventSlutDate = new DateTime(1820, 5, 21),
-};
+//BattleModel m = new BattleModel()
+//{
+//    EventTitle = "Battle of The Century",
+//    Description = "It was the fiercest battle in the 1800",
+//    EventStartDate = new DateTime(1800, 12, 31),
+//    EventSlutDate = new DateTime(1820, 5, 21),
+//};
 
-BattleModel m2 = new BattleModel()
-{
-    EventTitle = "Battle of The YEAR",
-    Description = "It was the fiercest battle in the 1925",
-    EventStartDate = new DateTime(1925, 1, 5),
-    EventSlutDate = new DateTime(1925, 6, 29),
-};
+//BattleModel m2 = new BattleModel()
+//{
+//    EventTitle = "Battle of The YEAR",
+//    Description = "It was the fiercest battle in the 1925",
+//    EventStartDate = new DateTime(1925, 1, 5),
+//    EventSlutDate = new DateTime(1925, 6, 29),
+//};
 
 
 //b.InsertBattles(m);
@@ -82,14 +82,26 @@ SamuraiBattlesRepo s = new();
 //    Console.WriteLine(item.EventTitle + " " + item.Description);
 //}
 
-var lam = s.ReadOneBattlesSamurais2(2);
+//var lam = s.ReadOneBattlesSamurais2(2);
 
-Console.WriteLine("Title: " + lam.EventTitle + " \nParticipants: ");
-foreach (var item in lam.Samurais)
+//Console.WriteLine("Title: " + lam.EventTitle + " \nParticipants: ");
+//foreach (var item in lam.Samurais)
+//{
+//    Console.WriteLine(item.FirstName + " " + item.LastName);
+//}
+//Console.WriteLine("Description: " + lam.Description);
+
+HorseRepo h = new();
+//h.CreateTableHorse();
+
+HorseModel h1 = new()
 {
-    Console.WriteLine(item.FirstName + " " + item.LastName);
-}
-Console.WriteLine("Description: " + lam.Description);
+    FirstName = "test",
+    SamuraiID = 1,
+    HorseRace = "sort"
+};
+
+h.InsertHorse(h1);
 
 
 

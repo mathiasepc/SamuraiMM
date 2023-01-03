@@ -1,0 +1,55 @@
+﻿@page "/hest"
+@inject IHorse _horse
+@inject NavigationManager NavManager
+
+<h3>Heste</h3>
+
+<table>
+    <thead>
+        <tr>
+            <button @onclick="createHorse">Add Horse</button>
+        </tr>
+        <tr>
+            <td>FirstName</td><td>HorseRace</td><td>SamuraiId</td>
+        </tr>
+    </thead>
+    <tbody>     
+            @foreach (var horse in horsesList)
+            {
+                <tr>
+                <td>@horse.FirstName</td>
+                <td>@horse.HorseRace</td>
+                <td>@horse.SamuraiID</td>
+                <td>
+                    <a href="EditHorse/@horse.ID">Update</a> |
+                    <button @onclick="()=>horseDelete(horse)">Delete</button>
+                </td>
+                </tr>
+   
+            }
+        
+    </tbody>
+</table>
+
+@code {
+    List<HorseModel> horsesList = new List<HorseModel>();
+    protected override void OnInitialized()
+    { // this is the first method to be run
+      // I want to load in data from repo. Place it in a variable
+
+        horsesList = _horse.ReadAllHorses(); 
+    }
+    public void createHorse()
+    {
+        // navigate back to another page - NavManager....
+        NavManager.NavigateTo("/hestCreate");
+    }
+    public void horseDelete(HorseModel horse)
+    {
+        // I want to delete the horse - how do I do it?
+        _horse.DeleteHorse(horse.ID);
+        // If I want to update my page, I have to Navigate to this url again
+        StateHasChanged();
+    }
+
+}
