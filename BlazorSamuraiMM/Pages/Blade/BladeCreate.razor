@@ -1,0 +1,38 @@
+﻿@page "/bladeCreate"
+@inject IBlade blade
+@inject NavigationManager NavManager
+
+<h3>Create A Blade</h3>
+<EditForm Model="@bladeModel" OnValidSubmit="CreateBlade">
+    <div class="form-control">
+        FirstName <input type="text" @bind="bladeModel.Name" />
+    </div>
+    <div class="form-control">
+        LastName <input type="text" @bind="bladeModel.Description" />
+    </div>
+    <div class="form-control">
+        Birthdate <input type="text" @bind="bladeModel.SamuraiID" />
+    </div>
+    <button type="submit">Confirm</button>
+    
+</EditForm>
+<button @onclick="Back">Back</button>
+
+
+@code {
+    public void Back()
+    {
+        // navigate back to another page - NavManager....
+        NavManager.NavigateTo("/blade");
+    }
+
+    // maybe need an object with all the data
+    BladeModel bladeModel = new();
+    // here we need a create method
+    public void CreateBlade()
+    {
+        //console app here I come...!!
+        blade.InsertBlade(bladeModel);
+    }
+    // we can make a navigate back button
+}

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SamuraiMM.Model
 {
-    internal class SamuraiModel
+    public class SamuraiModel
     {
         public int ID { get; set; }
         public string FirstName { get; set; }

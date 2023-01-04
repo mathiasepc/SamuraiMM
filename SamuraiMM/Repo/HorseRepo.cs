@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SamuraiMM.Repo
 {
-    internal class HorseRepo : IHorse
+    public class HorseRepo : IHorse
     {
         ADOHandler ADO = new();
 
@@ -42,7 +42,7 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //istansiere SqlCommand klassen og indsætter i databasen
-                SqlCommand sqlCommand = new($"INSERT INTO Horse (FirstName, SamuraiID) values('{horse.FirstName}', '{horse.SamuraiID}', '{horse.HorseRace}')", sqlConnection);
+                SqlCommand sqlCommand = new($"INSERT INTO Horse (FirstName, SamuraiID, HorseRace) values('{horse.FirstName}', '{horse.SamuraiID}', '{horse.HorseRace}')", sqlConnection);
 
 
                 //sender til min database
@@ -96,17 +96,27 @@ namespace SamuraiMM.Repo
         /// <param name="samurai"></param>
         public void UpdateHorse(HorseModel horse)
         {
-            using (SqlConnection sqlConnection = new(ADO.ConnectionString))
+            SamuraiRepo a = new();
+            var b = a.ReadAllSamurais();
+
+            foreach(var item in b)
             {
-                //åbner vejen
-                sqlConnection.Open();
+                if (horse.SamuraiID == item.ID)
+                {
+                    using (SqlConnection sqlConnection = new(ADO.ConnectionString))
+                    {
+                        //åbner vejen
+                        sqlConnection.Open();
 
-                //Laver en SQLCommando for at update databasen og indsætter sqlConnection
-                SqlCommand commandChange = new($"UPDATE Horse SET FirstName = '{horse.FirstName}', SamuraiId = '{horse.SamuraiID}', HorseRace = '{horse.HorseRace}' Where ID = {horse.ID}", sqlConnection);
+                        //Laver en SQLCommando for at update databasen og indsætter sqlConnection
+                        SqlCommand commandChange = new($"UPDATE Horse SET FirstName = '{horse.FirstName}', SamuraiId = '{horse.SamuraiID}', HorseRace = '{horse.HorseRace}' Where ID = {horse.ID}", sqlConnection);
 
-                //eksekver
-                commandChange.ExecuteNonQuery();
-            }
+                        //eksekver
+                        commandChange.ExecuteNonQuery();
+                    }
+
+                }
+            }        
         }
 
         public HorseModel ReadOneHorse(int horseID)

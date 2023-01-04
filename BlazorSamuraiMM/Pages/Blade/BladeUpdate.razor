@@ -1,0 +1,35 @@
+﻿@page "/bladeUpdate/{CurrentId}"
+@inject IBlade blade
+@inject NavigationManager NavigationManager
+
+<h3>Update Blade</h3>
+<form>
+    <div class="row">
+        <div class="col-md-8">
+        <label>FirstName</label>
+            <input class="form-control" @bind="bladeModel.Name" />
+        <label>LastName</label>
+            <input class="form-control" @bind="bladeModel.Description" />
+        <label>Birthdate</label>
+            <input class="form-control" @bind="bladeModel.SamuraiID" />
+        </div>
+    </div>
+    <div class="row">
+        <input type="button" @onclick="@UpdateBlade" class="btn btn-primary" value="Save" />
+    </div>
+</form>
+@code {
+    [Parameter]
+    public string CurrentId { get; set; }
+
+    BladeModel bladeModel = new();
+    protected override void OnInitialized()
+    {
+        bladeModel = blade.ReadOneBlade(Convert.ToInt32(CurrentId));
+    }
+    public void UpdateBlade()
+    {
+        blade.UpdateBlade(bladeModel);
+        NavigationManager.NavigateTo("samurai");
+    }
+}

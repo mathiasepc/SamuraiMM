@@ -1,0 +1,37 @@
+﻿@page "/battleUpdate/{CurrentId}"
+@inject IBattle battle
+@inject NavigationManager NavigationManager
+
+<h3>Update Battle</h3>
+<form>
+    <div class="row">
+        <div class="col-md-8">
+        <label>Title</label>
+            <input class="form-control" @bind="battleModel.EventTitle" />
+        <label>Description</label>
+            <input class="form-control" @bind="battleModel.Description" />
+        <label>Start Date</label>
+            <input class="form-control" @bind="battleModel.EventStartDate" />
+        <label>End Date</label>
+            <input class="form-control" @bind="battleModel.EventSlutDate" />
+        </div>
+    </div>
+    <div class="row">
+        <input type="button" @onclick="@updateBattle" class="btn btn-primary" value="Save" />
+    </div>
+</form>
+@code {
+    [Parameter]
+    public string CurrentId { get; set; }
+
+    BattleModel battleModel = new();
+    protected override void OnInitialized()
+    {
+        battleModel = battle.ReadOneBattle(Convert.ToInt32(CurrentId));
+    }
+    public void updateBattle()
+    {
+        battle.UpdateBattle(battleModel);
+        NavigationManager.NavigateTo("battle");
+    }
+}

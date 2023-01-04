@@ -1,0 +1,38 @@
+﻿@page "/samuraiCreate"
+@inject ISamurai samurai
+@inject NavigationManager NavManager
+
+<h3>Create A Samurai</h3>
+<EditForm Model="@samuraiModel" OnValidSubmit="CreateSamurai">
+    <div class="form-control">
+        FirstName <input type="text" @bind="samuraiModel.FirstName" />
+    </div>
+    <div class="form-control">
+        LastName <input type="text" @bind="samuraiModel.LastName" />
+    </div>
+    <div class="form-control">
+        Birthdate <input type="text" @bind="samuraiModel.Birthdate" />
+    </div>
+    <button type="submit">Confirm</button>
+    
+</EditForm>
+<button @onclick="Back">Back</button>
+
+
+@code {
+    public void Back()
+    {
+        // navigate back to another page - NavManager....
+        NavManager.NavigateTo("/samurai");
+    }
+
+    // maybe need an object with all the data
+    SamuraiModel samuraiModel = new();
+    // here we need a create method
+    public void CreateSamurai()
+    {
+        //console app here I come...!!
+        samurai.InsertSamurai(samuraiModel);
+    }
+    // we can make a navigate back button
+}

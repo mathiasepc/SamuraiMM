@@ -1,0 +1,55 @@
+﻿@page "/clan"
+@inject IClan clan
+@inject NavigationManager NavManager
+
+<h3>Clans</h3>
+
+<table>
+    <thead>
+        <tr>
+            <button @onclick="createClan">Add Clan</button>
+        </tr>
+        <tr>
+            <td>Clan Name</td>
+            <td>SamuraiID</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var clan in clansList)
+            {
+                <tr>
+                <td>@clan.ClanName</td>
+                <td>@clan.SamuraiID</td>
+                <td>
+                    <a href="clanUpdate/@clan.ID">Update</a> |
+                    <button @onclick="()=>clanDelete(clan)">Delete</button>
+                </td>
+                </tr>
+            }
+        
+    </tbody>
+</table>
+
+@code {
+    List<ClanModel> clansList = new();
+    protected override void OnInitialized()
+    { // this is the first method to be run
+      // I want to load in data from repo. Place it in a variable
+
+        clansList = clan.ReadAllClans();
+    }
+    public void createClan()
+    {
+        // navigate back to another page - NavManager....
+        NavManager.NavigateTo("/clanCreate");
+    }
+    public void clanDelete(ClanModel clanModel)
+    {
+        // I want to delete the horse - how do I do it?
+        clan.DeleteClan(clanModel.ID);
+        // If I want to update my page, I have to Navigate to this url again
+        StateHasChanged();
+        NavManager.NavigateTo("/clan");
+    }
+
+}

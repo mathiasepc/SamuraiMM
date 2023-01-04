@@ -1,0 +1,35 @@
+﻿@page "/hestUpdate/{CurrentId}"
+@inject IHorse horse
+@inject NavigationManager NavigationManager
+
+<h3>Update Horse</h3>
+<form>
+    <div class="row">
+        <div class="col-md-8">
+        <label>Name</label>
+            <input class="form-control" @bind="horseModel.FirstName" />
+        <label>HorseRace</label>
+            <input class="form-control" @bind="horseModel.HorseRace" />
+        <label>SamuraiId</label>
+            <input class="form-control" @bind="horseModel.SamuraiID" />
+        </div>
+    </div>
+    <div class="row">
+        <input type="button" @onclick="@updateHorse" class="btn btn-primary" value="Save" />
+    </div>
+</form>
+@code {
+    [Parameter]
+    public string CurrentId { get; set; }
+
+    HorseModel horseModel = new();
+    protected override void OnInitialized()
+    {
+        horseModel = horse.ReadOneHorse(Convert.ToInt32(CurrentId));
+    }
+    public void updateHorse()
+    {
+        horse.UpdateHorse(horseModel);
+        NavigationManager.NavigateTo("hest");
+    }
+}

@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace SamuraiMM.Interfaces
 {
-    internal interface IHorse
+    public interface IHorse
     {
         public void CreateTableHorse();
         public void InsertHorse(HorseModel horse);
         public void DeleteHorse(int ID);
         public void UpdateHorse(HorseModel horse);
+        public HorseModel ReadOneHorse(int ID);
         public List<HorseModel> ReadAllHorses();
     }
 }

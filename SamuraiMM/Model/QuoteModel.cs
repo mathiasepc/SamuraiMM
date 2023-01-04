@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SamuraiMM.Model
 {
-    internal class QuoteModel
+    public class QuoteModel
     {
         public int ID { get; set; }
         public string QuoteText { get; set; }
