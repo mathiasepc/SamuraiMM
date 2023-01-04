@@ -13,5 +13,6 @@ namespace SamuraiMM.Interfaces
         public void DeleteBattle(int ID);
         public void UpdateBattle(BattleModel Battle);
         public List<BattleModel> ReadAllBattles();
+        public BattleModel ReadOneBattle(int battleID);
     }
 }

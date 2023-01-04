@@ -13,5 +13,6 @@ namespace SamuraiMM.Interfaces
         public void DeleteBlade(int ID);
         public void UpdateBlade(BladeModel blade);
         public List<BladeModel> ReadAllBlades();
+        public BladeModel ReadOneBlade(int bladeID);
     }
 }

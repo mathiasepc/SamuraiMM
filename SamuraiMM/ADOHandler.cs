@@ -16,7 +16,7 @@ namespace SamuraiMM
         /// </summary>
         public string ConnectionString
         {
-            get => "Data Source=SKAB2-PC1\\TECDATABASE;Initial Catalog=TEC;Integrated Security=True";
+            get => "Data Source=Martin-PC;Initial Catalog=TEC;Integrated Security=True";
         }
     }
 }

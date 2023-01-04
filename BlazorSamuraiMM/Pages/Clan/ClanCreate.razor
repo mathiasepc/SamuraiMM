@@ -1,0 +1,34 @@
+﻿@page "/clanCreate"
+@inject IClan clan
+@inject NavigationManager NavManager
+
+<h3>Create A Clan</h3>
+<EditForm Model="@clanModel" OnValidSubmit="CreateClan">
+    <div class="form-control">
+        ClanName <input type="text" @bind="clanModel.ClanName" />
+    </div>
+    <div class="form-control">
+        SamuraiID <input type="text" @bind="clanModel.SamuraiID" />
+    </div>
+    <button type="submit">Confirm</button>
+    
+</EditForm>
+<button @onclick="Back">Back</button>
+
+@code {
+    public void Back()
+    {
+        // navigate back to another page - NavManager....
+        NavManager.NavigateTo("/clan");
+    }
+
+    // maybe need an object with all the data
+    ClanModel clanModel = new();
+    // here we need a create method
+    public void CreateClan()
+    {
+        //console app here I come...!!
+        clan.InsertClan(clanModel);
+    }
+    // we can make a navigate back button
+}

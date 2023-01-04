@@ -1,0 +1,33 @@
+﻿@page "/clanUpdate/{CurrentId}"
+@inject IClan clan
+@inject NavigationManager NavigationManager
+
+<h3>Update Clan</h3>
+<form>
+    <div class="row">
+        <div class="col-md-8">
+        <label>ClanName</label>
+            <input class="form-control" @bind="clanModel.ClanName" />
+        <label>SamuraiId</label>
+            <input class="form-control" @bind="clanModel.SamuraiID" />
+        </div>
+    </div>
+    <div class="row">
+        <input type="button" @onclick="@UpdateClan" class="btn btn-primary" value="Save" />
+    </div>
+</form>
+@code {
+    [Parameter]
+    public string CurrentId { get; set; }
+
+    ClanModel clanModel = new();
+    protected override void OnInitialized()
+    {
+        clanModel = clan.ReadOneClan(Convert.ToInt32(CurrentId));
+    }
+    public void UpdateClan()
+    {
+        clan.UpdateClan(clanModel);
+        NavigationManager.NavigateTo("hest");
+    }
+}
