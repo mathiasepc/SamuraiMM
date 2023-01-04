@@ -1,0 +1,35 @@
+﻿@page "/quoteCreate"
+@inject IQuotes quote
+@inject NavigationManager NavManager
+
+<h3>Create A Quote</h3>
+<EditForm Model="@quoteModel" OnValidSubmit="CreateQuote">
+    <div class="form-control">
+        Quote <input type="text" @bind="quoteModel.QuoteText" />
+    </div>
+    <div class="form-control">
+        SamuraID <input type="text" @bind="quoteModel.SamuraiID" />
+    </div>
+    <button type="submit">Confirm</button>
+    
+</EditForm>
+<button @onclick="Back">Back</button>
+
+
+@code {
+    public void Back()
+    {
+        // navigate back to another page - NavManager....
+        NavManager.NavigateTo("/quote");
+    }
+
+    // maybe need an object with all the data
+    QuoteModel quoteModel = new();
+    // here we need a create method
+    public void CreateQuote()
+    {
+        //console app here I come...!!
+        quote.InsertQuote(quoteModel);
+    }
+    // we can make a navigate back button
+}

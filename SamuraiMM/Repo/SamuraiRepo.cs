@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SamuraiMM.Repo
 {
-    internal class SamuraiRepo : ISamurai
+    public class SamuraiRepo : ISamurai
     {
         ADOHandler ADO = new();
 

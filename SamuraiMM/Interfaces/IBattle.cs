@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SamuraiMM.Interfaces
 {
-    internal interface IBattle
+    public interface IBattle
     {
         public void CreateTableBattles();
         public void InsertBattles(BattleModel Battle);

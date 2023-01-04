@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SamuraiMM.Interfaces
 {
-    internal interface ISamurai
+    public interface ISamurai
     {
         public void CreateTableSamurai();
 

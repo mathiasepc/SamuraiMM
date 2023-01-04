@@ -1,0 +1,33 @@
+﻿@page "/quoteUpdate/{CurrentId}"
+@inject IQuotes quote
+@inject NavigationManager NavigationManager
+
+<h3>Update Quote</h3>
+<form>
+    <div class="row">
+        <div class="col-md-8">
+        <label>QuoteText</label>
+            <input class="form-control" @bind="quoteModel.QuoteText" />
+        <label>SamuraiId</label>
+            <input class="form-control" @bind="quoteModel.SamuraiID" />
+        </div>
+    </div>
+    <div class="row">
+        <input type="button" @onclick="@UpdateQuote" class="btn btn-primary" value="Save" />
+    </div>
+</form>
+@code {
+    [Parameter]
+    public string CurrentId { get; set; }
+
+    QuoteModel quoteModel = new();
+    protected override void OnInitialized()
+    {
+        quoteModel = quote.ReadOneQuote(Convert.ToInt32(CurrentId));
+    }
+    public void UpdateQuote()
+    {
+        quote.UpdateQuote(quoteModel);
+        NavigationManager.NavigateTo("quote");
+    }
+}

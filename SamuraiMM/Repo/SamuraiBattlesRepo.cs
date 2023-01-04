@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SamuraiMM.Repo
 {
-    internal class SamuraiBattlesRepo
+    public class SamuraiBattlesRepo
     { 
 
         ADOHandler ADO = new();
@@ -31,7 +31,7 @@ namespace SamuraiMM.Repo
             }
         }
 
-        public void InsertBattleSamurais(BattlesSamuariModel batsam)/*Kan bare base CarModel i stedet for alle propperty i Modellen.*/
+        public void InsertBattleSamurais(BattleSamuraiModel batsam)/*Kan bare base CarModel i stedet for alle propperty i Modellen.*/
         {
             //laver en vej til min server bruger using for at den selv lukker.
             using (SqlConnection sqlConnection = new(ADO.ConnectionString))
@@ -184,10 +184,10 @@ namespace SamuraiMM.Repo
             }
         }
 
-        public List<BattlesSamuariModel> ReadAllBattlesAndSamurais()
+        public List<BattleSamuraiModel> ReadAllBattlesAndSamurais()
         {
             //vi laver en list som vi indsætter data'en i
-            List<BattlesSamuariModel> AllBatSams = new();
+            List<BattleSamuraiModel> AllBatSams = new();
 
             using (SqlConnection con = new SqlConnection(ADO.ConnectionString))
             {
@@ -203,7 +203,7 @@ namespace SamuraiMM.Repo
                 while (reader.Read())
                 {
                     //laver en midlertidig model for at kunne overfører den ene person til vores List
-                    BattlesSamuariModel batsamTemp = new BattlesSamuariModel();
+                    BattleSamuraiModel batsamTemp = new BattleSamuraiModel();
 
                     batsamTemp.Battles = new List<BattleModel>();
                     batsamTemp.BattlesID = Convert.ToInt32(reader["BattlesID"]);

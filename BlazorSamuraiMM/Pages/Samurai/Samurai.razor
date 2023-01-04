@@ -1,0 +1,57 @@
+﻿@page "/samurai"
+@inject ISamurai samurai
+@inject NavigationManager NavManager
+
+<h3>Samurai</h3>
+
+<table>
+    <thead>
+        <tr>
+            <button @onclick="createSamurai">Add Samurai</button>
+        </tr>
+        <tr>
+            <td>FirstName</td>
+            <td>LastName</td>
+            <td>Birthdate</td>
+        </tr>
+    </thead>
+    <tbody>     
+            @foreach (var samurai in samuraiList)
+            {
+                <tr>
+                <td>@samurai.FirstName</td>
+                <td>@samurai.LastName</td>
+                <td>@samurai.Birthdate</td>
+                <td>
+                    <a href="samuraiUpdate/@samurai.ID">Update</a> |
+                    <button @onclick="()=>samuraiDelete(samurai)">Delete</button>
+                </td>
+                </tr>
+   
+            }
+        
+    </tbody>
+</table>
+
+@code {
+    List<SamuraiModel> samuraiList = new();
+    protected override void OnInitialized()
+    { // this is the first method to be run
+      // I want to load in data from repo. Place it in a variable
+
+        samuraiList = samurai.ReadAllSamurais();
+    }
+    public void createSamurai()
+    {
+        // navigate back to another page - NavManager....
+        NavManager.NavigateTo("/SamuraiCreate");
+    }
+    public void samuraiDelete(SamuraiModel samuraiModel)
+    {
+        // I want to delete the horse - how do I do it?
+        samurai.DeleteSamurai(samuraiModel.ID);
+        // If I want to update my page, I have to Navigate to this url again
+        StateHasChanged();
+    }
+
+}

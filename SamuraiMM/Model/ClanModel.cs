@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SamuraiMM.Model
 {
-    internal class ClanModel
+    public class ClanModel
     {
         public int ID { get; set; }
         public string ClanName { get; set; }

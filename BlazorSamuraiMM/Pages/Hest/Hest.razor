@@ -1,8 +1,8 @@
 ﻿@page "/hest"
-@inject IHorse _horse
+@inject IHorse horse
 @inject NavigationManager NavManager
 
-<h3>Heste</h3>
+<h3>Horse</h3>
 
 <table>
     <thead>
@@ -21,7 +21,7 @@
                 <td>@horse.HorseRace</td>
                 <td>@horse.SamuraiID</td>
                 <td>
-                    <a href="EditHorse/@horse.ID">Update</a> |
+                    <a href="hestUpdate/@horse.ID">Update</a> |
                     <button @onclick="()=>horseDelete(horse)">Delete</button>
                 </td>
                 </tr>
@@ -32,24 +32,25 @@
 </table>
 
 @code {
-    List<HorseModel> horsesList = new List<HorseModel>();
+    List<HorseModel> horsesList = new();
     protected override void OnInitialized()
     { // this is the first method to be run
       // I want to load in data from repo. Place it in a variable
 
-        horsesList = _horse.ReadAllHorses(); 
+        horsesList = horse.ReadAllHorses(); 
     }
     public void createHorse()
     {
         // navigate back to another page - NavManager....
         NavManager.NavigateTo("/hestCreate");
     }
-    public void horseDelete(HorseModel horse)
+    public void horseDelete(HorseModel horseModel)
     {
         // I want to delete the horse - how do I do it?
-        _horse.DeleteHorse(horse.ID);
+        horse.DeleteHorse(horseModel.ID);
         // If I want to update my page, I have to Navigate to this url again
         StateHasChanged();
+        NavManager.NavigateTo("/hest");
     }
 
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SamuraiMM.Repo
 {
-    internal class ClanRepo : IClan
+    public class ClanRepo : IClan
     {
         ADOHandler ADO = new();
 

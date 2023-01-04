@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SamuraiMM.Repo
 {
-    internal class BladeRepo : IBlade
+    public class BladeRepo : IBlade
     {
         ADOHandler ADO = new();
 

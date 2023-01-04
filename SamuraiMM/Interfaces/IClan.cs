@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SamuraiMM.Interfaces
 {
-    internal interface IClan
+    public interface IClan
     {
         public void CreateTableClan();
         public void InsertClan(ClanModel clan);
