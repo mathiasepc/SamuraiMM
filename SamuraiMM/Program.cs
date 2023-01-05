@@ -24,6 +24,8 @@ BattlesRepo b = new();
 //b.InsertBattles(m);
 //b.InsertBattles(m2);
 
+//SamuraiRepo s = new();
+
 //s.CreateTableSamurai();
 
 SamuraiModel m3 = new SamuraiModel()
@@ -72,7 +74,7 @@ BattlesSamuariModel m7 = new BattlesSamuariModel()
 
 //sb.CreateTableSamuraiBattles();
 
-SamuraiBattlesRepo s = new();
+//SamuraiBattlesRepo s = new();
 
 //var lam = s.ReadOneSamuraiBattles2(1);
 
@@ -91,24 +93,24 @@ SamuraiBattlesRepo s = new();
 //}
 //Console.WriteLine("Description: " + lam.Description);
 
-var lam = s.ReadAllBattlesAndSamurais();
+//var lam = s.ReadAllBattlesAndSamurais();
 
 
-foreach (var item in lam)
-{
-    foreach (var battles in item.Battles)
-    {
-        Console.WriteLine(battles.EventTitle + " - " + battles.Description);
-    }
+//foreach (var item in lam)
+//{
+//    foreach (var battles in item.Battles)
+//    {
+//        Console.WriteLine(battles.EventTitle + " - " + battles.Description);
+//    }
 
-    foreach (var samurais in item.Samurais)
-    {
-        Console.WriteLine(samurais.FirstName + "  " + samurais.LastName);
-    }
-}
+//    foreach (var samurais in item.Samurais)
+//    {
+//        Console.WriteLine(samurais.FirstName + "  " + samurais.LastName);
+//    }
+//}
 
-//HorseRepo h = new();
-//h.CreateTableHorse();
+HorseRepo h = new();
+h.CreateTableHorse();
 
 //HorseModel h1 = new()
 //{
