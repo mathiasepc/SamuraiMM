@@ -31,7 +31,17 @@
     }
     public void updateBattle()
     {
-        battle.UpdateBattle(battleModel);
-        NavigationManager.NavigateTo("battle");
+        try
+        {
+            battle.UpdateBattle(battleModel);
+            NavigationManager.NavigateTo("battle");
+        }
+        catch
+        {
+            string infostring = "DateTime must be between 1/1/1753 and 12/31/9999";
+            string currentModel = "Battle Model";
+            string url = "battleUpdate";
+            NavigationManager.NavigateTo($"/errorIDPage/{url}/{CurrentId}/{currentModel}/{infostring}");
+        }
     }
 }

@@ -46,7 +46,7 @@
     public void createBattle()
     {
         // navigate back to another page - NavManager....
-        NavManager.NavigateTo("/hestCreate");
+        NavManager.NavigateTo("/battleCreate");
     }
     public void battleDelete(BattleModel battleModel)
     {
@@ -54,7 +54,7 @@
         battle.DeleteBattle(battleModel.ID);
         // If I want to update my page, I have to Navigate to this url again
         StateHasChanged();
-        NavManager.NavigateTo("/hest");
+        NavManager.NavigateTo("/battle");
     }
 
 }

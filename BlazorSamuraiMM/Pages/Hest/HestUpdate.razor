@@ -36,9 +36,10 @@
         }
         catch
         {
+            string infostring = $"{(horseModel.SamuraiID).ToString()} is not an existent Samurai ID";
             string currentModel = "Horse Model";
             string url = "hestUpdate";
-            NavigationManager.NavigateTo($"/errorIDPage/{url}/{CurrentId}/{currentModel}");
+            NavigationManager.NavigateTo($"/errorIDPage/{url}/{CurrentId}/{currentModel}/{infostring}");
         }
     }
 }

@@ -83,7 +83,7 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //Laver en SQLCommando for at update databasen og indsætter sqlConnection
-                SqlCommand commandChange = new($"UPDATE Battle SET EventTitle = '{Battle.EventTitle}', Description = '{Battle.Description}',EventStartDate = @f3, EventSlutDate = @f4, Where ID = {Battle.ID}", sqlConnection);
+                SqlCommand commandChange = new($"UPDATE Battle SET EventTitle = '{Battle.EventTitle}', Description = '{Battle.Description}',EventStartDate = @f3, EventSlutDate = @f4 Where ID = {Battle.ID}", sqlConnection);
 
                 //Da database ikke kan forstå datetime, parse vi den ind i en variable for sig.
                 commandChange.Parameters.AddWithValue("@f3", Battle.EventStartDate);

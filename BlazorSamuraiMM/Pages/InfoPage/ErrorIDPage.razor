@@ -1,11 +1,11 @@
 ﻿@inject NavigationManager NavManager
-@page "/errorIDPage/{url}/{CurrentId}/{CurrentModel}"
+@page "/errorIDPage/{url}/{CurrentId}/{CurrentModel}/{infostring}"
 
 <h3>Something went wrong</h3>
 
 <tr>
     <td>
-        Input on @CurrentModel was wrong
+        @CurrentModel input error: "@infostring". Try again.
     </td>
 </tr>
 <button @onclick="@Back">Back</button>
@@ -17,6 +17,8 @@
     public string url { get; set; }
     [Parameter]
     public string CurrentId { get; set; }
+    [Parameter]
+    public string infostring { get; set; }
 
 
     public void Back()
