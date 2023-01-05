@@ -111,7 +111,7 @@ BattleSamuraiModel m7 = new BattleSamuraiModel()
 //}
 
 HorseRepo h = new();
-//h.CreateTableHorse();
+h.CreateTableHorse();
 
 //HorseModel h1 = new()
 //{
@@ -140,5 +140,5 @@ BladeRepo blade = new();
 
 ClanRepo cl = new();
 
-cl.CreateTableClan();
+//cl.CreateTableClan();
 
