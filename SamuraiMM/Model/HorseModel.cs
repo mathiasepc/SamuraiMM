@@ -21,7 +21,7 @@ namespace SamuraiMM.Model
         [StringLength(50, ErrorMessage = "Horse race is too long.")]
         public string? HorseRace { get; set; }
         //Laver en range for Int 1 - max int value
-        [Range(1, int.MaxValue, ErrorMessage = "Please enter a SamuraiID. Cant be 0")]
+        [Range(1, int.MaxValue, ErrorMessage = "Please enter a SamuraiID. Cant be 0.")]
         public int SamuraiID { get; set; }
     }
 }

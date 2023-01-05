@@ -110,8 +110,6 @@ BattleSamuraiModel m7 = new BattleSamuraiModel()
 //    }
 //}
 
-HorseRepo h = new();
-h.CreateTableHorse();
 
 //HorseModel h1 = new()
 //{
@@ -124,21 +122,28 @@ h.CreateTableHorse();
 
 SamuraiRepo sam = new();
 HorseRepo hor = new();
-
-//hor.CreateTableHorse();
-//sam.CreateTableSamurai();
-
-
+SamuraiBattlesRepo s = new();
 QuotesRepo q = new();
-
-//q.CreateTableQuote();
-
-
 BladeRepo blade = new();
-
-//blade.CreateTableBlade();
 
 ClanRepo cl = new();
 
+//sam.CreateTableSamurai();
+//Console.ReadKey();
+//hor.CreateTableHorse();
+//q.CreateTableQuote();
+//blade.CreateTableBlade();
 //cl.CreateTableClan();
+//b.CreateTableBattles();
+
+//s.CreateTableSamuraiBattles();
+
+
+
+
+
+
+
+
+
 
