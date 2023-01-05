@@ -160,7 +160,7 @@ namespace SamuraiMM.Repo
                 sam.Horse = new HorseModel()
                 {
                     ID = Convert.ToInt32(reader["ID"]),
-                    FirstName = reader["Name"].ToString(),
+                    Name = reader["Name"].ToString(),
                     SamuraiID = Convert.ToInt32(reader["SamuraiId"])
                 };
 

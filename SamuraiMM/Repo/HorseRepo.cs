@@ -22,7 +22,7 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //Fortæller hvad den skal gøre i SQL
-                SqlCommand command = new SqlCommand($"CREATE TABLE Horse(ID int Identity(1,1) Primary Key, FirstName nvarchar(50), HorseRace nvarchar(50), SamuraiID int Foreign KEY references Samurai(ID)); ", sqlConnection);
+                SqlCommand command = new SqlCommand($"CREATE TABLE Horse(ID int Identity(1,1) Primary Key, Name nvarchar(50), HorseRace nvarchar(50), SamuraiID int Foreign KEY references Samurai(ID)); ", sqlConnection);
 
                 //opretter tablen
                 command.ExecuteNonQuery();
@@ -42,7 +42,7 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //istansiere SqlCommand klassen og indsætter i databasen
-                SqlCommand sqlCommand = new($"INSERT INTO Horse (FirstName, SamuraiID, HorseRace) values('{horse.FirstName}', '{horse.SamuraiID}', '{horse.HorseRace}')", sqlConnection);
+                SqlCommand sqlCommand = new($"INSERT INTO Horse (Name, SamuraiID, HorseRace) values('{horse.Name}', '{horse.SamuraiID}', '{horse.HorseRace}')", sqlConnection);
 
 
                 //sender til min database
@@ -59,9 +59,9 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //istansiere SqlCommand klassen og indsætter i databasen
-                SqlCommand sqlCommand = new($"INSERT INTO Horse (FirstName, SamuraiID, HorseRace) values(@f1, @f2, @f3)", sqlConnection);
+                SqlCommand sqlCommand = new($"INSERT INTO Horse (Name, SamuraiID, HorseRace) values(@f1, @f2, @f3)", sqlConnection);
 
-                sqlCommand.Parameters.AddWithValue("@f1", horse.FirstName);
+                sqlCommand.Parameters.AddWithValue("@f1", horse.Name);
                 sqlCommand.Parameters.AddWithValue("@f2", horse.SamuraiID);
                 sqlCommand.Parameters.AddWithValue("@f3", horse.HorseRace);
 
@@ -107,7 +107,7 @@ namespace SamuraiMM.Repo
                     sqlConnection.Open();
 
                     //Laver en SQLCommando for at update databasen og indsætter sqlConnection
-                    SqlCommand commandChange = new($"UPDATE Horse SET FirstName = '{horse.FirstName}', SamuraiId = '{horse.SamuraiID}', HorseRace = '{horse.HorseRace}' Where ID = {horse.ID}", sqlConnection);
+                    SqlCommand commandChange = new($"UPDATE Horse SET Name = '{horse.Name}', SamuraiId = '{horse.SamuraiID}', HorseRace = '{horse.HorseRace}' Where ID = {horse.ID}", sqlConnection);
 
                     //eksekver
                     commandChange.ExecuteNonQuery();
@@ -135,7 +135,7 @@ namespace SamuraiMM.Repo
 
                 //de forskellige værdier fra databasen
                 hor.ID = Convert.ToInt32(reader["id"]);
-                hor.FirstName = reader["FirstName"].ToString();
+                hor.Name = reader["Name"].ToString();
                 hor.HorseRace = reader["HorseRace"].ToString();
 
                 //returner den nye model
@@ -162,7 +162,7 @@ namespace SamuraiMM.Repo
                 while (reader.Read())
                 {
                     //laver en midlertidig model for at kunne overfører den ene person til vores List
-                    HorseModel horseTemp = new HorseModel() { ID = reader.GetInt32(0), FirstName = reader.GetString(1), HorseRace = reader.GetString(2), SamuraiID = reader.GetInt32(3) };
+                    HorseModel horseTemp = new HorseModel() { ID = reader.GetInt32(0), Name = reader.GetString(1), HorseRace = reader.GetString(2), SamuraiID = reader.GetInt32(3) };
 
                     //overfører den ene person til List
                     allHorses.Add(horseTemp);

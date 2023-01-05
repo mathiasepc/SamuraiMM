@@ -9,7 +9,7 @@ namespace SamuraiMM.Model
     public class HorseModel
     {
         public int ID { get; set; }
-        public string FirstName { get; set; }
+        public string Name { get; set; }
         public string HorseRace { get; set; }
         public int SamuraiID { get; set; }
     }
