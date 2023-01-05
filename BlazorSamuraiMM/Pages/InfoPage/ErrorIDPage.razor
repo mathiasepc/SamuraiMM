@@ -1,0 +1,30 @@
+﻿@inject NavigationManager NavManager
+@page "/errorIDPage/{url}/{CurrentModel}"
+
+<h3>Something went wrong</h3>
+
+<tr>
+    <td>
+        Input on @CurrentModel was wrong
+    </td>
+</tr>
+<button @onclick="@Back"></button>
+
+@code {
+    [Parameter]
+    public string CurrentModel { get; set; }
+    [Parameter]
+    public string url { get; set; }
+
+
+    public void Back()
+    {
+        NavManager.NavigateTo($"/{url}");
+    }
+
+    //public override void ModelName()
+    //{
+    //    CurrentModel = ChangeName();
+    //}
+    //public object 
+}

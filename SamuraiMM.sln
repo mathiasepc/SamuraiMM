@@ -5,7 +5,7 @@ VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SamuraiMM", "SamuraiMM\SamuraiMM.csproj", "{AA9B6D48-F889-4CE9-AE8E-B50CA2978615}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorSamuraiMM", "BlazorSamuraiMM\BlazorSamuraiMM.csproj", "{4F28F505-C3E7-4E86-BB7D-BBB32DE57F2F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorSamuraiMM", "BlazorSamuraiMM\BlazorSamuraiMM.csproj", "{4F28F505-C3E7-4E86-BB7D-BBB32DE57F2F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
