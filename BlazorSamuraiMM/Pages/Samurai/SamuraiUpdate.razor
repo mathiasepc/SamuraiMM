@@ -6,11 +6,11 @@
 <form>
     <div class="row">
         <div class="col-md-8">
-        <label>FirstName</label>
+            <label>FirstName</label>
             <input class="form-control" @bind="samuraiModel.FirstName" />
-        <label>LastName</label>
+            <label>LastName</label>
             <input class="form-control" @bind="samuraiModel.LastName" />
-        <label>Birthdate</label>
+            <label>Birthdate</label>
             <input class="form-control" @bind="samuraiModel.Birthdate" />
         </div>
     </div>
@@ -29,7 +29,17 @@
     }
     public void updateSamurai()
     {
-        samurai.UpdateSamurai(samuraiModel);
-        NavigationManager.NavigateTo("samurai");
+        try
+        {
+            samurai.UpdateSamurai(samuraiModel);
+            NavigationManager.NavigateTo("samurai");
+        }
+        catch
+        {
+            string infostring = "DateTime must be between Year 1753 and 9999";
+            string currentModel = "Samurai Model";
+            string url = "samuraiUpdate";
+            NavigationManager.NavigateTo($"/errorIDPage/{url}/{CurrentId}/{currentModel}/{infostring}");
+        }
     }
 }

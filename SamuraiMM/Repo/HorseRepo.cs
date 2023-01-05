@@ -99,24 +99,20 @@ namespace SamuraiMM.Repo
             SamuraiRepo a = new();
             var b = a.ReadAllSamurais();
 
-            foreach(var item in b)
+            foreach (var item in b)
             {
-                if (horse.SamuraiID == item.ID)
+                using (SqlConnection sqlConnection = new(ADO.ConnectionString))
                 {
-                    using (SqlConnection sqlConnection = new(ADO.ConnectionString))
-                    {
-                        //åbner vejen
-                        sqlConnection.Open();
+                    //åbner vejen
+                    sqlConnection.Open();
 
-                        //Laver en SQLCommando for at update databasen og indsætter sqlConnection
-                        SqlCommand commandChange = new($"UPDATE Horse SET FirstName = '{horse.FirstName}', SamuraiId = '{horse.SamuraiID}', HorseRace = '{horse.HorseRace}' Where ID = {horse.ID}", sqlConnection);
+                    //Laver en SQLCommando for at update databasen og indsætter sqlConnection
+                    SqlCommand commandChange = new($"UPDATE Horse SET FirstName = '{horse.FirstName}', SamuraiId = '{horse.SamuraiID}', HorseRace = '{horse.HorseRace}' Where ID = {horse.ID}", sqlConnection);
 
-                        //eksekver
-                        commandChange.ExecuteNonQuery();
-                    }
-
+                    //eksekver
+                    commandChange.ExecuteNonQuery();
                 }
-            }        
+            }
         }
 
         public HorseModel ReadOneHorse(int horseID)
@@ -166,7 +162,7 @@ namespace SamuraiMM.Repo
                 while (reader.Read())
                 {
                     //laver en midlertidig model for at kunne overfører den ene person til vores List
-                    HorseModel horseTemp = new HorseModel() { ID = reader.GetInt32(0), FirstName = reader.GetString(1), HorseRace = reader.GetString(2), SamuraiID = reader.GetInt32(3)};
+                    HorseModel horseTemp = new HorseModel() { ID = reader.GetInt32(0), FirstName = reader.GetString(1), HorseRace = reader.GetString(2), SamuraiID = reader.GetInt32(3) };
 
                     //overfører den ene person til List
                     allHorses.Add(horseTemp);

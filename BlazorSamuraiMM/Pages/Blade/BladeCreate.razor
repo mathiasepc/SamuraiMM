@@ -5,13 +5,13 @@
 <h3>Create A Blade</h3>
 <EditForm Model="@bladeModel" OnValidSubmit="CreateBlade">
     <div class="form-control">
-        FirstName <input type="text" @bind="bladeModel.Name" />
+        Name <input type="text" @bind="bladeModel.Name" />
     </div>
     <div class="form-control">
-        LastName <input type="text" @bind="bladeModel.Description" />
+        Description <input type="text" @bind="bladeModel.Description" />
     </div>
     <div class="form-control">
-        Birthdate <input type="text" @bind="bladeModel.SamuraiID" />
+        SamuraiID <input type="text" @bind="bladeModel.SamuraiID" />
     </div>
     <button type="submit">Confirm</button>
     

@@ -1,4 +1,4 @@
-﻿@page "/hest"
+﻿@page "/horse"
 @inject IHorse horse
 @inject NavigationManager NavManager
 
@@ -21,7 +21,7 @@
                 <td>@horse.HorseRace</td>
                 <td>@horse.SamuraiID</td>
                 <td>
-                    <a href="hestUpdate/@horse.ID">Update</a> |
+                    <a href="horseUpdate/@horse.ID">Update</a> |
                     <button @onclick="()=>horseDelete(horse)">Delete</button>
                 </td>
                 </tr>
@@ -42,7 +42,7 @@
     public void createHorse()
     {
         // navigate back to another page - NavManager....
-        NavManager.NavigateTo("/hestCreate");
+        NavManager.NavigateTo("/horseCreate");
     }
     public void horseDelete(HorseModel horseModel)
     {
@@ -50,7 +50,7 @@
         horse.DeleteHorse(horseModel.ID);
         // If I want to update my page, I have to Navigate to this url again
         StateHasChanged();
-        NavManager.NavigateTo("/hest");
+        NavManager.NavigateTo("/horse");
     }
 
 }

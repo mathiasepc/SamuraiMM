@@ -1,0 +1,28 @@
+﻿@inject NavigationManager NavManager
+@page "/errorIDPage/{url}/{CurrentId}/{CurrentModel}/{infostring}"
+
+<h3>Something went wrong</h3>
+
+<tr>
+    <td>
+        @CurrentModel input error: "@infostring". Try again.
+    </td>
+</tr>
+<button @onclick="@Back">Back</button>
+
+@code {
+    [Parameter]
+    public string CurrentModel { get; set; }
+    [Parameter]
+    public string url { get; set; }
+    [Parameter]
+    public string CurrentId { get; set; }
+    [Parameter]
+    public string infostring { get; set; }
+
+
+    public void Back()
+    {
+        NavManager.NavigateTo($"/{url}/{CurrentId}");
+    }
+}

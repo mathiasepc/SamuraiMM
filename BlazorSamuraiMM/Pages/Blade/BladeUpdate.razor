@@ -6,11 +6,11 @@
 <form>
     <div class="row">
         <div class="col-md-8">
-        <label>FirstName</label>
+        <label>Name</label>
             <input class="form-control" @bind="bladeModel.Name" />
-        <label>LastName</label>
+        <label>Description</label>
             <input class="form-control" @bind="bladeModel.Description" />
-        <label>Birthdate</label>
+        <label>SamuraiID</label>
             <input class="form-control" @bind="bladeModel.SamuraiID" />
         </div>
     </div>
@@ -29,7 +29,17 @@
     }
     public void UpdateBlade()
     {
-        blade.UpdateBlade(bladeModel);
-        NavigationManager.NavigateTo("samurai");
+        try
+        {
+            blade.UpdateBlade(bladeModel);
+            NavigationManager.NavigateTo("blade");
+        }
+        catch
+        {
+            string infostring = $"{(bladeModel.SamuraiID).ToString()} is not an existent Samurai ID";
+            string currentModel = "Blade Model";
+            string url = "bladeUpdate";
+            NavigationManager.NavigateTo($"/errorIDPage/{url}/{CurrentId}/{currentModel}/{infostring}");
+        }
     }
 }

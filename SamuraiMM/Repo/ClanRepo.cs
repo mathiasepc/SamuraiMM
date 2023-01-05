@@ -40,7 +40,7 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //istansiere SqlCommand klassen og indsætter i databasen
-                SqlCommand sqlCommand = new($"INSERT INTO Clan (ID, ClanName, SamuraiID) values('{clan.ClanName}', '{clan.SamuraiID}')", sqlConnection);
+                SqlCommand sqlCommand = new($"INSERT INTO Clan (ClanName, SamuraiID) values('{clan.ClanName}', '{clan.SamuraiID}')", sqlConnection);
 
                 //sender til min database
                 sqlCommand.ExecuteNonQuery();
@@ -79,7 +79,7 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //Laver en SQLCommando for at update databasen og indsætter sqlConnection
-                SqlCommand commandChange = new($"UPDATE Clan SET FirstName = '{clan.ClanName}', SamuraiId = {clan.SamuraiID} Where ID = {clan.ID}", sqlConnection);
+                SqlCommand commandChange = new($"UPDATE Clan SET ClanName = '{clan.ClanName}', SamuraiId = {clan.SamuraiID} Where ID = {clan.ID}", sqlConnection);
 
                 //eksekver
                 commandChange.ExecuteNonQuery();
@@ -93,7 +93,7 @@ namespace SamuraiMM.Repo
                 con.Open();
 
                 //laver en sql commando
-                SqlCommand cmd = new SqlCommand($"select * from Blade where id={clanID}", con);
+                SqlCommand cmd = new SqlCommand($"select * from Clan where id={clanID}", con);
 
                 //vi bruger SqlDataReader for at kunne læse data'en fra databasen hvor vi indsætter vores commando
                 SqlDataReader reader = cmd.ExecuteReader();

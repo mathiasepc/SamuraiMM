@@ -24,6 +24,8 @@ BattlesRepo b = new();
 //b.InsertBattles(m);
 //b.InsertBattles(m2);
 
+//SamuraiRepo s = new();
+
 //s.CreateTableSamurai();
 
 SamuraiModel m3 = new SamuraiModel()
@@ -73,7 +75,7 @@ BattleSamuraiModel m7 = new BattleSamuraiModel()
 
 //sb.CreateTableSamuraiBattles();
 
-SamuraiBattlesRepo s = new();
+//SamuraiBattlesRepo s = new();
 
 //var lam = s.ReadOneSamuraiBattles2(1);
 
@@ -108,7 +110,7 @@ SamuraiBattlesRepo s = new();
 //    }
 //}
 
-//HorseRepo h = new();
+HorseRepo h = new();
 //h.CreateTableHorse();
 
 //HorseModel h1 = new()
@@ -129,5 +131,14 @@ HorseRepo hor = new();
 
 QuotesRepo q = new();
 
-q.CreateTableQuote();
+//q.CreateTableQuote();
+
+
+BladeRepo blade = new();
+
+//blade.CreateTableBlade();
+
+ClanRepo cl = new();
+
+cl.CreateTableClan();
 

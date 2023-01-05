@@ -15,7 +15,7 @@ namespace BlazorSamuraiMM
             // Add services to the container.
             builder.Services.AddRazorPages();
             builder.Services.AddServerSideBlazor();
-            builder.Services.AddSingleton<WeatherForecastService>();
+            //builder.Services.AddSingleton<WeatherForecastService>();
 
             // når du møder et interface så map det til et repo...
             builder.Services.AddScoped<IHorse, HorseRepo>();
