@@ -1,11 +1,13 @@
-﻿@page "/horseCreate"
+﻿@page "/hestCreate"
 @inject IHorse horse
 @inject NavigationManager NavManager
 
 <h3>Create A Horse</h3>
 <EditForm Model="@horseModel" OnValidSubmit="CreateHorse">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
     <div class="form-control">
-        FirstName <input type="text" @bind="horseModel.Name" />
+        FirstName <input type="text" @bind="horseModel.FirstName" />
     </div>
     <div class="form-control">
         HorseRace <input type="text" @bind="horseModel.HorseRace" />
@@ -14,7 +16,7 @@
         SamuraiID <input type="text" @bind="horseModel.SamuraiID" />
     </div>
     <button type="submit">Confirm</button>
-
+    
 </EditForm>
 <button @onclick="Back">Back</button>
 
@@ -22,7 +24,7 @@
     public void Back()
     {
         // navigate back to another page - NavManager....
-        NavManager.NavigateTo("/horse");
+        NavManager.NavigateTo("/hest");
     }
 
     // maybe need an object with all the data
@@ -30,8 +32,19 @@
     // here we need a create method
     public void CreateHorse()
     {
-        horse.InsertHorse(horseModel);
-        NavManager.NavigateTo("horse");
+        try
+        {
+            horse.InsertHorse(horseModel);
+            NavManager.NavigateTo("hest");
+        }
+        catch
+        {
+            string infostring = $"{(horseModel.SamuraiID).ToString()} is not an existent Samurai ID";
+            string currentModel = "Horse Model";
+            string CurrentId = " ";
+            string url = "hestCreate";
+            NavManager.NavigateTo($"/errorIDPage/{url}/{CurrentId}/{currentModel}/{infostring}");
+        }
     }
     // we can make a navigate back button
 }
