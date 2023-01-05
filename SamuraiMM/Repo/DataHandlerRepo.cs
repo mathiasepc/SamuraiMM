@@ -1,117 +1,186 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace SamuraiMM.Repo
 {
-    public class DataHandler : IDataHandler
+    internal class DataHandlerRepo : IDataHandler
     {
         //opretter klassen med connectionString
-        ADOHandler ado = new();
+        ADOHandler ADO = new();
+
+        SqlCommand Command = new();
+
+        //laver mine globale variabler
+        string ColumNamesBuild = string.Empty;
+        string Injection = string.Empty;
+        /*Da injection skal være en ny injection hver gang. 
+              Laver jeg en counter, så den skifter navn.*/
+        int InjectionCounter = 0;
 
         /// <summary>
-        /// Opretter tabellen
+        /// Laver en dynamisk insert for alle CRUD
         /// </summary>
-        public void CreateDataBase()
+        /// <param name="model"></param>
+        public void FilterData(object model)
         {
-            using (SqlConnection sqlConnection = new(ado.ConnectionString))
+            using (SqlConnection connection = new(ADO.ConnectionString))
             {
-                sqlConnection.Open();
+                //reseter data
+                ResetData();
 
-                SqlCommand sqlCommand = new("CREATE TABLE DataModel(ID int, FirstName nvarchar(50), LastName nvarchar(50), HorsesSamuraiID int, SamuraiID int) ", sqlConnection);
+                connection.Open();
 
-                sqlCommand.ExecuteNonQuery();
-            }
-        }
+                //istansiere en variable som får navnet på modellen
+                var entityName = model.GetType().Name;
+                //fjerne model fra navnet så den macther entity.
+                entityName = entityName[..^5];
 
-        public void FilterInsertADOModel2(object model)
-        {
-            var temp = model;
-            //string SQL = $"INSERT INTO {model.GetType().Name}(test) values('{test2}')";
-            foreach (var item in model.GetType().GetProperties())
-            {
-                var test = item;
-                var test2 = item.GetValue(model);
-                //var propperty = model.GetType().GetProperty($"{test}").GetValue(model);
-            }
-
-            //{((SamuraiModel)model).Firstname}')";
-
-            //string SQL = $"INSERT INTO Horse(Firstname) values('{((HorseModel)model).Firstname}')";
-        }
-        /// <summary>
-        /// laver en metode som filter input
-        /// </summary>
-        /// <param name="samuraiModel"></param>
-        /// <param name="horseModel"></param>
-        public void FilterInsertADOModel(SamuraiModel samuraiModel, HorseModel horseModel, int ID)
-        {
-            //tjekker indput
-            if (samuraiModel != null)
-            {
-                //indsætter data i mit objekt
-                DataHandlerModel adoM = new()
+                //går igennem objektet med data
+                foreach (var item in model.GetType().GetProperties())
                 {
-                    SamuraiID = samuraiModel.ID,
-                    FirstName = samuraiModel.FirstName,
-                    LastName = samuraiModel.LastName,
-                    ID = ID
-                };
-                //overfører data til at kunne indsætte
-                InsertIntoADODatabase(adoM);
-            }
-            else/*Måske smartere at bruge if? spørg flemming*/
-            {
-                //indsætter data i mit objekt
-                DataHandlerModel adoM = new()
-                {
-                    HorseID = horseModel.ID,
-                    FirstName = horseModel.FirstName,
-                    HorsesSamuraiID = horseModel.SamuraiID,
-                    ID = ID
-                };
-                //overfører data til at kunne indsætte
-                InsertIntoADODatabase(adoM);
+                    //min tjekker for id. Bruger .Name for at få navnet på kolonnen
+                    bool resultIDCheck = CheckID(item.Name);
+
+                    //Tilføj. Bruger .Name for ikke at få, feks., "Int32 ID" Men "ID".
+                    //columNamesBuild += $"{item.Name},";
+
+                    //hvis ikke det er ID. kør
+                    if (resultIDCheck == true)
+                    {
+                        //henter typen af data udfra objectet(model) for at finde ud af om det er en string
+                        if (item.GetValue(model) is string)
+                        {
+                            //Tilføj. Bruger .Name for ikke at få, feks., "Int32 ID" Men "ID".
+                            ColumNamesBuild += $"{item.Name},";
+
+                            SetStringDataSamurai($"{item.GetValue(model)}");
+                        }
+                        if (item.GetValue(model) is DateTime)
+                        {
+                            //Tilføj. Bruger .Name for ikke at få, feks., "Int32 ID" Men "ID".
+                            ColumNamesBuild += $"{item.Name},";
+
+                            var tempDate = (DateTime)item.GetValue(model);
+
+                            SetDateTimeDataSamurai(tempDate);
+                        }
+                        //if (item.GetValue(model) is ICollection)
+                        //{
+                        //    //Tilføj. Bruger .Name for ikke at få, feks., "Int32 ID" Men "ID".
+                        //    ColumNamesBuild += $"{item.Name},";
+
+                        //    var samuraiModel = new SamuraiModel();
+
+                        //    SqlDataReader reader = Command.ExecuteReader();
+
+                        //    while (reader.Read())
+                        //    {
+
+
+                        //    }
+
+                        //    //bygger min undgå sqlInjection ordenligt op
+                        //    Injection += $"@{InjectionCounter},";
+                        //    //for at min injection er forskellige stiger den med 1
+                        //    InjectionCounter++;
+                        //}
+                    }
+                }
+                //kalder indsæt data metoden
+                InsertData(ColumNamesBuild, Injection, entityName, connection);
             }
         }
+
         /// <summary>
-        /// Metoden som indsætter i databasen Bliver kaldt af FilterInsertADOModel()
+        /// Laver en metode som indsætter i min database
         /// </summary>
-        /// <param name="inserDataInDataModel"></param>
-        public void InsertIntoADODatabase(DataHandlerModel inserDataInDataModel)
+        /// <param name="columNamesBuild"></param>
+        /// <param name="injection"></param>
+        /// <param name="entityName"></param>
+        /// <param name="connection"></param>
+        public void InsertData(string columNamesBuild, string injection, string entityName, SqlConnection connection)
         {
-            using (SqlConnection sqlConnection = new(ado.ConnectionString))
-            {
-                sqlConnection.Open();
+            //fjerner det sidste komma i mine strings. Den kan ikke slutte på et komma.
+            string columNames = columNamesBuild.Remove(columNamesBuild.Length - 1);
+            string values = injection.Remove(injection.Length - 1);
 
-                SqlCommand sqlCommand = new($"INSERT INTO DataModel(ID, Firstname, Lastname, SamuraiID, HorseID) values('{inserDataInDataModel.ID}', '{inserDataInDataModel.FirstName}', '{inserDataInDataModel.LastName}', '{inserDataInDataModel.SamuraiID}', '{inserDataInDataModel.HorsesSamuraiID}')", sqlConnection);
+            //Klargør min commando string
+            string command = new($"INSERT INTO {entityName}({columNames}) values({values.ToString()})");
 
-                sqlCommand.ExecuteNonQuery();
-            }
+            //indsætter min commando string
+            Command.CommandText = command;
+            Command.Connection = connection;
+
+            Command.ExecuteNonQuery();
         }
 
-        public void DeleteADODatabase(int DatabaseID)
+        /// <summary>
+        /// Laver en metode som Conventere DateTime og undgår sqlinjection
+        /// </summary>
+        /// <param name="item"></param>
+        public void SetDateTimeDataSamurai(DateTime item)
         {
-            using (SqlConnection sqlConnection = new(ado.ConnectionString))
-            {
-                sqlConnection.Open();
+            //Tilføj. får valuen ud af propperties med .GetValue()
+            DateTime value = Convert.ToDateTime(item);
 
-                //gør klar commandoSting klar til at kunne slette
-                string sqlCommand = new($"Delete From DataModel where ID='{DatabaseID}'");
+            //undgår SQL injection for data
+            Command.Parameters.AddWithValue($"@{InjectionCounter}", value);
 
-                //Gør klar til sletning
-                SqlDataAdapter sqlDataAdapter = new();
+            //bygger min undgå sqlInjection ordenligt op
+            Injection += $"@{InjectionCounter},";
+            //for at min injection er forskellige stiger den med 1
+            InjectionCounter++;
+        }
 
-                //putter min sql commandoString og connectionstring i deleteCommand
-                sqlDataAdapter.DeleteCommand = new(sqlCommand, sqlConnection);
+        /// <summary>
+        /// Laver en metode som undgår sqlinjection på strings
+        /// </summary>
+        /// <param name="value"></param>
+        public void SetStringDataSamurai(string value)
+        {
+            //undgår SQL injection for data
+            Command.Parameters.AddWithValue($"@{InjectionCounter}", value);
 
-                //eksekverer commandoen og sletter rækken.
-                sqlDataAdapter.DeleteCommand.ExecuteNonQuery();
-            }
+            //bygger min undgå sqlInjection ordenligt op
+            Injection += $"@{InjectionCounter},";
+            //for at min injection er forskellige stiger den med 1
+            InjectionCounter++;
+        }
+
+        /// <summary>
+        /// laver en checker for det data vi skal arbejde med.
+        /// Data'en må ikke være ID da den er quto increment.
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        public bool CheckID(object item)
+        {
+            //Hvis ikke det er ID skal den være true
+            bool answerID = true;
+
+            //laver en if for hvis det id så det kan være false ellers true
+            if (item.ToString() == "ID") { answerID = false; }
+            else { answerID = true; }
+
+            return answerID;
+        }
+
+        /// <summary>
+        /// Laver en metode som reseter min data
+        /// </summary>
+        public void ResetData()
+        {
+            ColumNamesBuild = string.Empty;
+            Injection = string.Empty;
+            Command = new();
         }
     }
 }

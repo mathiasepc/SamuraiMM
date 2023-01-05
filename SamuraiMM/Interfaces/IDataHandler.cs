@@ -8,7 +8,6 @@ namespace SamuraiMM.Interfaces
 {
     public interface IDataHandler
     {
-        public void CreateDataBase();
-        public void DeleteADODatabase(int DatabaseID);
+        public void FilterData(object model);
     }
 }
