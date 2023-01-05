@@ -1,5 +1,5 @@
 ﻿@inject NavigationManager NavManager
-@page "/errorIDPage/{url}/{CurrentModel}"
+@page "/errorIDPage/{url}/{CurrentId}/{CurrentModel}"
 
 <h3>Something went wrong</h3>
 
@@ -8,18 +8,20 @@
         Input on @CurrentModel was wrong
     </td>
 </tr>
-<button @onclick="@Back"></button>
+<button @onclick="@Back">Back</button>
 
 @code {
     [Parameter]
     public string CurrentModel { get; set; }
     [Parameter]
     public string url { get; set; }
+    [Parameter]
+    public string CurrentId { get; set; }
 
 
     public void Back()
     {
-        NavManager.NavigateTo($"/{url}");
+        NavManager.NavigateTo($"/{url}/{CurrentId}");
     }
 
     //public override void ModelName()
