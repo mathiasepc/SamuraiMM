@@ -1,0 +1,35 @@
+﻿@page "/samuraiUpdate/{CurrentId}"
+@inject ISamurai samurai
+@inject NavigationManager NavigationManager
+
+<h3>Update Samurai</h3>
+<form>
+    <div class="row">
+        <div class="col-md-8">
+        <label>FirstName</label>
+            <input class="form-control" @bind="samuraiModel.FirstName" />
+        <label>LastName</label>
+            <input class="form-control" @bind="samuraiModel.LastName" />
+        <label>Birthdate</label>
+            <input class="form-control" @bind="samuraiModel.Birthdate" />
+        </div>
+    </div>
+    <div class="row">
+        <input type="button" @onclick="@updateSamurai" class="btn btn-primary" value="Save" />
+    </div>
+</form>
+@code {
+    [Parameter]
+    public string CurrentId { get; set; }
+
+    SamuraiModel samuraiModel = new();
+    protected override void OnInitialized()
+    {
+        samuraiModel = samurai.ReadOneSamurai(Convert.ToInt32(CurrentId));
+    }
+    public void updateSamurai()
+    {
+        samurai.UpdateSamurai(samuraiModel);
+        NavigationManager.NavigateTo("samurai");
+    }
+}

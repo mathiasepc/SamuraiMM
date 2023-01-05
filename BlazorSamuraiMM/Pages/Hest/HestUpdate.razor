@@ -1,18 +1,17 @@
-﻿@page "/EditHorse/{CurrentId}"
-@*@inject HorseRepo horseRepo*@
-@inject IHorse horsetest
+﻿@page "/hestUpdate/{CurrentId}"
+@inject IHorse horse
 @inject NavigationManager NavigationManager
 
-<h3>TestUpdate</h3>
+<h3>Update Horse</h3>
 <form>
     <div class="row">
         <div class="col-md-8">
         <label>Name</label>
-        <input class="form-control" @bind="horse.FirstName" />
+            <input class="form-control" @bind="horseModel.FirstName" />
         <label>HorseRace</label>
-        <input class="form-control" @bind="horse.HorseRace" />
+            <input class="form-control" @bind="horseModel.HorseRace" />
         <label>SamuraiId</label>
-        <input class="form-control" @bind="horse.SamuraiID" />
+            <input class="form-control" @bind="horseModel.SamuraiID" />
         </div>
     </div>
     <div class="row">
@@ -23,14 +22,14 @@
     [Parameter]
     public string CurrentId { get; set; }
 
-    HorseModel horse = new HorseModel();
+    HorseModel horseModel = new();
     protected override void OnInitialized()
     {
-        horse = horsetest.ReadOneHorse(Convert.ToInt32(CurrentId));
+        horseModel = horse.ReadOneHorse(Convert.ToInt32(CurrentId));
     }
     public void updateHorse()
     {
-        horsetest.UpdateHorse(horse);
+        horse.UpdateHorse(horseModel);
         NavigationManager.NavigateTo("hest");
     }
 }

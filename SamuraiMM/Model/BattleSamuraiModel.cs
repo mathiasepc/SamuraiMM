@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SamuraiMM.Model
 {
-    internal class BattlesSamuariModel
+    public class BattleSamuraiModel
     {
         public int ID { get; set; }
 

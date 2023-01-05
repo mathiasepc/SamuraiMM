@@ -19,6 +19,13 @@ namespace BlazorSamuraiMM
 
             // når du møder et interface så map det til et repo...
             builder.Services.AddScoped<IHorse, HorseRepo>();
+            builder.Services.AddScoped<ISamurai, SamuraiRepo>();
+            builder.Services.AddScoped<IQuotes, QuotesRepo>();
+            builder.Services.AddScoped<IClan, ClanRepo>();
+            builder.Services.AddScoped<IBattle, BattlesRepo>();
+            builder.Services.AddScoped<IBlade, BladeRepo>();
+
+            //builder.Services.AddScoped<IBattlesSamurai, SamuraiBattlesRepo>();
 
             var app = builder.Build();
 

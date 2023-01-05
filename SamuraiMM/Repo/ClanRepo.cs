@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SamuraiMM.Repo
 {
-    internal class ClanRepo : IClan
+    public class ClanRepo : IClan
     {
         ADOHandler ADO = new();
 
@@ -123,7 +123,7 @@ namespace SamuraiMM.Repo
                 con.Open();
 
                 //Laver en SqlCommando
-                SqlCommand command = new SqlCommand("SELECT * FROM Quote", con);
+                SqlCommand command = new SqlCommand("SELECT * FROM Clan", con);
 
                 //vi bruger SqlDataReader for at kunne læse data'en fra databasen hvor vi indsætter vores commando
                 SqlDataReader reader = command.ExecuteReader();

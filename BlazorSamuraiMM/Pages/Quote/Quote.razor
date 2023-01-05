@@ -1,0 +1,56 @@
+﻿@page "/quote"
+@inject IQuotes quote
+@inject NavigationManager NavManager
+
+<h3>Quotes</h3>
+
+<table>
+    <thead>
+        <tr>
+            <button @onclick="createQuote">Add Quote</button>
+        </tr>
+        <tr>
+            <td>Quote Text</td>
+            <td>Samurai Id</td>
+        </tr>
+    </thead>
+    <tbody>     
+            @foreach (var quote in quoteList)
+            {
+                <tr>
+                <td>@quote.QuoteText</td>
+                <td>@quote.SamuraiID</td>
+                <td>
+                    <a href="QuoteUpdate/@quote.ID">Update</a> |
+                    <button @onclick="()=>QuoteDelete(quote)">Delete</button>
+                </td>
+                </tr>
+   
+            }
+        
+    </tbody>
+</table>
+
+@code {
+    List<QuoteModel> quoteList = new();
+    protected override void OnInitialized()
+    { // this is the first method to be run
+      // I want to load in data from repo. Place it in a variable
+
+        quoteList = quote.ReadAllQuotes();
+    }
+    public void createQuote()
+    {
+        // navigate back to another page - NavManager....
+        NavManager.NavigateTo("/quoteCreate");
+    }
+    public void QuoteDelete(QuoteModel quoteModel)
+    {
+        // I want to delete the horse - how do I do it?
+        quote.DeleteQuote(quoteModel.ID);
+        // If I want to update my page, I have to Navigate to this url again
+        StateHasChanged();
+        
+    }
+
+}

@@ -1,0 +1,60 @@
+﻿@page "/battle"
+@inject IBattle battle
+@inject NavigationManager NavManager
+
+<h3>Battles</h3>
+
+<table>
+    <thead>
+        <tr>
+            <button @onclick="createBattle">Add Battle</button>
+        </tr>
+        <tr>
+            <td>EventTitle</td>
+            <td>Description</td>
+            <td>Start Date</td>
+            <td>End Date</td>
+        </tr>
+    </thead>
+    <tbody>     
+            @foreach (var battle in battlesList)
+            {
+                <tr>
+                <td>@battle.EventTitle </td>
+                <td>@battle.Description </td>
+                <td>@battle.EventStartDate </td>
+                <td>@battle.EventSlutDate </td>
+                <td>
+                    <a href="battleUpdate/@battle.ID">Update</a> |
+                    <button @onclick="()=>battleDelete(battle)">Delete</button>
+                </td>
+                </tr>
+   
+            }
+        
+    </tbody>
+</table>
+
+@code {
+    List<BattleModel> battlesList = new();
+    protected override void OnInitialized()
+    { // this is the first method to be run
+      // I want to load in data from repo. Place it in a variable
+
+        battlesList = battle.ReadAllBattles();
+    }
+    public void createBattle()
+    {
+        // navigate back to another page - NavManager....
+        NavManager.NavigateTo("/hestCreate");
+    }
+    public void battleDelete(BattleModel battleModel)
+    {
+        // I want to delete the horse - how do I do it?
+        battle.DeleteBattle(battleModel.ID);
+        // If I want to update my page, I have to Navigate to this url again
+        StateHasChanged();
+        NavManager.NavigateTo("/hest");
+    }
+
+}

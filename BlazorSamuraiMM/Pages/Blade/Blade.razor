@@ -1,0 +1,57 @@
+﻿@page "/blade"
+@inject IBlade blade
+@inject NavigationManager NavManager
+
+<h3>Blades</h3>
+
+<table>
+    <thead>
+        <tr>
+            <button @onclick="createBlade">Add Blade</button>
+        </tr>
+        <tr>
+            <td>Name</td>
+            <td>Description</td>
+            <td>SamuraiID</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var blade in bladeList)
+            {
+                <tr>
+                <td>@blade.Name</td>
+                <td>@blade.Description</td>
+                <td>@blade.SamuraiID</td>
+                <td>
+                    <a href="bladeUpdate/@blade.ID">Update</a> |
+                    <button @onclick="()=>bladeDelete(blade)">Delete</button>
+                </td>
+                </tr>
+   
+            }
+        
+    </tbody>
+</table>
+
+@code {
+    List<BladeModel> bladeList = new();
+    protected override void OnInitialized()
+    { // this is the first method to be run
+      // I want to load in data from repo. Place it in a variable
+
+        bladeList = blade.ReadAllBlades();
+    }
+    public void createBlade()
+    {
+        // navigate back to another page - NavManager....
+        NavManager.NavigateTo("/BladeCreate");
+    }
+    public void bladeDelete(BladeModel bladeModel)
+    {
+        // I want to delete the horse - how do I do it?
+        blade.DeleteBlade(bladeModel.ID);
+        // If I want to update my page, I have to Navigate to this url again
+        StateHasChanged();
+    }
+
+}

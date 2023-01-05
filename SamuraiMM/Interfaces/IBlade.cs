@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace SamuraiMM.Interfaces
 {
-    internal interface IBlade
+    public interface IBlade
     {
         public void CreateTableBlade();
         public void InsertBlade(BladeModel blade);
         public void DeleteBlade(int ID);
         public void UpdateBlade(BladeModel blade);
         public List<BladeModel> ReadAllBlades();
+        public BladeModel ReadOneBlade(int bladeID);
     }
 }

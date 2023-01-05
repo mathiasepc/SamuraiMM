@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace SamuraiMM.Interfaces
 {
-    internal interface IClan
+    public interface IClan
     {
         public void CreateTableClan();
         public void InsertClan(ClanModel clan);
         public void DeleteClan(int ID);
         public void UpdateClan(ClanModel clan);
         public List<ClanModel> ReadAllClans();
+        public ClanModel ReadOneClan(int clanID);
     }
 }

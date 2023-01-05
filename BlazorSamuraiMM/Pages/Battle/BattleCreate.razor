@@ -1,0 +1,40 @@
+﻿@page "/battleCreate"
+@inject IBattle battle
+@inject NavigationManager NavManager
+
+<h3>Create A Battle</h3>
+<EditForm Model="@battleModel" OnValidSubmit="CreateBattle">
+    <div class="form-control">
+        Title <input type="text" @bind="battleModel.EventTitle" />
+    </div>
+    <div class="form-control">
+        Description <input type="text" @bind="battleModel.Description" />
+    </div>
+    <div class="form-control">
+        Start Date <input type="text" @bind="battleModel.EventStartDate" />
+    </div>
+    <div class="form-control">
+        End Date <input type="text" @bind="battleModel.EventSlutDate" />
+    </div>
+    <button type="submit">Confirm</button>
+    
+</EditForm>
+<button @onclick="Back">Back</button>
+
+@code {
+    public void Back()
+    {
+        // navigate back to another page - NavManager....
+        NavManager.NavigateTo("/battle");
+    }
+
+    // maybe need an object with all the data
+    BattleModel battleModel = new();
+    // here we need a create method
+    public void CreateBattle()
+    {
+        //console app here I come...!!
+        battle.InsertBattles(battleModel);
+    }
+    // we can make a navigate back button
+}

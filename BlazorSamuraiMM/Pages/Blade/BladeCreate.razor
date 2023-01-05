@@ -1,37 +1,38 @@
-﻿@page "/hestCreate"
-@inject IHorse horse
+﻿@page "/bladeCreate"
+@inject IBlade blade
 @inject NavigationManager NavManager
 
-<h3>Create A Horse</h3>
-<EditForm Model="@horseModel" OnValidSubmit="CreateHorse">
+<h3>Create A Blade</h3>
+<EditForm Model="@bladeModel" OnValidSubmit="CreateBlade">
     <div class="form-control">
-        FirstName <input type="text" @bind="horseModel.FirstName" />
+        FirstName <input type="text" @bind="bladeModel.Name" />
     </div>
     <div class="form-control">
-        HorseRace <input type="text" @bind="horseModel.HorseRace" />
+        LastName <input type="text" @bind="bladeModel.Description" />
     </div>
     <div class="form-control">
-        SamuraiID <input type="text" @bind="horseModel.SamuraiID" />
+        Birthdate <input type="text" @bind="bladeModel.SamuraiID" />
     </div>
     <button type="submit">Confirm</button>
     
 </EditForm>
 <button @onclick="Back">Back</button>
 
+
 @code {
     public void Back()
     {
         // navigate back to another page - NavManager....
-        NavManager.NavigateTo("/hest");
+        NavManager.NavigateTo("/blade");
     }
 
     // maybe need an object with all the data
-    HorseModel horseModel = new();
+    BladeModel bladeModel = new();
     // here we need a create method
-    public void CreateHorse()
+    public void CreateBlade()
     {
         //console app here I come...!!
-        horse.InsertHorse(horseModel);
+        blade.InsertBlade(bladeModel);
     }
     // we can make a navigate back button
 }

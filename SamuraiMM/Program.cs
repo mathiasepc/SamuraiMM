@@ -7,7 +7,7 @@ BattlesRepo b = new();
 //BattleModel m = new BattleModel()
 //{
 //    EventTitle = "Battle of The Century",
-//    Description = "It was the fiercest battle in the 1800",
+//    Description = "It was the fiercest battle in the 18g00",
 //    EventStartDate = new DateTime(1800, 12, 31),
 //    EventSlutDate = new DateTime(1820, 5, 21),
 //};
@@ -42,27 +42,28 @@ SamuraiModel m4 = new SamuraiModel()
     Birthdate = DateTime.Now
 };
 
+SamuraiRepo samd = new();
 
-//s.InsertSamurai(m3);
-//s.InsertSamurai(m4);
+//samd.InsertSamurai(m3);
+//samd.InsertSamurai(m4);
 
 SamuraiBattlesRepo sb = new();
 
 //sb.CreateTableSamuraiBattles();
 
-BattlesSamuariModel m5 = new BattlesSamuariModel()
+BattleSamuraiModel m5 = new BattleSamuraiModel()
 {
     SamuraiID = 1,
     BattlesID = 1
 };
 
-BattlesSamuariModel m6 = new BattlesSamuariModel()
+BattleSamuraiModel m6 = new BattleSamuraiModel()
 {
     SamuraiID = 2,
     BattlesID = 1
 };
 
-BattlesSamuariModel m7 = new BattlesSamuariModel()
+BattleSamuraiModel m7 = new BattleSamuraiModel()
 {
     SamuraiID = 1,
     BattlesID = 2
@@ -121,6 +122,14 @@ h.CreateTableHorse();
 
 //h.InsertHorse(h1);
 
+SamuraiRepo sam = new();
+HorseRepo hor = new();
+
+//hor.CreateTableHorse();
+//sam.CreateTableSamurai();
 
 
+QuotesRepo q = new();
+
+q.CreateTableQuote();
 
