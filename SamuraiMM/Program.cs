@@ -140,5 +140,5 @@ BladeRepo blade = new();
 
 ClanRepo cl = new();
 
-//cl.CreateTableClan();
+cl.CreateTableClan();
 
