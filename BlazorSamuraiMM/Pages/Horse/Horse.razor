@@ -32,25 +32,39 @@
 </table>
 
 @code {
+    //istansiere vores List
     List<HorseModel> horsesList = new();
-    protected override void OnInitialized()
-    { // this is the first method to be run
-      // I want to load in data from repo. Place it in a variable
 
+    /// <summary>
+    /// overrider er så vi overskriver dataen hver gang
+    /// gør klar til udprint
+    /// </summary>
+    protected override void OnInitialized()
+    { 
+        //indsæt
         horsesList = horse.ReadAllHorses(); 
     }
+
+    /// <summary>
+    /// vores knap til at komme hen for at indsætte i tabel
+    /// </summary>
     public void createHorse()
     {
-        // navigate back to another page - NavManager....
+        //skift vindue
         NavManager.NavigateTo("/horseCreate");
     }
+
+    /// <summary>
+    /// vores knap til at slette
+    /// </summary>
+    /// <param name="horseModel"></param>
     public void horseDelete(HorseModel horseModel)
     {
-        // I want to delete the horse - how do I do it?
+        //kør metode
         horse.DeleteHorse(horseModel.ID);
-        // If I want to update my page, I have to Navigate to this url again
+
+        //refresh
         StateHasChanged();
-        NavManager.NavigateTo("/horse");
     }
 
 }

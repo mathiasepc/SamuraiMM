@@ -19,26 +19,43 @@
     </div>
 </form>
 @code {
+    //parameter gør at vi kan hente dataen ned fra url som bliver parset med
     [Parameter]
     public string? CurrentId { get; set; }
 
+    //istansiere model
     HorseModel horseModel = new();
+
+    /// <summary>
+    /// overrider er så vi overskriver dataen hver gang
+    /// gør klar til udprint
+    /// </summary>
     protected override void OnInitialized()
     {
+        //indstter 
         horseModel = horse.ReadOneHorse(Convert.ToInt32(CurrentId));
     }
+
+    /// <summary>
+    /// vores update metode
+    /// </summary>
     public void updateHorse()
     {
         try
         {
+            //kør metode
             horse.UpdateHorse(horseModel);
+            //skift vindue
             NavManager.NavigateTo("horse");
         }
         catch
         {
+            //gør vores navigateTo klar
             string infostring = $"{(horseModel.SamuraiID).ToString()} is not an existent Samurai ID";
             string currentModel = "Horse Model";
             string url = "horseUpdate";
+
+            //skift vindue
             NavManager.NavigateTo($"/errorIDPage/{url}/{CurrentId}/{currentModel}/{infostring}");
         }
     }

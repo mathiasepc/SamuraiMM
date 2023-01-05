@@ -4,6 +4,10 @@
 
 <h3>Create A Samurai</h3>
 <EditForm Model="@samuraiModel" OnValidSubmit="CreateSamurai">
+    @*For at vores beskreder fra vores validering kan vises*@
+    <ValidationSummary />
+    @*For at vores validering på modelleren kan bruges skal vi tilføje følgende*@
+    <DataAnnotationsValidator />
     <div class="form-control">
         FirstName <input type="text" @bind="samuraiModel.FirstName" />
     </div>
@@ -20,19 +24,40 @@
 
 
 @code {
-    // we can make a navigate back button
+    /// <summary>
+    /// vores gå tilbage knap
+    /// </summary>
     public void Back()
     {
-        // navigate back to another page - NavManager....
+        //skift vindue
         NavManager.NavigateTo("/samurai");
     }
 
-    // maybe need an object with all the data
+    //istansiere vores model
     SamuraiModel samuraiModel = new();
-    // here we need a create method
+
+    /// <summary>
+    /// vores indsæt i tabellen metode
+    /// </summary>
     public void CreateSamurai()
     {
-        //console app here I come...!!
-        samurai.InsertSamurai(samuraiModel);
+        try
+        {
+            //kør metode
+            samurai.InsertSamurai(samuraiModel);
+            //skift vindue
+            NavManager.NavigateTo("samurai");
+        }
+        catch
+        {
+            //bygger vores navigateTo ordenligt op 
+            string infostring = "DateTime must be between Year 1753 and 9999";
+            string currentModel = "Samurai Model";
+            string CurrentId = " ";
+            string url = "samuraiCreate";
+
+            //skift vindue
+            NavManager.NavigateTo($"/errorIDPage/{url}/{CurrentId}/{currentModel}/{infostring}");
+        }
     }
 }

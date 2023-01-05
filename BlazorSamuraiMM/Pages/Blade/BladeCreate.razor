@@ -4,6 +4,10 @@
 
 <h3>Create A Blade</h3>
 <EditForm Model="@bladeModel" OnValidSubmit="CreateBlade">
+    @*For at vores beskreder fra vores validering kan vises*@
+    <ValidationSummary />
+    @*For at vores validering på modelleren kan bruges skal vi tilføje følgende*@
+    <DataAnnotationsValidator />
     <div class="form-control">
         Name <input type="text" @bind="bladeModel.Name" />
     </div>
@@ -20,19 +24,40 @@
 
 
 @code {
+    /// <summary>
+    /// vores gå tilbage knap
+    /// </summary>
     public void Back()
     {
-        // navigate back to another page - NavManager....
+        //skift vindue
         NavManager.NavigateTo("/blade");
     }
 
-    // maybe need an object with all the data
+    //istansiere vores model
     BladeModel bladeModel = new();
-    // here we need a create method
+
+    /// <summary>
+    /// vores indsæt metode
+    /// </summary>
     public void CreateBlade()
     {
-        //console app here I come...!!
-        blade.InsertBlade(bladeModel);
+        try
+        {
+            //kør metode
+            blade.InsertBlade(bladeModel);
+            //skift vindue
+            NavManager.NavigateTo("blade");
+        }
+        catch
+        {
+            //bygger vores navigateTo ordenligt op
+            string infostring = $"{(bladeModel.SamuraiID).ToString()} is not an existent Samurai ID";
+            string currentModel = "Blade Model";
+            string CurrentId = " ";
+            string url = "bladeCreate";
+
+            //skift vindue
+            NavManager.NavigateTo($"/errorIDPage/{url}/{CurrentId}/{currentModel}/{infostring}");
+        }
     }
-    // we can make a navigate back button
 }

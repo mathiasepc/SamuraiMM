@@ -36,25 +36,39 @@
 </table>
 
 @code {
+    //istansiere vores Liste 
     List<BattleModel> battlesList = new();
-    protected override void OnInitialized()
-    { // this is the first method to be run
-      // I want to load in data from repo. Place it in a variable
 
+    /// <summary>
+    /// overrider er så vi overskriver dataen hver gang
+    /// gør klar til udprint
+    /// </summary>
+    protected override void OnInitialized()
+    { 
+        //indsæt
         battlesList = battle.ReadAllBattles();
     }
+
+    /// <summary>
+    /// vores knap til at komme hen for at indsætte i tabel
+    /// </summary>
     public void createBattle()
     {
-        // navigate back to another page - NavManager....
+        //skift vindue
         NavManager.NavigateTo("/battleCreate");
     }
+
+    /// <summary>
+    /// Vores delete knap
+    /// </summary>
+    /// <param name="battleModel"></param>
     public void battleDelete(BattleModel battleModel)
     {
-        // I want to delete the horse - how do I do it?
+        //kør metode
         battle.DeleteBattle(battleModel.ID);
-        // If I want to update my page, I have to Navigate to this url again
+
+        //refresh vindue
         StateHasChanged();
-        NavManager.NavigateTo("/battle");
     }
 
 }

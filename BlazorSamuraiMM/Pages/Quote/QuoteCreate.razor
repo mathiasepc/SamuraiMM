@@ -4,6 +4,10 @@
 
 <h3>Create A Quote</h3>
 <EditForm Model="@quoteModel" OnValidSubmit="CreateQuote">
+    @*For at vores beskreder fra vores validering kan vises*@
+    <ValidationSummary />
+    @*For at vores validering på modelleren kan bruges skal vi tilføje følgende*@
+    <DataAnnotationsValidator />
     <div class="form-control">
         Quote <input type="text" @bind="quoteModel.QuoteText" />
     </div>
@@ -17,19 +21,40 @@
 
 
 @code {
+    /// <summary>
+    /// vores tilbage knap
+    /// </summary>
     public void Back()
     {
-        // navigate back to another page - NavManager....
+        //skift vindue
         NavManager.NavigateTo("/quote");
     }
 
-    // maybe need an object with all the data
+    //istansiere model
     QuoteModel quoteModel = new();
-    // here we need a create method
+
+    /// <summary>
+    /// laver vores indsæt metode
+    /// </summary>
     public void CreateQuote()
     {
-        //console app here I come...!!
-        quote.InsertQuote(quoteModel);
+        try
+        {
+            //kør metode
+            quote.InsertQuote(quoteModel);
+            //skift vindue
+            NavManager.NavigateTo("quote");
+        }
+        catch
+        {
+            //bygger vores navigateTo ordenligt op
+            string infostring = $"{(quoteModel.SamuraiID).ToString()} is not an existent Samurai ID";
+            string currentModel = "Quote Model";
+            string CurrentId = "";
+            string url = "quoteCreate";
+
+            //skift vindue
+            NavManager.NavigateTo($"/errorIDPage/{url}/{CurrentId}/{currentModel}/{infostring}");
+        }
     }
-    // we can make a navigate back button
 }

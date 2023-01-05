@@ -17,26 +17,43 @@
     </div>
 </form>
 @code {
+    //parameter gør at vi kan hente dataen ned fra url som bliver parset med
     [Parameter]
     public string CurrentId { get; set; }
 
+    //istansiere vores model
     ClanModel clanModel = new();
+
+    /// <summary>
+    /// overrider er så vi overskriver dataen hver gang
+    /// gør klar til udprint
+    /// </summary>
     protected override void OnInitialized()
     {
+        //indsætter
         clanModel = clan.ReadOneClan(Convert.ToInt32(CurrentId));
     }
+
+    /// <summary>
+    /// vores update metode
+    /// </summary>
     public void UpdateClan()
     {
         try
         {
+            //køør metode
             clan.UpdateClan(clanModel);
+            //skift vindue
             NavManager.NavigateTo("clan");
         }
         catch
         {
+            //gør navigateTo klar
             string infostring = $"{(clanModel.SamuraiID).ToString()} is not an existent Samurai ID";
             string currentModel = "Clan Model";
             string url = "clanUpdate";
+
+            //skfit vindue
             NavManager.NavigateTo($"/errorIDPage/{url}/{CurrentId}/{currentModel}/{infostring}");
         }
     }

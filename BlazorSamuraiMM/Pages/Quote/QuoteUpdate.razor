@@ -17,26 +17,43 @@
     </div>
 </form>
 @code {
+    //parameter gør at vi kan hente dataen ned fra url som bliver parset med
     [Parameter]
     public string CurrentId { get; set; }
 
+    //istansiere vores model
     QuoteModel quoteModel = new();
+
+    /// <summary>
+    /// overrider er så vi overskriver dataen hver gang
+    /// gør klar til udprint
+    /// </summary>
     protected override void OnInitialized()
     {
+        //indsæt
         quoteModel = quote.ReadOneQuote(Convert.ToInt32(CurrentId));
     }
+
+    /// <summary>
+    /// vores update metode
+    /// </summary>
     public void UpdateQuote()
     {
         try
         {
+            //kør metode
             quote.UpdateQuote(quoteModel);
+            //skift vindue
             NavManager.NavigateTo("quote");
         }
         catch
         {
+            //gør vores navigateTo klar
             string infostring = $"{(quoteModel.SamuraiID).ToString()} is not an existent Samurai ID";
             string currentModel = "Quote Model";
             string url = "quoteUpdate";
+
+            //skift vindue
             NavManager.NavigateTo($"/errorIDPage/{url}/{CurrentId}/{currentModel}/{infostring}");
         }
     }

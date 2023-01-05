@@ -19,26 +19,39 @@
     </div>
 </form>
 @code {
+    //parameter gør at vi kan hente dataen ned fra url som bliver parset med
     [Parameter]
     public string CurrentId { get; set; }
 
+    //istansiere vores model
     SamuraiModel samuraiModel = new();
+
+    /// <summary>
+    /// overrider er så vi overskriver dataen hver gang
+    /// gør klar til udprint
+    /// </summary>
     protected override void OnInitialized()
     {
+        //indsæt
         samuraiModel = samurai.ReadOneSamurai(Convert.ToInt32(CurrentId));
     }
     public void updateSamurai()
     {
         try
         {
+            //kør metode
             samurai.UpdateSamurai(samuraiModel);
+            //skift vindue
             NavManager.NavigateTo("samurai");
         }
         catch
         {
+            //gør navigateTo klar
             string infostring = "DateTime must be between Year 1753 and 9999";
             string currentModel = "Samurai Model";
             string url = "samuraiUpdate";
+
+            //skift vindue
             NavManager.NavigateTo($"/errorIDPage/{url}/{CurrentId}/{currentModel}/{infostring}");
         }
     }

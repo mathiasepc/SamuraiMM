@@ -22,7 +22,7 @@ namespace SamuraiMM.Repo
         string ColumNamesBuild = string.Empty;
         string Injection = string.Empty;
         /*Da injection skal være en ny injection hver gang. 
-              Laver jeg en counter, så den skifter navn.*/
+              Laver en counter, så den skifter navn.*/
         int InjectionCounter = 0;
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace SamuraiMM.Repo
                 //går igennem objektet med data
                 foreach (var item in model.GetType().GetProperties())
                 {
-                    //min tjekker for id. Bruger .Name for at få navnet på kolonnen
+                    //tjekker for id. Bruger .Name for at få navnet på kolonnen
                     bool resultIDCheck = CheckID(item.Name);
 
                     //Tilføj. Bruger .Name for ikke at få, feks., "Int32 ID" Men "ID".
@@ -108,14 +108,14 @@ namespace SamuraiMM.Repo
         /// <param name="connection"></param>
         public void InsertData(string columNamesBuild, string injection, string entityName, SqlConnection connection)
         {
-            //fjerner det sidste komma i mine strings. Den kan ikke slutte på et komma.
+            //fjerner det sidste komma i strings. Den kan ikke slutte på et komma.
             string columNames = columNamesBuild.Remove(columNamesBuild.Length - 1);
             string values = injection.Remove(injection.Length - 1);
 
-            //Klargør min commando string
+            //Klargør commando string
             string command = new($"INSERT INTO {entityName}({columNames}) values({values.ToString()})");
 
-            //indsætter min commando string
+            //indsætter commando string
             Command.CommandText = command;
             Command.Connection = connection;
 
@@ -134,9 +134,9 @@ namespace SamuraiMM.Repo
             //undgår SQL injection for data
             Command.Parameters.AddWithValue($"@{InjectionCounter}", value);
 
-            //bygger min undgå sqlInjection ordenligt op
+            //bygger "undgå" sqlInjection ordenligt op
             Injection += $"@{InjectionCounter},";
-            //for at min injection er forskellige stiger den med 1
+            //for at injection er forskellige stiger den med 1
             InjectionCounter++;
         }
 
@@ -149,9 +149,9 @@ namespace SamuraiMM.Repo
             //undgår SQL injection for data
             Command.Parameters.AddWithValue($"@{InjectionCounter}", value);
 
-            //bygger min undgå sqlInjection ordenligt op
+            //bygger "undgå" sqlInjection ordenligt op
             Injection += $"@{InjectionCounter},";
-            //for at min injection er forskellige stiger den med 1
+            //for at injection er forskellige stiger den med 1
             InjectionCounter++;
         }
 
