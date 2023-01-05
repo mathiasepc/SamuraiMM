@@ -101,8 +101,6 @@ namespace SamuraiMM.Repo
 
             foreach (var item in b)
             {
-                //if (horse.SamuraiID == item.ID)
-                //{
                 using (SqlConnection sqlConnection = new(ADO.ConnectionString))
                 {
                     //åbner vejen
@@ -114,8 +112,6 @@ namespace SamuraiMM.Repo
                     //eksekver
                     commandChange.ExecuteNonQuery();
                 }
-
-                //}
             }
         }
 
