@@ -1,6 +1,6 @@
 ﻿@page "/bladeUpdate/{CurrentId}"
 @inject IBlade blade
-@inject NavigationManager NavigationManager
+@inject NavigationManager NavManager
 
 <h3>Update Blade</h3>
 <form>
@@ -32,14 +32,14 @@
         try
         {
             blade.UpdateBlade(bladeModel);
-            NavigationManager.NavigateTo("blade");
+            NavManager.NavigateTo("blade");
         }
         catch
         {
             string infostring = $"{(bladeModel.SamuraiID).ToString()} is not an existent Samurai ID";
             string currentModel = "Blade Model";
             string url = "bladeUpdate";
-            NavigationManager.NavigateTo($"/errorIDPage/{url}/{CurrentId}/{currentModel}/{infostring}");
+            NavManager.NavigateTo($"/errorIDPage/{url}/{CurrentId}/{currentModel}/{infostring}");
         }
     }
 }

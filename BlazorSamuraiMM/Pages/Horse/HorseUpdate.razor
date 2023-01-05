@@ -1,6 +1,6 @@
 ﻿@page "/horseUpdate/{CurrentId}"
 @inject IHorse horse
-@inject NavigationManager NavigationManager
+@inject NavigationManager NavManager
 
 <h3>Update Horse</h3>
 <form>
@@ -32,14 +32,14 @@
         try
         {
             horse.UpdateHorse(horseModel);
-            NavigationManager.NavigateTo("horse");
+            NavManager.NavigateTo("horse");
         }
         catch
         {
             string infostring = $"{(horseModel.SamuraiID).ToString()} is not an existent Samurai ID";
             string currentModel = "Horse Model";
             string url = "horseUpdate";
-            NavigationManager.NavigateTo($"/errorIDPage/{url}/{CurrentId}/{currentModel}/{infostring}");
+            NavManager.NavigateTo($"/errorIDPage/{url}/{CurrentId}/{currentModel}/{infostring}");
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿@page "/quoteUpdate/{CurrentId}"
 @inject IQuotes quote
-@inject NavigationManager NavigationManager
+@inject NavigationManager NavManager
 
 <h3>Update Quote</h3>
 <form>
@@ -30,14 +30,14 @@
         try
         {
             quote.UpdateQuote(quoteModel);
-            NavigationManager.NavigateTo("quote");
+            NavManager.NavigateTo("quote");
         }
         catch
         {
             string infostring = $"{(quoteModel.SamuraiID).ToString()} is not an existent Samurai ID";
             string currentModel = "Quote Model";
             string url = "quoteUpdate";
-            NavigationManager.NavigateTo($"/errorIDPage/{url}/{CurrentId}/{currentModel}/{infostring}");
+            NavManager.NavigateTo($"/errorIDPage/{url}/{CurrentId}/{currentModel}/{infostring}");
         }
     }
 }
