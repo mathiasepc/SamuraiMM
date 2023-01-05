@@ -1,4 +1,4 @@
-﻿@page "/hestCreate"
+﻿@page "/horseCreate"
 @inject IHorse horse
 @inject NavigationManager NavManager
 
@@ -7,7 +7,7 @@
     <DataAnnotationsValidator />
     <ValidationSummary />
     <div class="form-control">
-        FirstName <input type="text" @bind="horseModel.FirstName" />
+        Name <input type="text" @bind="horseModel.Name" />
     </div>
     <div class="form-control">
         HorseRace <input type="text" @bind="horseModel.HorseRace" />
@@ -24,7 +24,7 @@
     public void Back()
     {
         // navigate back to another page - NavManager....
-        NavManager.NavigateTo("/hest");
+        NavManager.NavigateTo("/horse");
     }
 
     // maybe need an object with all the data
@@ -35,14 +35,14 @@
         try
         {
             horse.InsertHorse(horseModel);
-            NavManager.NavigateTo("hest");
+            NavManager.NavigateTo("horse");
         }
         catch
         {
             string infostring = $"{(horseModel.SamuraiID).ToString()} is not an existent Samurai ID";
             string currentModel = "Horse Model";
             string CurrentId = " ";
-            string url = "hestCreate";
+            string url = "horseCreate";
             NavManager.NavigateTo($"/errorIDPage/{url}/{CurrentId}/{currentModel}/{infostring}");
         }
     }
