@@ -6,9 +6,9 @@
 <form>
     <div class="row">
         <div class="col-md-8">
-        <label>QuoteText</label>
+            <label>QuoteText</label>
             <input class="form-control" @bind="quoteModel.QuoteText" />
-        <label>SamuraiId</label>
+            <label>SamuraiId</label>
             <input class="form-control" @bind="quoteModel.SamuraiID" />
         </div>
     </div>
@@ -27,7 +27,17 @@
     }
     public void UpdateQuote()
     {
-        quote.UpdateQuote(quoteModel);
-        NavigationManager.NavigateTo("quote");
+        try
+        {
+            quote.UpdateQuote(quoteModel);
+            NavigationManager.NavigateTo("quote");
+        }
+        catch
+        {
+            string infostring = $"{(quoteModel.SamuraiID).ToString()} is not an existent Samurai ID";
+            string currentModel = "Quote Model";
+            string url = "quoteUpdate";
+            NavigationManager.NavigateTo($"/errorIDPage/{url}/{CurrentId}/{currentModel}/{infostring}");
+        }
     }
 }

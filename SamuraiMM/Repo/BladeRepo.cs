@@ -80,7 +80,7 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //Laver en SQLCommando for at update databasen og indsætter sqlConnection
-                SqlCommand commandChange = new($"UPDATE Blade SET Name = '{blade.Name}', Description = '{blade.Description}', SamuraiID = '{blade.SamuraiID}', Where ID = {blade.ID}", sqlConnection);
+                SqlCommand commandChange = new($"UPDATE Blade SET Name = '{blade.Name}', Description = '{blade.Description}', SamuraiID = '{blade.SamuraiID}' Where ID = {blade.ID}", sqlConnection);
 
                 //eksekver
                 commandChange.ExecuteNonQuery();

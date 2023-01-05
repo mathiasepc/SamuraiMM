@@ -29,7 +29,17 @@
     }
     public void updateSamurai()
     {
-        samurai.UpdateSamurai(samuraiModel);
-        NavigationManager.NavigateTo("samurai");
+        try
+        {
+            samurai.UpdateSamurai(samuraiModel);
+            NavigationManager.NavigateTo("samurai");
+        }
+        catch
+        {
+            string infostring = "DateTime must be between Year 1753 and 9999";
+            string currentModel = "Samurai Model";
+            string url = "samuraiUpdate";
+            NavigationManager.NavigateTo($"/errorIDPage/{url}/{CurrentId}/{currentModel}/{infostring}");
+        }
     }
 }

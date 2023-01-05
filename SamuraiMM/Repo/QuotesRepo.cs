@@ -79,7 +79,7 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //Laver en SQLCommando for at update databasen og indsætter sqlConnection
-                SqlCommand commandChange = new($"UPDATE Quote SET FirstName = '{quote.QuoteText}', SamuraiId = {quote.SamuraiID} Where ID = {quote.ID}", sqlConnection);
+                SqlCommand commandChange = new($"UPDATE Quote SET QuoteText = '{quote.QuoteText}', SamuraiId = {quote.SamuraiID} Where ID = {quote.ID}", sqlConnection);
 
                 //eksekver
                 commandChange.ExecuteNonQuery();
@@ -93,7 +93,7 @@ namespace SamuraiMM.Repo
                 con.Open();
 
                 //laver en sql commando
-                SqlCommand cmd = new SqlCommand($"select * from Samurai where id={quoteID}", con);
+                SqlCommand cmd = new SqlCommand($"select * from Quote where id={quoteID}", con);
 
                 //vi bruger SqlDataReader for at kunne læse data'en fra databasen hvor vi indsætter vores commando
                 SqlDataReader reader = cmd.ExecuteReader();
