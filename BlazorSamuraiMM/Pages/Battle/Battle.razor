@@ -52,7 +52,7 @@
     /// <summary>
     /// vores knap til at komme hen for at indsætte i tabel
     /// </summary>
-    public void CreateBattle()
+    private void CreateBattle()
     {
         //skift vindue
         NavManager.NavigateTo("/battleCreate");
@@ -62,7 +62,7 @@
     /// Vores delete knap
     /// </summary>
     /// <param name="battleModel"></param>
-    public void BattleDelete(BattleModel battleModel)
+    private void BattleDelete(BattleModel battleModel)
     {
         //kør metode
         battle.DeleteBattle(battleModel.ID);

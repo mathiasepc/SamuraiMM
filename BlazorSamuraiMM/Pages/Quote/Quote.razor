@@ -48,7 +48,7 @@
     /// <summary>
     /// vores knap til at komme hen for at indsætte i tabel
     /// </summary>
-    public void CreateQuote()
+    private void CreateQuote()
     {
         //skift vindue
         NavManager.NavigateTo("/quoteCreate");
@@ -58,7 +58,7 @@
     /// vores knap til at slette
     /// </summary>
     /// <param name="quoteModel"></param>
-    public void QuoteDelete(QuoteModel quoteModel)
+    private void QuoteDelete(QuoteModel quoteModel)
     {
         //kør metode
         quote.DeleteQuote(quoteModel.ID);

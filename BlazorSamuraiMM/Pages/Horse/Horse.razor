@@ -48,7 +48,7 @@
     /// <summary>
     /// vores knap til at komme hen for at indsætte i tabel
     /// </summary>
-    public void CreateHorse()
+    private void CreateHorse()
     {
         //skift vindue
         NavManager.NavigateTo("/horseCreate");
@@ -58,7 +58,7 @@
     /// vores knap til at slette
     /// </summary>
     /// <param name="horseModel"></param>
-    public void HorseDelete(HorseModel horseModel)
+    private void HorseDelete(HorseModel horseModel)
     {
         //kør metode
         horse.DeleteHorse(horseModel.ID);

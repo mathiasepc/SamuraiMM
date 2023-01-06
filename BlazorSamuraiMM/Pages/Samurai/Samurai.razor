@@ -70,7 +70,7 @@
     List<SamuraiModel> samuraiList = new();
     int SearchId;
     SamuraiModel IDResult;
-    SamuraiModel NameResult;
+    List<SamuraiModel> NameResult = new();
 
     /// <summary>
     /// overrider er så vi overskriver dataen hver gang
@@ -85,7 +85,7 @@
     /// <summary>
     /// vores knap til at komme hen for at indsætte i tabel
     /// </summary>
-    public void createSamurai()
+    private void createSamurai()
     {
         //skift vindue
         NavManager.NavigateTo("/SamuraiCreate");
@@ -95,7 +95,7 @@
     /// vores knap til at slette
     /// </summary>
     /// <param name="samuraiModel"></param>
-    public void samuraiDelete(SamuraiModel samuraiModel)
+    private void samuraiDelete(SamuraiModel samuraiModel)
     {
         //kør metode
         samurai.DeleteSamurai(samuraiModel.ID);
@@ -104,7 +104,7 @@
         StateHasChanged();
     }
 
-    void Search()
+    private void Search()
     {
         //Hvis han har en hest så brug den her function
         try

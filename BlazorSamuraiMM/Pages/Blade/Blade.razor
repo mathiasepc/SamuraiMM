@@ -50,7 +50,7 @@
     /// <summary>
     /// vores knap til at komme hen for at indsætte i tabel
     /// </summary>
-    public void CreateBlade()
+    private void CreateBlade()
     {
         //Skift
         NavManager.NavigateTo("/BladeCreate");
@@ -60,7 +60,7 @@
     /// vores knap til at delete
     /// </summary>
     /// <param name="bladeModel"></param>
-    public void BladeDelete(BladeModel bladeModel)
+    private void BladeDelete(BladeModel bladeModel)
     {
         //kør metode
         blade.DeleteBlade(bladeModel.ID);

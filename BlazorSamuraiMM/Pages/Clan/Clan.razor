@@ -47,7 +47,7 @@
     /// <summary>
     /// vores knap til at komme hen og indsætte
     /// </summary>
-    public void CreateClan()
+    private void CreateClan()
     {
         //skift vindue
         NavManager.NavigateTo("/clanCreate");
@@ -57,7 +57,7 @@
     /// vores knap til at slette
     /// </summary>
     /// <param name="clanModel"></param>
-    public void ClanDelete(ClanModel clanModel)
+    private void ClanDelete(ClanModel clanModel)
     {
         //kør metode
         clan.DeleteClan(clanModel.ID);

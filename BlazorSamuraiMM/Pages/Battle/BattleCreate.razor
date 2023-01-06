@@ -29,7 +29,7 @@
     /// <summary>
     /// for vores tilbage knap
     /// </summary>
-    public void Back()
+    private void Back()
     {
         //skift vindue
         NavManager.NavigateTo("/battle");
@@ -41,25 +41,11 @@
     /// <summary>
     /// Vores insæt i tabellen metode
     /// </summary>
-    public void CreateBattle()
+    private void CreateBattle()
     {
-        try
-        {
-            //kør metode
-            battle.InsertBattles(battleModel);
-            //skift vindue
-            NavManager.NavigateTo("battle");
-        }
-        catch
-        {
-            //opbygger vores navigate string ordenlig op
-            string infostring = $"DateTime must be between Year 1753 and 9999";
-            string currentModel = "Battle Model";
-            string CurrentId = " ";
-            string url = "battleCreate";
-
-            //indsætter
-            NavManager.NavigateTo($"/errorIDPage/{url}/{CurrentId}/{currentModel}/{infostring}");
-        }
+        //kør metode
+        battle.InsertBattles(battleModel);
+        //skift vindue
+        NavManager.NavigateTo("battle");
     }
 }
