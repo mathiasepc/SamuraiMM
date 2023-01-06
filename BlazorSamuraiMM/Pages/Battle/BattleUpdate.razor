@@ -10,15 +10,14 @@
     <DataAnnotationsValidator />
     <div class="row">
         <div class="col-md-8">
-            <label>FirstName</label>
+            <label>Event title</label>
             <input class="form-control" @bind="battleModel.EventTitle" />
-            <label>LastName</label>
+            <label>Description</label>
             <input class="form-control" @bind="battleModel.Description" />
-            <label>Birthdate</label>
+            <label>Battle start</label>
             <input class="form-control" @bind="battleModel.EventStartDate" />
-            <div class="form-control">
-                End Date <input type="text" @bind="battleModel.EventSlutDate" />
-            </div>
+            <label>Battle end</label>
+            <input class="form-control" @bind="battleModel.EventSlutDate" />           
         </div>
     </div>
     <div class="row">
