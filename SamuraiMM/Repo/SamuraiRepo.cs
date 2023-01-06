@@ -44,8 +44,18 @@ namespace SamuraiMM.Repo
                 //åbner vejen
                 sqlConnection.Open();
 
-                //istansiere SqlCommand klassen og indsætter i databasen
-                SqlCommand sqlCommand = new($"INSERT INTO Samurai (FirstName, LastName, Birthdate, ClanID) values('{samurai.FirstName}', '{samurai.LastName}', @f3,{samurai.ClanID})", sqlConnection);
+                //istansiere SqlCommand klassen 
+                SqlCommand sqlCommand = new();
+
+                //Indsætter i databasen
+                if (samurai.ClanID != 0)
+                {
+                    sqlCommand = new($"INSERT INTO Samurai (FirstName, LastName, Birthdate, ClanID) values('{samurai.FirstName}', '{samurai.LastName}', @f3,{samurai.ClanID})", sqlConnection);
+                }
+                else
+                {
+                    sqlCommand = new($"INSERT INTO Samurai (FirstName, LastName, Birthdate) values('{samurai.FirstName}', '{samurai.LastName}', @f3)", sqlConnection);
+                }
 
                 //Da database ikke kan forstå datetime, parse vi den ind i en variable for sig.
                 sqlCommand.Parameters.AddWithValue("@f3", samurai.Birthdate);
@@ -90,8 +100,19 @@ namespace SamuraiMM.Repo
                 //åbner vejen
                 sqlConnection.Open();
 
-                //Laver en SQLCommando for at update databasen og indsætter sqlConnection
-                SqlCommand commandChange = new($"UPDATE Samurai SET FirstName = '{samurai.FirstName}', LastName = '{samurai.LastName}', Birthdate = @f3 , ClanID = '{samurai.ClanID}' Where ID = {samurai.ID}", sqlConnection);
+                //istansiere SqlCommand klassen
+                SqlCommand commandChange = new();
+
+                //Opdater i databasen
+                if (samurai.ClanID != 0)
+                {
+                    commandChange = new($"UPDATE Samurai SET FirstName = '{samurai.FirstName}', LastName = '{samurai.LastName}', Birthdate = @f3 , ClanID = '{samurai.ClanID}' Where ID = {samurai.ID}", sqlConnection);
+                }
+                else
+                {
+                    //Vi har hardcoded ClanID = NULL her, hvis man gerne vil sætte samurairen til at være clanless
+                    commandChange = new($"UPDATE Samurai SET FirstName = '{samurai.FirstName}', LastName = '{samurai.LastName}', Birthdate = @f3, ClanID = NULL Where ID = {samurai.ID}", sqlConnection);
+                }
 
                 //Da database ikke kan forstå datetime, parse vi den ind i en variable for sig.
                 commandChange.Parameters.AddWithValue("@f3", samurai.Birthdate);
@@ -110,7 +131,7 @@ namespace SamuraiMM.Repo
         {
             using (SqlConnection con = new SqlConnection(ADO.ConnectionString))
             {
-                con.Open(); 
+                con.Open();
 
                 //laver en sql commando
                 SqlCommand cmd = new SqlCommand($"select * from Samurai where id={samuraiID}", con);

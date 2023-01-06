@@ -45,9 +45,22 @@
     }
     private void UpdateSamurai()
     {
-        //kør metode
-        samurai.UpdateSamurai(samuraiModel);
-        //skift vindue
-        NavManager.NavigateTo("samurai");
+        try
+        {
+            //kør metode
+            samurai.UpdateSamurai(samuraiModel);
+            //skift vindue
+            NavManager.NavigateTo("samurai");
+        }
+        catch
+        {
+            //bygger vores navigateTo ordenligt op
+            string infostring = $"{(samuraiModel.ClanID).ToString()} is out of range.";
+            string currentModel = "Samurai Model";
+            string url = "samuraiUpdate";
+
+            //skift vindue
+            NavManager.NavigateTo($"/errorIDPage/{url}/{CurrentId}/{currentModel}/{infostring}");
+        }
     }
 }
