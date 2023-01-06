@@ -18,7 +18,7 @@
         Birthdate <input type="text" @bind="samuraiModel.Birthdate" />
     </div>
     <button type="submit">Confirm</button>
-    
+
 </EditForm>
 <button @onclick="Back">Back</button>
 
@@ -41,23 +41,9 @@
     /// </summary>
     public void CreateSamurai()
     {
-        try
-        {
-            //kør metode
-            samurai.InsertSamurai(samuraiModel);
-            //skift vindue
-            NavManager.NavigateTo("samurai");
-        }
-        catch
-        {
-            //bygger vores navigateTo ordenligt op 
-            string infostring = "DateTime must be between Year 1753 and 9999";
-            string currentModel = "Samurai Model";
-            string CurrentId = " ";
-            string url = "samuraiCreate";
-
-            //skift vindue
-            NavManager.NavigateTo($"/errorIDPage/{url}/{CurrentId}/{currentModel}/{infostring}");
-        }
+        //kør metode
+        samurai.InsertSamurai(samuraiModel);
+        //skift vindue
+        NavManager.NavigateTo("samurai");
     }
 }

@@ -3,21 +3,25 @@
 @inject NavigationManager NavManager
 
 <h3>Update Horse</h3>
-<form>
+<EditForm Model="@horseModel" OnValidSubmit="UpdateHorse">
+    @*For at vores beskreder fra vores validering kan vises*@
+    <ValidationSummary />
+    @*For at vores validering på modelleren kan bruges skal vi tilføje følgende*@
+    <DataAnnotationsValidator />
     <div class="row">
         <div class="col-md-8">
-            <label>Name</label>
+            <label>FirstName</label>
             <input class="form-control" @bind="horseModel.Name" />
-            <label>HorseRace</label>
+            <label>LastName</label>
             <input class="form-control" @bind="horseModel.HorseRace" />
-            <label>SamuraiId</label>
+            <label>Birthdate</label>
             <input class="form-control" @bind="horseModel.SamuraiID" />
         </div>
     </div>
     <div class="row">
-        <input type="button" @onclick="@updateHorse" class="btn btn-primary" value="Save" />
+        <button type="submit">Confirm</button>
     </div>
-</form>
+</EditForm>
 @code {
     //parameter gør at vi kan hente dataen ned fra url som bliver parset med
     [Parameter]
@@ -39,7 +43,7 @@
     /// <summary>
     /// vores update metode
     /// </summary>
-    public void updateHorse()
+    public void UpdateHorse()
     {
         try
         {

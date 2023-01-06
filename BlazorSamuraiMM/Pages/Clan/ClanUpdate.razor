@@ -3,19 +3,23 @@
 @inject NavigationManager NavManager
 
 <h3>Update Clan</h3>
-<form>
+<EditForm Model="@clanModel" OnValidSubmit="UpdateClan">
+    @*For at vores beskreder fra vores validering kan vises*@
+    <ValidationSummary />
+    @*For at vores validering på modelleren kan bruges skal vi tilføje følgende*@
+    <DataAnnotationsValidator />
     <div class="row">
         <div class="col-md-8">
-            <label>ClanName</label>
+            <label>FirstName</label>
             <input class="form-control" @bind="clanModel.ClanName" />
-            <label>SamuraiId</label>
+            <label>LastName</label>
             <input class="form-control" @bind="clanModel.SamuraiID" />
         </div>
     </div>
     <div class="row">
-        <input type="button" @onclick="@UpdateClan" class="btn btn-primary" value="Save" />
+        <button type="submit">Confirm</button>
     </div>
-</form>
+</EditForm>
 @code {
     //parameter gør at vi kan hente dataen ned fra url som bliver parset med
     [Parameter]
