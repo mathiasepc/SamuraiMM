@@ -7,7 +7,7 @@
 <table>
     <thead>
         <tr>
-            <button @onclick="CreateSamurai">Add Samurai</button>
+            <button @onclick="createSamurai">Add Samurai</button>
         </tr>
         <tr>
             <td>FirstName</td>
@@ -15,34 +15,69 @@
             <td>Birthdate</td>
         </tr>
     </thead>
-    <tbody>     
-            @foreach (var samurai in samuraiList)
-            {
-                <tr>
+    <tbody>
+        @foreach (var samurai in samuraiList)
+        {
+            <tr>
                 <td>@samurai.FirstName</td>
                 <td>@samurai.LastName</td>
-                <td>@samurai.Birthdate</td>
+                <td>@samurai.Birthdate.Year</td>
                 <td>
                     <a href="samuraiUpdate/@samurai.ID">Update</a> |
-                    <button @onclick="()=>SamuraiDelete(samurai)">Delete</button>
+                    <button @onclick="()=>samuraiDelete(samurai)">Delete</button>
                 </td>
-                </tr>
-   
-            }
-        
+            </tr>
+
+        }
+
     </tbody>
 </table>
+
+<input type="text" @bind="SearchId" />
+<button @onclick="Search">Search</button>
+
+@if (IDResult != null)
+{
+    <table>
+        <thead>
+            <tr>
+                <td>FirstName</td>
+                <td>LastName</td>
+                <td>Birthdate</td>
+                @if (IDResult.Horse != null)
+                {
+                <td>Horse name</td>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@IDResult.FirstName</td>
+                <td>@IDResult.LastName</td>
+                <td>@IDResult.Birthdate.Year</td>
+                @*Hvis samuraien ikke har en hest, så skal vi sørge at det ikke bliver displayet ellers crasher programmet*@
+                @if (IDResult.Horse != null)
+                    {
+                    <td>@IDResult.Horse.Name</td>
+                    }
+            </tr>
+        </tbody>
+    </table>
+}
 
 @code {
     //istansiere vores List
     List<SamuraiModel> samuraiList = new();
+    int SearchId;
+    SamuraiModel IDResult;
+    SamuraiModel NameResult;
 
     /// <summary>
     /// overrider er så vi overskriver dataen hver gang
     /// gør klar til udprint
     /// </summary>
     protected override void OnInitialized()
-    { 
+    {
         //indsæt
         samuraiList = samurai.ReadAllSamurais();
     }
@@ -50,7 +85,7 @@
     /// <summary>
     /// vores knap til at komme hen for at indsætte i tabel
     /// </summary>
-    public void CreateSamurai()
+    public void createSamurai()
     {
         //skift vindue
         NavManager.NavigateTo("/SamuraiCreate");
@@ -60,7 +95,7 @@
     /// vores knap til at slette
     /// </summary>
     /// <param name="samuraiModel"></param>
-    public void SamuraiDelete(SamuraiModel samuraiModel)
+    public void samuraiDelete(SamuraiModel samuraiModel)
     {
         //kør metode
         samurai.DeleteSamurai(samuraiModel.ID);
@@ -68,5 +103,21 @@
         //refresh
         StateHasChanged();
     }
+
+    void Search()
+    {
+        //Hvis han har en hest så brug den her function
+        try
+        {
+            IDResult = samurai.ReadSamuraisHouse(SearchId);
+        }
+
+        //Ellers bruger den en anden function
+        catch
+        {
+            IDResult = samurai.ReadOneSamurai(SearchId);
+        }
+    }
+
 
 }
