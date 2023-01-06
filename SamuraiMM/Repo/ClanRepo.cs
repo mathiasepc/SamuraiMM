@@ -20,7 +20,7 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //Fortæller hvad den skal gøre i SQL
-                SqlCommand command = new SqlCommand($"CREATE TABLE Clan(ID int Identity(1,1) Primary Key, ClanName nvarchar(50), SamuraiID int Foreign KEY references Samurai(ID)); ", sqlConnection);
+                SqlCommand command = new SqlCommand($"CREATE TABLE Clan(ID int Identity(1,1) Primary Key, ClanName nvarchar(50)); ", sqlConnection);
 
                 //opretter tablen
                 command.ExecuteNonQuery();
@@ -40,7 +40,7 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //istansiere SqlCommand klassen og indsætter i databasen
-                SqlCommand sqlCommand = new($"INSERT INTO Clan (ClanName, SamuraiID) values('{clan.ClanName}', '{clan.SamuraiID}')", sqlConnection);
+                SqlCommand sqlCommand = new($"INSERT INTO Clan (ClanName) values('{clan.ClanName}')", sqlConnection);
 
                 //sender til min database
                 sqlCommand.ExecuteNonQuery();
@@ -79,7 +79,7 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //Laver en SQLCommando for at update databasen og indsætter sqlConnection
-                SqlCommand commandChange = new($"UPDATE Clan SET ClanName = '{clan.ClanName}', SamuraiId = {clan.SamuraiID} Where ID = {clan.ID}", sqlConnection);
+                SqlCommand commandChange = new($"UPDATE Clan SET ClanName = '{clan.ClanName}' Where ID = {clan.ID}", sqlConnection);
 
                 //eksekver
                 commandChange.ExecuteNonQuery();
@@ -132,7 +132,7 @@ namespace SamuraiMM.Repo
                 while (reader.Read())
                 {
                     //laver en midlertidig model for at kunne overfører den ene person til vores List
-                    ClanModel clanTemp = new ClanModel() { ID = reader.GetInt32(0), ClanName = reader.GetString(1), SamuraiID = reader.GetInt32(2) };
+                    ClanModel clanTemp = new ClanModel() { ID = reader.GetInt32(0), ClanName = reader.GetString(1) };
 
                     //overfører den ene person til List
                     allClans.Add(clanTemp);

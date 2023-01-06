@@ -10,10 +10,8 @@
     <DataAnnotationsValidator />
     <div class="row">
         <div class="col-md-8">
-            <label>FirstName</label>
+            <label>Clan Name</label>
             <input class="form-control" @bind="clanModel.ClanName" />
-            <label>LastName</label>
-            <input class="form-control" @bind="clanModel.SamuraiID" />
         </div>
     </div>
     <div class="row">
@@ -43,22 +41,9 @@
     /// </summary>
     private void UpdateClan()
     {
-        try
-        {
-            //køør metode
-            clan.UpdateClan(clanModel);
-            //skift vindue
-            NavManager.NavigateTo("clan");
-        }
-        catch
-        {
-            //gør navigateTo klar
-            string infostring = $"{(clanModel.SamuraiID).ToString()} is not an existent Samurai ID";
-            string currentModel = "Clan Model";
-            string url = "clanUpdate";
-
-            //skfit vindue
-            NavManager.NavigateTo($"/errorIDPage/{url}/{CurrentId}/{currentModel}/{infostring}");
-        }
+        //køør metode
+        clan.UpdateClan(clanModel);
+        //skift vindue
+        NavManager.NavigateTo("clan");
     }
 }

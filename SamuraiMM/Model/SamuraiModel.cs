@@ -11,6 +11,7 @@ namespace SamuraiMM.Model
     public class SamuraiModel
     {
         public int ID { get; set; }
+        public int ClanID { get; set; }
         //Hvis feltet er tomt 
         [Required(ErrorMessage = "Firstname is required.")]
         //Laver længden på string 50

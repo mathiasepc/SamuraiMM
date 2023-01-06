@@ -120,23 +120,23 @@ BattleSamuraiModel m7 = new BattleSamuraiModel()
 
 //h.InsertHorse(h1);
 
+ClanRepo cl = new();
 SamuraiRepo sam = new();
 HorseRepo hor = new();
-SamuraiBattlesRepo s = new();
 QuotesRepo q = new();
 BladeRepo blade = new();
+SamuraiBattlesRepo s = new();
 
-ClanRepo cl = new();
-
-//sam.CreateTableSamurai();
-//Console.ReadKey();
-//hor.CreateTableHorse();
-//q.CreateTableQuote();
-//blade.CreateTableBlade();
-//cl.CreateTableClan();
-//b.CreateTableBattles();
-
-//s.CreateTableSamuraiBattles();
+cl.CreateTableClan();
+Console.ReadKey();
+sam.CreateTableSamurai();
+Console.ReadKey();
+hor.CreateTableHorse();
+q.CreateTableQuote();
+blade.CreateTableBlade();
+b.CreateTableBattles();
+Console.ReadKey();
+s.CreateTableSamuraiBattles();
 
 
 

@@ -45,8 +45,9 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //istansiere SqlCommand klassen og indsætter i databasen
-                SqlCommand sqlCommand = new($"INSERT INTO Samurai (FirstName, LastName, Birthdate) values('{samurai.FirstName}', '{samurai.LastName}', @f3)", sqlConnection);
+                SqlCommand sqlCommand = new($"INSERT INTO Samurai (FirstName, LastName, Birthdate, ClanID) values('{samurai.FirstName}', '{samurai.LastName}', @f3,{samurai.ClanID})", sqlConnection);
 
+                //Da database ikke kan forstå datetime, parse vi den ind i en variable for sig.
                 sqlCommand.Parameters.AddWithValue("@f3", samurai.Birthdate);
 
                 //sender til min database
@@ -90,7 +91,7 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //Laver en SQLCommando for at update databasen og indsætter sqlConnection
-                SqlCommand commandChange = new($"UPDATE Samurai SET FirstName = '{samurai.FirstName}', LastName = '{samurai.LastName}', Birthdate = @f3 Where ID = {samurai.ID}", sqlConnection);
+                SqlCommand commandChange = new($"UPDATE Samurai SET FirstName = '{samurai.FirstName}', LastName = '{samurai.LastName}', Birthdate = @f3 , ClanID = '{samurai.ClanID}' Where ID = {samurai.ID}", sqlConnection);
 
                 //Da database ikke kan forstå datetime, parse vi den ind i en variable for sig.
                 commandChange.Parameters.AddWithValue("@f3", samurai.Birthdate);
