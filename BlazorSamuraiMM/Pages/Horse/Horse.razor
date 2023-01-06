@@ -21,7 +21,7 @@
                 <td>@horse.HorseRace</td>
                 <td>@horse.SamuraiID</td>
                 <td>
-                    <a href="horseUpdate/@horse.ID">Update</a> |
+                    <a href="horseUpdate/@horse.SamuraiID">Update</a> |
                     <button @onclick="()=>HorseDelete(horse)">Delete</button>
                 </td>
                 </tr>
@@ -61,7 +61,7 @@
     private void HorseDelete(HorseModel horseModel)
     {
         //kør metode
-        horse.DeleteHorse(horseModel.ID);
+        horse.DeleteHorse(horseModel.SamuraiID);
 
         //refresh
         StateHasChanged();

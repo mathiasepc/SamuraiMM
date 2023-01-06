@@ -9,7 +9,7 @@ namespace SamuraiMM.Model
 {
     public class HorseModel
     {
-        public int ID { get; set; }
+        //public int ID { get; set; }
         //hvis feltet er tomt
         [Required(ErrorMessage = "Name is required.")]
         //Laver en længde på string 50

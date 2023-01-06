@@ -25,7 +25,7 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //Fortæller hvad den skal gøre i SQL
-                SqlCommand command = new SqlCommand($"CREATE TABLE Samurai(ID int Identity(1,1) Primary Key, FirstName nvarchar(50), LastName nvarchar(50), Birthdate datetime); ", sqlConnection);
+                SqlCommand command = new SqlCommand($"CREATE TABLE Samurai(ID int Identity(1,1) Primary Key, FirstName nvarchar(50), LastName nvarchar(50), Birthdate datetime, ClanID int Foreign KEY references Clan(ID)); ", sqlConnection);
 
                 //opretter tablen
                 command.ExecuteNonQuery();
@@ -159,8 +159,8 @@ namespace SamuraiMM.Repo
                 sam.Birthdate = Convert.ToDateTime(reader["BirthDate"]);
                 sam.Horse = new HorseModel()
                 {
-                    ID = Convert.ToInt32(reader["ID"]),
                     Name = reader["Name"].ToString(),
+                    HorseRace = reader["HorseRace"].ToString(),
                     SamuraiID = Convert.ToInt32(reader["SamuraiId"])
                 };
 
@@ -194,7 +194,6 @@ namespace SamuraiMM.Repo
                 sam.Birthdate = Convert.ToDateTime(reader["BirthDate"]);
                 sam.Horse = new HorseModel()
                 {
-                    ID = Convert.ToInt32(reader["ID"]),
                     Name = reader["Name"].ToString(),
                     SamuraiID = Convert.ToInt32(reader["SamuraiId"])
                 };

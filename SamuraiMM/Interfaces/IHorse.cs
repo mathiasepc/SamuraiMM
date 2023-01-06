@@ -12,7 +12,7 @@ namespace SamuraiMM.Interfaces
         public void InsertHorse(HorseModel horse);
         public void InsertHorseAvoidInjection(HorseModel horse);
         public void DeleteHorse(int ID);
-        public void UpdateHorse(HorseModel horse);
+        public void UpdateHorse(HorseModel horse, int ID);
         public HorseModel ReadOneHorse(int ID);
         public List<HorseModel> ReadAllHorses();
     }

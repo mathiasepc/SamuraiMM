@@ -50,7 +50,7 @@
         catch
         {
             //bygger vores navigateTo ordenligt op
-            string infostring = $"{(horseModel.SamuraiID).ToString()} is not an existent Samurai ID";
+            string infostring = $"{(horseModel.SamuraiID).ToString()} might already be in use or out of range.";
             string currentModel = "Horse Model";
             string CurrentId = " ";
             string url = "horseCreate";

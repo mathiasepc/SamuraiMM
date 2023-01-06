@@ -36,7 +36,7 @@
     /// </summary>
     protected override void OnInitialized()
     {
-        //indstter 
+        //indsætter 
         horseModel = horse.ReadOneHorse(Convert.ToInt32(CurrentId));
     }
 
@@ -48,7 +48,7 @@
         try
         {
             //kør metode
-            horse.UpdateHorse(horseModel);
+            horse.UpdateHorse(horseModel, Convert.ToInt32(CurrentId));
             //skift vindue
             NavManager.NavigateTo("horse");
         }
