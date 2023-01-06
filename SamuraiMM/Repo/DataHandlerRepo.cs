@@ -106,7 +106,7 @@ namespace SamuraiMM.Repo
         /// <param name="injection"></param>
         /// <param name="entityName"></param>
         /// <param name="connection"></param>
-        public void InsertData(string columNamesBuild, string injection, string entityName, SqlConnection connection)
+        private void InsertData(string columNamesBuild, string injection, string entityName, SqlConnection connection)
         {
             //fjerner det sidste komma i strings. Den kan ikke slutte på et komma.
             string columNames = columNamesBuild.Remove(columNamesBuild.Length - 1);
@@ -126,7 +126,7 @@ namespace SamuraiMM.Repo
         /// Laver en metode som Conventere DateTime og undgår sqlinjection
         /// </summary>
         /// <param name="item"></param>
-        public void SetDateTimeDataSamurai(DateTime item)
+        private void SetDateTimeDataSamurai(DateTime item)
         {
             //Tilføj. får valuen ud af propperties med .GetValue()
             DateTime value = Convert.ToDateTime(item);
@@ -144,7 +144,7 @@ namespace SamuraiMM.Repo
         /// Laver en metode som undgår sqlinjection på strings
         /// </summary>
         /// <param name="value"></param>
-        public void SetStringDataSamurai(string value)
+        private void SetStringDataSamurai(string value)
         {
             //undgår SQL injection for data
             Command.Parameters.AddWithValue($"@{InjectionCounter}", value);
@@ -161,7 +161,7 @@ namespace SamuraiMM.Repo
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        public bool CheckID(object item)
+        private bool CheckID(object item)
         {
             //Hvis ikke det er ID skal den være true
             bool answerID = true;
@@ -176,7 +176,7 @@ namespace SamuraiMM.Repo
         /// <summary>
         /// Laver en metode som reseter min data
         /// </summary>
-        public void ResetData()
+        private void ResetData()
         {
             ColumNamesBuild = string.Empty;
             Injection = string.Empty;
