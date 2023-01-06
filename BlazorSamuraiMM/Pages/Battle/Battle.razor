@@ -7,7 +7,7 @@
 <table>
     <thead>
         <tr>
-            <button @onclick="createBattle">Add Battle</button>
+            <button @onclick="CreateBattle">Add Battle</button>
         </tr>
         <tr>
             <td>EventTitle</td>
@@ -26,7 +26,7 @@
                 <td>@battle.EventSlutDate </td>
                 <td>
                     <a href="battleUpdate/@battle.ID">Update</a> |
-                    <button @onclick="()=>battleDelete(battle)">Delete</button>
+                    <button @onclick="()=>BattleDelete(battle)">Delete</button>
                 </td>
                 </tr>
    
@@ -52,7 +52,7 @@
     /// <summary>
     /// vores knap til at komme hen for at indsætte i tabel
     /// </summary>
-    public void createBattle()
+    public void CreateBattle()
     {
         //skift vindue
         NavManager.NavigateTo("/battleCreate");
@@ -62,7 +62,7 @@
     /// Vores delete knap
     /// </summary>
     /// <param name="battleModel"></param>
-    public void battleDelete(BattleModel battleModel)
+    public void BattleDelete(BattleModel battleModel)
     {
         //kør metode
         battle.DeleteBattle(battleModel.ID);

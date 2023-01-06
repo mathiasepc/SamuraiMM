@@ -7,7 +7,7 @@
 <table>
     <thead>
         <tr>
-            <button @onclick="createBlade">Add Blade</button>
+            <button @onclick="CreateBlade">Add Blade</button>
         </tr>
         <tr>
             <td>Name</td>
@@ -24,7 +24,7 @@
                 <td>@blade.SamuraiID</td>
                 <td>
                     <a href="bladeUpdate/@blade.ID">Update</a> |
-                    <button @onclick="()=>bladeDelete(blade)">Delete</button>
+                    <button @onclick="()=>BladeDelete(blade)">Delete</button>
                 </td>
                 </tr>
    
@@ -50,7 +50,7 @@
     /// <summary>
     /// vores knap til at komme hen for at indsætte i tabel
     /// </summary>
-    public void createBlade()
+    public void CreateBlade()
     {
         //Skift
         NavManager.NavigateTo("/BladeCreate");
@@ -60,7 +60,7 @@
     /// vores knap til at delete
     /// </summary>
     /// <param name="bladeModel"></param>
-    public void bladeDelete(BladeModel bladeModel)
+    public void BladeDelete(BladeModel bladeModel)
     {
         //kør metode
         blade.DeleteBlade(bladeModel.ID);

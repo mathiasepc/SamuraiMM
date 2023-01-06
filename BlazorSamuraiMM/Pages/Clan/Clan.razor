@@ -7,7 +7,7 @@
 <table>
     <thead>
         <tr>
-            <button @onclick="createClan">Add Clan</button>
+            <button @onclick="CreateClan">Add Clan</button>
         </tr>
         <tr>
             <td>Clan Name</td>
@@ -22,7 +22,7 @@
                 <td>@clan.SamuraiID</td>
                 <td>
                     <a href="clanUpdate/@clan.ID">Update</a> |
-                    <button @onclick="()=>clanDelete(clan)">Delete</button>
+                    <button @onclick="()=>ClanDelete(clan)">Delete</button>
                 </td>
                 </tr>
             }
@@ -47,7 +47,7 @@
     /// <summary>
     /// vores knap til at komme hen og indsætte
     /// </summary>
-    public void createClan()
+    public void CreateClan()
     {
         //skift vindue
         NavManager.NavigateTo("/clanCreate");
@@ -57,7 +57,7 @@
     /// vores knap til at slette
     /// </summary>
     /// <param name="clanModel"></param>
-    public void clanDelete(ClanModel clanModel)
+    public void ClanDelete(ClanModel clanModel)
     {
         //kør metode
         clan.DeleteClan(clanModel.ID);

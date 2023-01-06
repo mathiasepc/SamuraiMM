@@ -7,7 +7,7 @@
 <table>
     <thead>
         <tr>
-            <button @onclick="createSamurai">Add Samurai</button>
+            <button @onclick="CreateSamurai">Add Samurai</button>
         </tr>
         <tr>
             <td>FirstName</td>
@@ -24,7 +24,7 @@
                 <td>@samurai.Birthdate</td>
                 <td>
                     <a href="samuraiUpdate/@samurai.ID">Update</a> |
-                    <button @onclick="()=>samuraiDelete(samurai)">Delete</button>
+                    <button @onclick="()=>SamuraiDelete(samurai)">Delete</button>
                 </td>
                 </tr>
    
@@ -50,7 +50,7 @@
     /// <summary>
     /// vores knap til at komme hen for at indsætte i tabel
     /// </summary>
-    public void createSamurai()
+    public void CreateSamurai()
     {
         //skift vindue
         NavManager.NavigateTo("/SamuraiCreate");
@@ -60,7 +60,7 @@
     /// vores knap til at slette
     /// </summary>
     /// <param name="samuraiModel"></param>
-    public void samuraiDelete(SamuraiModel samuraiModel)
+    public void SamuraiDelete(SamuraiModel samuraiModel)
     {
         //kør metode
         samurai.DeleteSamurai(samuraiModel.ID);

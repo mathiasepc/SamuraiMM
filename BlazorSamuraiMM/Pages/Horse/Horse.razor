@@ -7,7 +7,7 @@
 <table>
     <thead>
         <tr>
-            <button @onclick="createHorse">Add Horse</button>
+            <button @onclick="CreateHorse">Add Horse</button>
         </tr>
         <tr>
             <td>Name</td><td>Horse Race</td><td>Samurai ID</td>
@@ -22,7 +22,7 @@
                 <td>@horse.SamuraiID</td>
                 <td>
                     <a href="horseUpdate/@horse.ID">Update</a> |
-                    <button @onclick="()=>horseDelete(horse)">Delete</button>
+                    <button @onclick="()=>HorseDelete(horse)">Delete</button>
                 </td>
                 </tr>
    
@@ -48,7 +48,7 @@
     /// <summary>
     /// vores knap til at komme hen for at indsætte i tabel
     /// </summary>
-    public void createHorse()
+    public void CreateHorse()
     {
         //skift vindue
         NavManager.NavigateTo("/horseCreate");
@@ -58,7 +58,7 @@
     /// vores knap til at slette
     /// </summary>
     /// <param name="horseModel"></param>
-    public void horseDelete(HorseModel horseModel)
+    public void HorseDelete(HorseModel horseModel)
     {
         //kør metode
         horse.DeleteHorse(horseModel.ID);

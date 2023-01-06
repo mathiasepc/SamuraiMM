@@ -4,7 +4,7 @@
 
 <h3>Update Samurai</h3>
 
-<EditForm Model="@samuraiModel" OnValidSubmit="updateSamurai">
+<EditForm Model="@samuraiModel" OnValidSubmit="UpdateSamurai">
     @*For at vores beskreder fra vores validering kan vises*@
     <ValidationSummary />
     @*For at vores validering på modelleren kan bruges skal vi tilføje følgende*@
@@ -41,7 +41,7 @@
         //indsæt
         samuraiModel = samurai.ReadOneSamurai(Convert.ToInt32(CurrentId));
     }
-    public void updateSamurai()
+    public void UpdateSamurai()
     {
         try
         {

@@ -7,7 +7,7 @@
 <table>
     <thead>
         <tr>
-            <button @onclick="createQuote">Add Quote</button>
+            <button @onclick="CreateQuote">Add Quote</button>
         </tr>
         <tr>
             <td>Quote Text</td>
@@ -48,7 +48,7 @@
     /// <summary>
     /// vores knap til at komme hen for at indsætte i tabel
     /// </summary>
-    public void createQuote()
+    public void CreateQuote()
     {
         //skift vindue
         NavManager.NavigateTo("/quoteCreate");
