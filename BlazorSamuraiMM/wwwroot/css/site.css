@@ -4,20 +4,6 @@ html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
-/*Rammer linket i en a href*/
-button a:link {
-    text-decoration: none;
-}
-
-/*Rammer teksten i en a href*/
-button a {
-    color: black;
-}
-
-button {
-
-}
-
 .topSection {
     display: flex;
     justify-content: center;
