@@ -10,14 +10,66 @@ html, body {
     flex-direction: column;
 }
 
-.topSection button {
-    align-self: center;
-    width: 10%
-}
+    .topSection button {
+        align-self: center;
+        width: 15%
+    }
 
 h3 {
     text-align: center;
 }
+
+.errorBox {
+
+}
+
+.row {
+    font-weight: bold;
+    margin-left: 15px;
+    background-color: #dbdbdb;
+    width: 21%;
+    padding-top: 10px;
+    padding-bottom: 15px;
+}
+
+.form-control {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border: none;
+    background-color: silver;
+}
+
+
+/*Border på highlighted input felt fjernes*/
+    .form-control:focus {
+        box-shadow: none;
+    }
+
+
+.formButton {
+    margin-top: 10px;
+}
+
+    .formButton button {
+        font-weight: bold;
+    }
+
+.bottomSection {
+    font-weight: bold;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    background-color: silver;
+    width: 17%
+}
+
+    .bottomSection input {
+        align-self: center;
+        margin-bottom: 20px;
+        width: 50%
+    }
+
+
 
 /*Rammer alle tables på ens client*/
 table {
@@ -40,6 +92,10 @@ tr:nth-child(even) {
     background-color: #dddddd;
 }
 
+tr:nth-child(odd) {
+    background-color: #c4c4c4;
+}
+
 thead {
     font-weight: bold;
 }
@@ -57,6 +113,10 @@ button a:link {
 button a {
     color: black;
 }
+
+    button a:hover {
+        color: black;
+    }
 
 /*Rammer selve knappen*/
 button {
