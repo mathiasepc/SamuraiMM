@@ -37,8 +37,11 @@
     </tbody>
 </table>
 
+<div class="bottomSection">
+<p>Søg på en Samurai ved ID: </p>
 <input type="text" @bind="SearchId" />
 <button @onclick="Search">Search</button>
+</div>
 
 @if (IDResult != null)
 {
