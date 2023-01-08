@@ -2,32 +2,32 @@
 @inject IQuotes quote
 @inject NavigationManager NavManager
 
+<div class="topSection">
 <h3>Quotes</h3>
+<button @onclick="CreateQuote">Add Quote</button>
+</div>
 
 <table>
     <thead>
-        <tr>
-            <button @onclick="CreateQuote">Add Quote</button>
-        </tr>
         <tr>
             <td>Quote Text</td>
             <td>Samurai Id</td>
         </tr>
     </thead>
-    <tbody>     
-            @foreach (var quote in quoteList)
-            {
-                <tr>
+    <tbody>
+        @foreach (var quote in quoteList)
+        {
+            <tr>
                 <td>@quote.QuoteText</td>
                 <td>@quote.SamuraiID</td>
                 <td>
                     <a href="QuoteUpdate/@quote.ID">Update</a> |
                     <button @onclick="()=>QuoteDelete(quote)">Delete</button>
                 </td>
-                </tr>
-   
-            }
-        
+            </tr>
+
+        }
+
     </tbody>
 </table>
 
@@ -40,7 +40,7 @@
     /// gør klar til udprint
     /// </summary>
     protected override void OnInitialized()
-    { 
+    {
         //indsæt
         quoteList = quote.ReadAllQuotes();
     }
@@ -65,7 +65,7 @@
 
         //refresh
         StateHasChanged();
-        
+
     }
 
 }

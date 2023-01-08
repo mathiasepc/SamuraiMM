@@ -2,21 +2,22 @@
 @inject IHorse horse
 @inject NavigationManager NavManager
 
-<h3>Horses</h3>
-
+<div class="topSection">
+    <h3>List of horses</h3>
+    <button @onclick="CreateHorse">Add Horse</button>
+</div>
 <table>
     <thead>
         <tr>
-            <button @onclick="CreateHorse">Add Horse</button>
-        </tr>
-        <tr>
-            <td>Name</td><td>Horse Race</td><td>Samurai ID</td>
+            <td>Name</td>
+            <td>Horse Race</td>
+            <td>Samurai ID</td>
         </tr>
     </thead>
-    <tbody>     
-            @foreach (var horse in horsesList)
-            {
-                <tr>
+    <tbody>
+        @foreach (var horse in horsesList)
+        {
+            <tr>
                 <td>@horse.Name</td>
                 <td>@horse.HorseRace</td>
                 <td>@horse.SamuraiID</td>
@@ -24,8 +25,8 @@
                     <a href="horseUpdate/@horse.SamuraiID">Update</a> |
                     <button @onclick="()=>HorseDelete(horse)">Delete</button>
                 </td>
-                </tr>
-            }  
+            </tr>
+        }
     </tbody>
 </table>
 
@@ -38,9 +39,9 @@
     /// gør klar til udprint
     /// </summary>
     protected override void OnInitialized()
-    { 
+    {
         //indsæt
-        horsesList = horse.ReadAllHorses(); 
+        horsesList = horse.ReadAllHorses();
     }
 
     /// <summary>

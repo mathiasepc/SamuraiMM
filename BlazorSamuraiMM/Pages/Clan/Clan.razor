@@ -2,13 +2,13 @@
 @inject IClan clan
 @inject NavigationManager NavManager
 
-<h3>Clans</h3>
+<div class="topSection">
+    <h3>List of clans</h3>
+    <button @onclick="CreateClan">Add clan</button>
+</div>
 
 <table>
     <thead>
-        <tr>
-            <button @onclick="CreateClan">Add Clan</button>
-        </tr>
         <tr>
             <td>Clan Name</td>
             <td>ID</td>
@@ -16,17 +16,17 @@
     </thead>
     <tbody>
         @foreach (var clan in clansList)
-            {
-                <tr>
+        {
+            <tr>
                 <td>@clan.ClanName</td>
                 <td>@clan.ID</td>
                 <td>
                     <a href="clanUpdate/@clan.ID">Update</a> |
                     <button @onclick="()=>ClanDelete(clan)">Delete</button>
                 </td>
-                </tr>
-            }
-        
+            </tr>
+        }
+
     </tbody>
 </table>
 
@@ -39,7 +39,7 @@
     /// gør klar til udprint
     /// </summary>
     protected override void OnInitialized()
-    { 
+    {
         //indsæt
         clansList = clan.ReadAllClans();
     }
@@ -61,7 +61,7 @@
     {
         //kør metode
         clan.DeleteClan(clanModel.ID);
-        
+
         //refresh
         StateHasChanged();
     }

@@ -2,26 +2,34 @@
 @inject IBattle battle
 @inject NavigationManager NavManager
 
-<h3>Update Battle</h3>
+<div class="topSection">
+    <h3>Update battle</h3>
+</div>
+
 <EditForm Model="@battleModel" OnValidSubmit="UpdateBattle">
     @*For at vores beskreder fra vores validering kan vises*@
-    <ValidationSummary />
-    @*For at vores validering på modelleren kan bruges skal vi tilføje følgende*@
-    <DataAnnotationsValidator />
+    <div class="errorBox">
+        <ValidationSummary />
+        @*For at vores validering på modelleren kan bruges skal vi tilføje følgende*@
+        <DataAnnotationsValidator />
+    </div>
     <div class="row">
-        <div class="col-md-8">
+        <div class="">
             <label>Event title</label>
             <input class="form-control" @bind="battleModel.EventTitle" />
             <label>Description</label>
             <input class="form-control" @bind="battleModel.Description" />
-            <label>Battle start</label>
+            <label>Event start</label>
             <input class="form-control" @bind="battleModel.EventStartDate" />
-            <label>Battle end</label>
+            <label>Event end</label>
             <input class="form-control" @bind="battleModel.EventSlutDate" />
         </div>
-    </div>
-    <div class="row">
-        <button type="submit">Confirm</button>
+
+
+        <div class="formButton">
+            <button @onclick="Back">Back</button>
+            <button type="submit">Confirm</button>
+        </div>
     </div>
 </EditForm>
 @code {
@@ -41,6 +49,13 @@
         //indsætter data i battlemodel
         battleModel = battle.ReadOneBattle(Convert.ToInt32(CurrentId));
     }
+
+    private void Back()
+    {
+        //skift vindue
+        NavManager.NavigateTo("/battle");
+    }
+
     private void UpdateBattle()
     {
         //kør metode

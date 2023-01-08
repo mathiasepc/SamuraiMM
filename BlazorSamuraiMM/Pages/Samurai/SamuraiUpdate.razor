@@ -3,15 +3,15 @@
 @inject NavigationManager NavManager
 
 <div class="topSection">
-<h3>Update Samurai</h3>
+    <h3>Update samurai</h3>
 </div>
 
 <EditForm Model="@samuraiModel" OnValidSubmit="UpdateSamurai">
     @*For at vores beskreder fra vores validering kan vises*@
     <div class="errorBox">
-    <ValidationSummary />
-    @*For at vores validering på modelleren kan bruges skal vi tilføje følgende*@
-    <DataAnnotationsValidator />
+        <ValidationSummary />
+        @*For at vores validering på modelleren kan bruges skal vi tilføje følgende*@
+        <DataAnnotationsValidator />
     </div>
     <div class="row">
         <div class="">
@@ -24,12 +24,12 @@
             <label>Clan ID</label>
             <input class="form-control" @bind="samuraiModel.ClanID" />
         </div>
-    
-    
-    <div class="formButton">
-    <button @onclick="Back">Back</button>
-    <button type="submit">Confirm</button>
-    </div>
+
+
+        <div class="formButton">
+            <button @onclick="Back">Back</button>
+            <button type="submit">Confirm</button>
+        </div>
     </div>
 </EditForm>
 
@@ -50,11 +50,13 @@
         //indsæt
         samuraiModel = samurai.ReadOneSamurai(Convert.ToInt32(CurrentId));
     }
+
     private void Back()
     {
         //skift vindue
         NavManager.NavigateTo("/samurai");
     }
+
     private void UpdateSamurai()
     {
         try

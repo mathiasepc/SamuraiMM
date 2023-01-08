@@ -5,21 +5,26 @@
 <h3>Update Blade</h3>
 <EditForm Model="@bladeModel" OnValidSubmit="UpdateBlade">
     @*For at vores beskreder fra vores validering kan vises*@
-    <ValidationSummary />
-    @*For at vores validering på modelleren kan bruges skal vi tilføje følgende*@
-    <DataAnnotationsValidator />
+    <div class="errorBox">
+        <ValidationSummary />
+        @*For at vores validering på modelleren kan bruges skal vi tilføje følgende*@
+        <DataAnnotationsValidator />
+    </div>
     <div class="row">
-        <div class="col-md-8">
-            <label>Name</label>
+        <div class="">
+            <label>Blade name</label>
             <input class="form-control" @bind="bladeModel.Name" />
             <label>Description</label>
             <input class="form-control" @bind="bladeModel.Description" />
             <label>SamuraiId</label>
             <input class="form-control" @bind="bladeModel.SamuraiID" />
         </div>
-    </div>
-    <div class="row">
-        <button type="submit">Confirm</button>
+
+
+        <div class="formButton">
+            <button @onclick="Back">Back</button>
+            <button type="submit">Confirm</button>
+        </div>
     </div>
 </EditForm>
 @code {
@@ -38,6 +43,12 @@
     {
         //indsætter i model
         bladeModel = blade.ReadOneBlade(Convert.ToInt32(CurrentId));
+    }
+
+    private void Back()
+    {
+        //skift vindue
+        NavManager.NavigateTo("/samurai");
     }
 
     /// <summary>

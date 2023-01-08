@@ -2,26 +2,32 @@
 @inject IHorse horse
 @inject NavigationManager NavManager
 
-<h3>Update Horse</h3>
+<div class="topSection">
+    <h3>Update a horse</h3>
+</div>
+
 <EditForm Model="@horseModel" OnValidSubmit="UpdateHorse">
     @*For at vores beskreder fra vores validering kan vises*@
-    <ValidationSummary />
-    @*For at vores validering på modelleren kan bruges skal vi tilføje følgende*@
-    <DataAnnotationsValidator />
+    <div class="errorBox">
+        <ValidationSummary />
+        @*For at vores validering på modelleren kan bruges skal vi tilføje følgende*@
+        <DataAnnotationsValidator />
+    </div>
     <div class="row">
-        <div class="col-md-8">
-            <label>FirstName</label>
+        <div class="">
+            <label>Horse name</label>
             <input class="form-control" @bind="horseModel.Name" />
-            <label>LastName</label>
-            <input class="form-control" @bind="horseModel.HorseRace" />
             <label>SamuraiId</label>
             <input class="form-control" @bind="horseModel.SamuraiID" />
         </div>
-    </div>
-    <div class="row">
-        <button type="submit">Confirm</button>
+
+        <div class="formButton">
+            <button @onclick="Back">Back</button>
+            <button type="submit">Confirm</button>
+        </div>
     </div>
 </EditForm>
+
 @code {
     //parameter gør at vi kan hente dataen ned fra url som bliver parset med
     [Parameter]
@@ -36,8 +42,14 @@
     /// </summary>
     protected override void OnInitialized()
     {
-        //indsætter 
+        //indsætter
         horseModel = horse.ReadOneHorse(Convert.ToInt32(CurrentId));
+    }
+
+    private void Back()
+    {
+        //skift vindue
+        NavManager.NavigateTo("/horse");
     }
 
     /// <summary>

@@ -2,22 +2,31 @@
 @inject IQuotes quote
 @inject NavigationManager NavManager
 
-<h3>Create A Quote</h3>
+<div class="topSection">
+    <h3>Create A Quote</h3>
+</div>
+
 <EditForm Model="@quoteModel" OnValidSubmit="CreateQuote">
     @*For at vores beskreder fra vores validering kan vises*@
     <ValidationSummary />
     @*For at vores validering på modelleren kan bruges skal vi tilføje følgende*@
     <DataAnnotationsValidator />
-    <div class="form-control">
-        Quote <input type="text" @bind="quoteModel.QuoteText" />
+    <div class="row">
+        <div class="">
+            <label>Quote text</label>
+            <input class="form-control" @bind="quoteModel.QuoteText" />
+            <label>SamuraiId</label>
+            <input class="form-control" @bind="quoteModel.SamuraiID" />
+        </div>
+
+        <div class="formButton">
+            <button @onclick="Back">Back</button>
+            <button type="submit">Confirm</button>
+        </div>
     </div>
-    <div class="form-control">
-        SamuraID <input type="text" @bind="quoteModel.SamuraiID" />
-    </div>
-    <button type="submit">Confirm</button>
+    
     
 </EditForm>
-<button @onclick="Back">Back</button>
 
 
 @code {

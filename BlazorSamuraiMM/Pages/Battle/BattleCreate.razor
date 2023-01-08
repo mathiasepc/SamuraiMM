@@ -2,25 +2,32 @@
 @inject IBattle battle
 @inject NavigationManager NavManager
 
-<h3>Create A Battle</h3>
+<div class="topSection">
+    <h3>Create A samurai</h3>
+</div>
 <EditForm Model="@battleModel" OnValidSubmit="CreateBattle">
     @*For at vores beskreder fra vores validering kan vises*@
     <ValidationSummary />
     @*For at vores validering på modelleren kan bruges skal vi tilføje følgende*@
     <DataAnnotationsValidator />
-    <div class="form-control">
-        Title <input type="text" @bind="battleModel.EventTitle" />
+    <div class="row">
+        <div class="">
+            <label>Event title</label>
+            <input class="form-control" @bind="battleModel.EventTitle" />
+            <label>Description</label>
+            <input class="form-control" @bind="battleModel.Description" />
+            <label>Event start</label>
+            <input class="form-control" @bind="battleModel.EventStartDate" />
+            <label>Event end</label>
+            <input class="form-control" @bind="battleModel.EventSlutDate" />
+        </div>
+
+
+        <div class="formButton">
+            <button @onclick="Back">Back</button>
+            <button type="submit">Confirm</button>
+        </div>
     </div>
-    <div class="form-control">
-        Description <input type="text" @bind="battleModel.Description" />
-    </div>
-    <div class="form-control">
-        Start Date <input type="text" @bind="battleModel.EventStartDate" />
-    </div>
-    <div class="form-control">
-        End Date <input type="text" @bind="battleModel.EventSlutDate" />
-    </div>
-    <button type="submit">Confirm</button>
 
 </EditForm>
 <button @onclick="Back">Back</button>

@@ -2,13 +2,13 @@
 @inject IBlade blade
 @inject NavigationManager NavManager
 
-<h3>Blades</h3>
+<div class="topSection">
+    <h3>List of blade</h3>
+    <button @onclick="CreateBlade">Add blade</button>
+</div>
 
 <table>
     <thead>
-        <tr>
-            <button @onclick="CreateBlade">Add Blade</button>
-        </tr>
         <tr>
             <td>Name</td>
             <td>Description</td>

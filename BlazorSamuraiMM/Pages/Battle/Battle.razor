@@ -2,13 +2,12 @@
 @inject IBattle battle
 @inject NavigationManager NavManager
 
-<h3>Battles</h3>
-
+<div class="topSection">
+    <h3>List of battles</h3>
+    <button @onclick="CreateBattle">Add battle</button>
+</div>
 <table>
     <thead>
-        <tr>
-            <button @onclick="CreateBattle">Add Battle</button>
-        </tr>
         <tr>
             <td>EventTitle</td>
             <td>Description</td>

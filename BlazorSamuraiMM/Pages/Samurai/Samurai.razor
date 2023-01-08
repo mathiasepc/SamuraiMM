@@ -3,14 +3,12 @@
 @inject NavigationManager NavManager
 
 <div class="topSection">
-<h3>List of Samurais</h3>
-<button @onclick="createSamurai">Add Samurai</button>
+    <h3>List of samurais</h3>
+    <button @onclick="CreateSamurai">Add samurai</button>
 </div>
 
 <table>
     <thead>
-        <tr>
-        </tr>
         <tr>
             <td>First name</td>
             <td>Last name</td>
@@ -28,7 +26,7 @@
                 <td>
 
                     <button><a href="samuraiUpdate/@samurai.ID">Update</a></button>
-                    <button @onclick="()=>samuraiDelete(samurai)">Delete</button>
+                    <button @onclick="()=>SamuraiDelete(samurai)">Delete</button>
                 </td>
             </tr>
 
@@ -38,9 +36,9 @@
 </table>
 
 <div class="bottomSection">
-<p>Søg på en Samurai ved ID: </p>
-<input type="text" @bind="SearchId" />
-<button @onclick="Search">Search</button>
+    <p>Søg på en Samurai ved ID: </p>
+    <input type="text" @bind="SearchId" />
+    <button @onclick="Search">Search</button>
 </div>
 
 @if (IDResult != null)
@@ -92,7 +90,7 @@
     /// <summary>
     /// vores knap til at komme hen for at indsætte i tabel
     /// </summary>
-    private void createSamurai()
+    private void CreateSamurai()
     {
         //skift vindue
         NavManager.NavigateTo("/SamuraiCreate");
@@ -102,7 +100,7 @@
     /// vores knap til at slette
     /// </summary>
     /// <param name="samuraiModel"></param>
-    private void samuraiDelete(SamuraiModel samuraiModel)
+    private void SamuraiDelete(SamuraiModel samuraiModel)
     {
         //kør metode
         samurai.DeleteSamurai(samuraiModel.ID);

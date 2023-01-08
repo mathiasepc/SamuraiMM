@@ -5,19 +5,28 @@
 <h3>Update Clan</h3>
 <EditForm Model="@clanModel" OnValidSubmit="UpdateClan">
     @*For at vores beskreder fra vores validering kan vises*@
-    <ValidationSummary />
-    @*For at vores validering på modelleren kan bruges skal vi tilføje følgende*@
-    <DataAnnotationsValidator />
+    <div class="errorBox">
+        <ValidationSummary />
+        @*For at vores validering på modelleren kan bruges skal vi tilføje følgende*@
+        <DataAnnotationsValidator />
+    </div>
     <div class="row">
-        <div class="col-md-8">
-            <label>Clan Name</label>
+        <div class="">
+            <label>Clan name</label>
             <input class="form-control" @bind="clanModel.ClanName" />
+            <label>SamuraiId</label>
+            <input class="form-control" @bind="clanModel.Samurais" />
+            
+        </div>
+
+
+        <div class="formButton">
+            <button @onclick="Back">Back</button>
+            <button type="submit">Confirm</button>
         </div>
     </div>
-    <div class="row">
-        <button type="submit">Confirm</button>
-    </div>
 </EditForm>
+
 @code {
     //parameter gør at vi kan hente dataen ned fra url som bliver parset med
     [Parameter]
@@ -34,6 +43,12 @@
     {
         //indsætter
         clanModel = clan.ReadOneClan(Convert.ToInt32(CurrentId));
+    }
+
+    private void Back()
+    {
+        //skift vindue
+        NavManager.NavigateTo("/clan");
     }
 
     /// <summary>

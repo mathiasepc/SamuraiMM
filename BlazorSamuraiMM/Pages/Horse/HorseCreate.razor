@@ -2,25 +2,30 @@
 @inject IHorse horse
 @inject NavigationManager NavManager
 
-<h3>Create A Horse</h3>
+<div class="topSection">
+    <h3>Create A horse</h3>
+</div>
 <EditForm Model="@horseModel" OnValidSubmit="CreateHorse">
     @*For at vores beskreder fra vores validering kan vises*@
     <ValidationSummary />
     @*For at vores validering på modelleren kan bruges skal vi tilføje følgende*@
     <DataAnnotationsValidator />
-    <div class="form-control">
-        Name <input type="text" @bind="horseModel.Name" />
+    <div class="row">
+        <div class="">
+            <label>Horse name</label>
+            <input class="form-control" @bind="horseModel.Name" />
+            <label>SamuraiId</label>
+            <input class="form-control" @bind="horseModel.SamuraiID" />
+        </div>
+
+
+        <div class="formButton">
+            <button @onclick="Back">Back</button>
+            <button type="submit">Confirm</button>
+        </div>
     </div>
-    <div class="form-control">
-        HorseRace <input type="text" @bind="horseModel.HorseRace" />
-    </div>
-    <div class="form-control">
-        SamuraiID <input type="text" @bind="horseModel.SamuraiID" />
-    </div>
-    <button type="submit">Confirm</button>
     
 </EditForm>
-<button @onclick="Back">Back</button>
 
 @code {
     /// <summary>

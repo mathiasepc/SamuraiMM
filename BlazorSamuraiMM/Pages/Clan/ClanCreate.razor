@@ -2,17 +2,29 @@
 @inject IClan clan
 @inject NavigationManager NavManager
 
-<h3>Create A Clan</h3>
+<div class="topSection">
+    <h3>Create A clan</h3>
+</div>
+
 <EditForm Model="@clanModel" OnValidSubmit="CreateClan">
     @*For at vores beskreder fra vores validering kan vises*@
     <ValidationSummary />
     @*For at vores validering på modelleren kan bruges skal vi tilføje følgende*@
     <DataAnnotationsValidator />
-    <div class="form-control">
-        ClanName <input type="text" @bind="clanModel.ClanName" />
-    </div>
-    <button type="submit">Confirm</button>
+    <div class="row">
+        <div class="">
+            <label>Clan name</label>
+            <input class="form-control" @bind="clanModel.ClanName" />
+            <label>SamuraiId</label>
+            <input class="form-control" @bind="clanModel.Samurais" />
+        </div>
 
+
+        <div class="formButton">
+            <button @onclick="Back">Back</button>
+            <button type="submit">Confirm</button>
+        </div>
+    </div>
 </EditForm>
 <button @onclick="Back">Back</button>
 

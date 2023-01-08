@@ -4,25 +4,25 @@ html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
+/*Det er overskriften*/
 .topSection {
     display: flex;
     justify-content: center;
     flex-direction: column;
 }
 
+    /*Knappen under overskriften*/
     .topSection button {
         align-self: center;
         width: 15%
     }
 
+/*tag for overskriften. (placering)*/
 h3 {
     text-align: center;
 }
 
-.errorBox {
-
-}
-
+/*Er hele formen*/
 .row {
     font-weight: bold;
     margin-left: 15px;
@@ -32,6 +32,7 @@ h3 {
     padding-bottom: 15px;
 }
 
+/*Selve formenens input felter*/
 .form-control {
     margin-top: 5px;
     margin-bottom: 5px;
@@ -40,20 +41,21 @@ h3 {
 }
 
 
-/*Border på highlighted input felt fjernes*/
+    /*Border på highlighted input felt fjernes*/
     .form-control:focus {
         box-shadow: none;
     }
 
-
+/*Fletet for knapperne*/
 .formButton {
     margin-top: 10px;
 }
-
+    /*Selve knapperne*/
     .formButton button {
         font-weight: bold;
     }
 
+/*Søgefelt for id*/
 .bottomSection {
     font-weight: bold;
     text-align: center;
@@ -62,14 +64,12 @@ h3 {
     background-color: silver;
     width: 17%
 }
-
+    /*Selve søge feltes input felt*/
     .bottomSection input {
         align-self: center;
         margin-bottom: 20px;
         width: 50%
     }
-
-
 
 /*Rammer alle tables på ens client*/
 table {
@@ -88,20 +88,17 @@ td, th {
 }
 
 /*Rammer hver anden table rows i ens tables*/
+/*lige række*/
 tr:nth-child(even) {
     background-color: #dddddd;
 }
-
+/*ulige række*/
 tr:nth-child(odd) {
     background-color: #c4c4c4;
 }
-
+/*Teksten på table head teksten*/
 thead {
     font-weight: bold;
-}
-
-h1:focus {
-    outline: none;
 }
 
 /*Rammer linket i en a href*/
@@ -113,7 +110,7 @@ button a:link {
 button a {
     color: black;
 }
-
+    /*fjerner ændring*/
     button a:hover {
         color: black;
     }
@@ -135,12 +132,17 @@ a, .btn-link {
     padding-top: 1.1rem;
 }
 
+/*Alt under var der fra start*/
+
 /*.btn-primary {
     color: #fff;
     background-color: #1b6ec2;
     border-color: red;
 }*/
 
+h1:focus {
+    outline: none;
+}
 
 .valid.modified:not([type=checkbox]) {
     outline: 1px solid #26b050;

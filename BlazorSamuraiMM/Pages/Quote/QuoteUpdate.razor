@@ -2,24 +2,33 @@
 @inject IQuotes quote
 @inject NavigationManager NavManager
 
-<h3>Update Quote</h3>
+<div class="topSection">
+    <h3>Update Quote</h3>
+</div>
+
 <EditForm Model="@quoteModel" OnValidSubmit="UpdateQuote">
     @*For at vores beskreder fra vores validering kan vises*@
-    <ValidationSummary />
-    @*For at vores validering på modelleren kan bruges skal vi tilføje følgende*@
-    <DataAnnotationsValidator />
+    <div class="errorBox">
+        <ValidationSummary />
+        @*For at vores validering på modelleren kan bruges skal vi tilføje følgende*@
+        <DataAnnotationsValidator />
+    </div>
     <div class="row">
-        <div class="col-md-8">
-            <label>FirstName</label>
+        <div class="">
+            <label>Quote text</label>
             <input class="form-control" @bind="quoteModel.QuoteText" />
             <label>SamuraiId</label>
             <input class="form-control" @bind="quoteModel.SamuraiID" />
         </div>
-    </div>
-    <div class="row">
-        <button type="submit">Confirm</button>
+
+
+        <div class="formButton">
+            <button @onclick="Back">Back</button>
+            <button type="submit">Confirm</button>
+        </div>
     </div>
 </EditForm>
+
 @code {
     //parameter gør at vi kan hente dataen ned fra url som bliver parset med
     [Parameter]
@@ -36,6 +45,12 @@
     {
         //indsæt
         quoteModel = quote.ReadOneQuote(Convert.ToInt32(CurrentId));
+    }
+
+    private void Back()
+    {
+        //skift vindue
+        NavManager.NavigateTo("/quote");
     }
 
     /// <summary>

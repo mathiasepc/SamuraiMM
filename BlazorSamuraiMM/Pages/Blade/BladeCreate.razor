@@ -2,25 +2,34 @@
 @inject IBlade blade
 @inject NavigationManager NavManager
 
-<h3>Create A Blade</h3>
+<div class="topSection">
+    <h3>Create A blade</h3>
+</div>
+
 <EditForm Model="@bladeModel" OnValidSubmit="CreateBlade">
     @*For at vores beskreder fra vores validering kan vises*@
     <ValidationSummary />
     @*For at vores validering på modelleren kan bruges skal vi tilføje følgende*@
     <DataAnnotationsValidator />
-    <div class="form-control">
-        Name <input type="text" @bind="bladeModel.Name" />
+    <div class="row">
+        <div class="">
+            <label>Blade name</label>
+            <input class="form-control" @bind="bladeModel.Name" />
+            <label>Blade description</label>
+            <input class="form-control" @bind="bladeModel.Description" />
+            <label>SamuraiId</label>
+            <input class="form-control" @bind="bladeModel.SamuraiID" />
+        </div>
+
+
+        <div class="formButton">
+            <button @onclick="Back">Back</button>
+            <button type="submit">Confirm</button>
+        </div>
     </div>
-    <div class="form-control">
-        Description <input type="text" @bind="bladeModel.Description" />
-    </div>
-    <div class="form-control">
-        SamuraiID <input type="text" @bind="bladeModel.SamuraiID" />
-    </div>
-    <button type="submit">Confirm</button>
     
 </EditForm>
-<button @onclick="Back">Back</button>
+
 
 
 @code {
