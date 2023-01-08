@@ -2,17 +2,20 @@
 @inject ISamurai samurai
 @inject NavigationManager NavManager
 
-<h3>Samurais</h3>
+<div class="topSection">
+<h3>List of Samurais</h3>
+<button @onclick="createSamurai">Add Samurai</button>
+</div>
 
 <table>
     <thead>
         <tr>
-            <button @onclick="createSamurai">Add Samurai</button>
         </tr>
         <tr>
-            <td>FirstName</td>
-            <td>LastName</td>
+            <td>First name</td>
+            <td>Last name</td>
             <td>Birthdate</td>
+            <td>Functions</td>
         </tr>
     </thead>
     <tbody>
@@ -46,7 +49,7 @@
                 <td>Birthdate</td>
                 @if (IDResult.Horse != null)
                 {
-                <td>Horse name</td>
+                    <td>Horse name</td>
                 }
             </tr>
         </thead>
@@ -57,9 +60,9 @@
                 <td>@IDResult.Birthdate.Year</td>
                 @*Hvis samuraien ikke har en hest, så skal vi sørge at det ikke bliver displayet ellers crasher programmet*@
                 @if (IDResult.Horse != null)
-                    {
+                {
                     <td>@IDResult.Horse.Name</td>
-                    }
+                }
             </tr>
         </tbody>
     </table>
@@ -106,16 +109,24 @@
 
     private void Search()
     {
-        //Hvis han har en hest så brug den her function
-        try
-        {
-            IDResult = samurai.ReadSamuraisHouse(SearchId);
-        }
+        var tempSamList = samurai.ReadAllSamurais();
 
-        //Ellers bruger den en anden function
-        catch
+        foreach (var item in tempSamList)
         {
-            IDResult = samurai.ReadOneSamurai(SearchId);
+            if (item.ID == SearchId)
+            {
+                //Hvis han har en hest så brug den her function
+                try
+                {
+                    IDResult = samurai.ReadSamuraisHouse(SearchId);
+                }
+
+                //Ellers bruger den en anden function
+                catch
+                {
+                    IDResult = samurai.ReadOneSamurai(SearchId);
+                }
+            }
         }
     }
 

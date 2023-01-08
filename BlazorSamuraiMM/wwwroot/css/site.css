@@ -18,6 +18,46 @@ button {
 
 }
 
+.topSection {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.topSection button {
+    align-self: center;
+    width: 10%
+}
+
+h3 {
+    text-align: center;
+}
+
+/*Rammer alle tables på ens client*/
+table {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+/*Rammer alle table datacells i ens tables og table headers i ens tables på ens client*/
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+/*Rammer hver anden table rows i ens tables*/
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+thead {
+    font-weight: bold;
+}
+
 h1:focus {
     outline: none;
 }
