@@ -14,9 +14,10 @@ namespace SamuraiMM
         /// <summary>
         /// índsætter connection til database i en string
         /// </summary>
+        /// 
         public string ConnectionString
         {
-            get => "Data Source=DESKTOP-GV81FRQ\\MSSQLSERVER01;Initial Catalog=EksamenOpgave;Integrated Security=True";
+            get => "Data Source=Martin-PC;Initial Catalog=TEC;Integrated Security=True";
         }
     }
 }
