@@ -128,14 +128,11 @@ BladeRepo blade = new();
 SamuraiBattlesRepo s = new();
 
 cl.CreateTableClan();
-Console.ReadKey();
 sam.CreateTableSamurai();
-Console.ReadKey();
 hor.CreateTableHorse();
 q.CreateTableQuote();
 blade.CreateTableBlade();
 b.CreateTableBattles();
-Console.ReadKey();
 s.CreateTableSamuraiBattles();
 
 

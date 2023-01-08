@@ -2,7 +2,9 @@
 @inject ISamurai samurai
 @inject NavigationManager NavManager
 
-<h3>Create A Samurai</h3>
+<div class="topSection">
+    <h3>Create A Samurai</h3>
+</div>
 <EditForm Model="@samuraiModel" OnValidSubmit="CreateSamurai">
     @*For at vores beskreder fra vores validering kan vises*@
     <ValidationSummary />
@@ -19,8 +21,9 @@
     </div>
     <div class="form-control">
         ClanID <input type="text" @bind="samuraiModel.ClanID" />
+        <button type="submit">Confirm</button>
     </div>
-    <button type="submit">Confirm</button>
+    
 
 </EditForm>
 <button @onclick="Back">Back</button>
