@@ -3,7 +3,7 @@
 @inject NavigationManager NavManager
 
 <div class="topSection">
-    <h3>Create A samurai</h3>
+    <h3>Create A battle</h3>
 </div>
 <EditForm Model="@battleModel" OnValidSubmit="CreateBattle">
     @*For at vores beskreder fra vores validering kan vises*@
@@ -30,7 +30,7 @@
     </div>
 
 </EditForm>
-<button @onclick="Back">Back</button>
+
 
 @code {
     /// <summary>
