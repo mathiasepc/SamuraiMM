@@ -23,7 +23,7 @@
                 <td>@samurai.LastName</td>
                 <td>@samurai.Birthdate.Year</td>
                 <td>
-                    <a href="samuraiUpdate/@samurai.ID">Update</a> |
+                    <button><a href="samuraiUpdate/@samurai.ID">Update</a></button>
                     <button @onclick="()=>samuraiDelete(samurai)">Delete</button>
                 </td>
             </tr>
