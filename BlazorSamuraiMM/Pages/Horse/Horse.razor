@@ -11,22 +11,22 @@
         <tr>
             <td>Name</td>
             <td>Horse Race</td>
-            <td>Samurai ID</td>
+            <td>Owner of Horse</td>
             <td>Functions</td>
         </tr>
     </thead>
     <tbody>
         @foreach (var horse in horsesList)
-        {
-            <tr>
-                <td>@horse.Name</td>
-                <td>@horse.HorseRace</td>
-                <td>@horse.SamuraiID</td>
-                <td>
-                    <a href="horseUpdate/@horse.SamuraiID">Update</a> |
+        { 
+                <tr>
+                    <td>@horse.Name</td>
+                    <td>@horse.HorseRace</td>
+                    <td>@horse.Samurai.FirstName @horse.Samurai.LastName</td>
+                    <td>
+                    <button><a href="horseUpdate/@horse.SamuraiID">Update</a></button> |
                     <button @onclick="()=>HorseDelete(horse)">Delete</button>
-                </td>
-            </tr>
+                    </td>
+                </tr>
         }
     </tbody>
 </table>
@@ -42,7 +42,7 @@
     protected override void OnInitialized()
     {
         //indsæt
-        horsesList = horse.ReadAllHorses();
+        horsesList = horse.ReadAllHorsesAndSamurai();
     }
 
     /// <summary>

@@ -141,5 +141,69 @@ namespace SamuraiMM.Repo
                 return allClans;
             }
         }
+
+        public List<ClanModel> ReadAllClansExcludingSamurais()
+        {
+            //vi laver en list som vi indsætter data'en i
+            List<ClanModel> allClans = new();
+
+            using (SqlConnection con = new SqlConnection(ADO.ConnectionString))
+            {
+                con.Open();
+
+                //Laver en SqlCommando
+                SqlCommand command = new SqlCommand("SELECT * FROM Clan JOIN Samurai ON Samurai.ClanID != Clan.ID", con);
+
+                //vi bruger SqlDataReader for at kunne læse data'en fra databasen hvor vi indsætter vores commando
+                SqlDataReader reader = command.ExecuteReader();
+
+                //laver et while loop for at få alt data fra databasen
+                while (reader.Read())
+                {
+                    //laver en midlertidig model for at kunne overfører den ene person til vores List
+                    ClanModel clanTemp = new ClanModel();
+
+                    clanTemp.ID = Convert.ToInt32(reader["id"]);
+                    clanTemp.ClanName = reader["ClanName"].ToString();
+                    //overfører den ene person til List
+                    allClans.Add(clanTemp);
+                }
+                //returner Listen med Data
+                return allClans;
+            }
+        }
+
+        public List<ClanModel> ReadAllClansAndSamurais()
+        {
+            //vi laver en list som vi indsætter data'en i
+            List<ClanModel> allClans = new();
+
+            using (SqlConnection con = new SqlConnection(ADO.ConnectionString))
+            {
+                con.Open();
+
+                //Laver en SqlCommando
+                SqlCommand command = new SqlCommand("SELECT * FROM Clan JOIN Samurai ON Samurai.ClanID = Clan.ID", con);
+
+                //vi bruger SqlDataReader for at kunne læse data'en fra databasen hvor vi indsætter vores commando
+                SqlDataReader reader = command.ExecuteReader();
+
+                //laver et while loop for at få alt data fra databasen
+                while (reader.Read())
+                {
+                    //laver en midlertidig model for at kunne overfører den ene person til vores List
+                    ClanModel clanTemp = new ClanModel();
+                    clanTemp.Samurais = new List<SamuraiModel>();
+
+                    clanTemp.ID = Convert.ToInt32(reader["id"]);
+                    clanTemp.ClanName = reader["ClanName"].ToString();
+                    clanTemp.Samurais.Add(new SamuraiModel() { FirstName = reader["FirstName"].ToString(), LastName = reader["LastName"].ToString() });
+                    //overfører den ene person til List
+                    allClans.Add(clanTemp);
+                }
+                //returner Listen med Data
+                return allClans;
+            }
+        }
     }
 }

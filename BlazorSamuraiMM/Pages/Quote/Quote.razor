@@ -22,7 +22,7 @@
                 <td>@quote.QuoteText</td>
                 <td>@quote.SamuraiID</td>
                 <td>
-                    <a href="QuoteUpdate/@quote.ID">Update</a> |
+                    <button><a href="QuoteUpdate/@quote.ID">Update</a></button> |
                     <button @onclick="()=>QuoteDelete(quote)">Delete</button>
                 </td>
             </tr>

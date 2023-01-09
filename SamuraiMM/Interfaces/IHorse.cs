@@ -15,5 +15,6 @@ namespace SamuraiMM.Interfaces
         public void UpdateHorse(HorseModel horse, int ID);
         public HorseModel ReadOneHorse(int ID);
         public List<HorseModel> ReadAllHorses();
+        public List<HorseModel> ReadAllHorsesAndSamurai();
     }
 }

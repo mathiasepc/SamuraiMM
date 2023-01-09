@@ -11,29 +11,46 @@
     <thead>
         <tr>
             <td>Clan Name</td>
-            <td>Samurai ID</td>
+            <td>Clan Member</td>
             <td>Functions</td>
         </tr>
     </thead>
     <tbody>
-        @foreach (var clan in clansList)
+
+
+        @foreach (var clans in clansList)
+            {
+                <tr>
+                <td>@clans.ClanName</td>
+                        @foreach (var item in clans.Samurais)
+                        {
+                            <td>@item.FirstName @item.LastName</td>
+                        }
+                    <td>
+                        <button><a href="clanUpdate/@clans.ID">Update</a></button> |
+                        <button @onclick="()=>ClanDelete(clans)">Delete</button>
+                    </td>
+                </tr>
+            }
+
+        @foreach (var nosamclans in noSamClansList)
         {
             <tr>
-                <td>@clan.ClanName</td>
-                <td>@clan.ID</td>
+                <td>@nosamclans.ClanName</td>
                 <td>
-                    <a href="clanUpdate/@clan.ID">Update</a> |
-                    <button @onclick="()=>ClanDelete(clan)">Delete</button>
+                    <button><a href="clanUpdate/@nosamclans.ID">Update</a></button> |
+                    <button @onclick="()=>ClanDelete(nosamclans)">Delete</button>
                 </td>
             </tr>
         }
-
+        
     </tbody>
 </table>
 
 @code {
     //istansiere Lists
     List<ClanModel> clansList = new();
+    List<ClanModel> noSamClansList = new();
 
     /// <summary>
     /// overrider er så vi overskriver dataen hver gang
@@ -42,7 +59,8 @@
     protected override void OnInitialized()
     {
         //indsæt
-        clansList = clan.ReadAllClans();
+        clansList = clan.ReadAllClansAndSamurais();
+        noSamClansList = clan.ReadAllClansExcludingSamurais();
     }
 
     /// <summary>

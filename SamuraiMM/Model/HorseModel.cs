@@ -23,5 +23,7 @@ namespace SamuraiMM.Model
         //Laver en range for Int 1 - max int value
         [Range(1, int.MaxValue, ErrorMessage = "Please enter a SamuraiID. Cant be 0.")]
         public int SamuraiID { get; set; }
+
+        public SamuraiModel Samurai {get; set; }
     }
 }

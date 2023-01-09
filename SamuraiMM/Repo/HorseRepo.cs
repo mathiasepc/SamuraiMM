@@ -165,5 +165,38 @@ namespace SamuraiMM.Repo
                 return allHorses;
             }
         }
+
+        public List<HorseModel> ReadAllHorsesAndSamurai()
+        {
+            //vi laver en list som vi indsætter data'en i
+            List<HorseModel> allHorses = new();
+
+            using (SqlConnection con = new SqlConnection(ADO.ConnectionString))
+            {
+                con.Open();
+
+                //Laver en SqlCommando
+                SqlCommand command = new SqlCommand("SELECT * FROM Horse JOIN Samurai ON Samurai.ID = SamuraiID", con);
+
+                //vi bruger SqlDataReader for at kunne læse data'en fra databasen hvor vi indsætter vores commando
+                SqlDataReader reader = command.ExecuteReader();
+
+                //laver et while loop for at få alt data fra databasen
+                while (reader.Read())
+                {
+                    //laver en midlertidig model for at kunne overfører den ene person til vores List
+                    HorseModel horseTemp = new();
+
+                    horseTemp.SamuraiID = Convert.ToInt32(reader["SamuraiID"]);
+                    horseTemp.Name = reader["Name"].ToString();
+                    horseTemp.HorseRace = reader["HorseRace"].ToString();
+                    horseTemp.Samurai = new SamuraiModel() { FirstName = reader["FirstName"].ToString(), LastName = reader["LastName"].ToString() };
+                    //overfører den ene person til List
+                    allHorses.Add(horseTemp);
+                }
+                //returner Listen med Data
+                return allHorses;
+            }
+        }
     }
 }

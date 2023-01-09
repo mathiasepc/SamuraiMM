@@ -12,25 +12,29 @@
         <tr>
             <td>Name</td>
             <td>Description</td>
-            <td>Samurai ID</td>
+            <td>Owner of Blade</td>
             <td>Functions</td>
         </tr>
     </thead>
     <tbody>
-        @foreach (var blade in bladeList)
+        @if (bladeList != null)
+        {
+            @foreach (var blade in bladeList)
             {
-                <tr>
-                <td>@blade.Name</td>
-                <td>@blade.Description</td>
-                <td>@blade.SamuraiID</td>
-                <td>
-                    <a href="bladeUpdate/@blade.ID">Update</a> |
-                    <button @onclick="()=>BladeDelete(blade)">Delete</button>
-                </td>
-                </tr>
-   
+                @foreach (var item in blade.Samurai)
+                {
+                    <tr>
+                        <td>@blade.Name</td>
+                        <td>@blade.Description</td>
+                        <td>@item.FirstName @item.LastName</td>
+                        <td>
+                            <button><a href="bladeUpdate/@blade.ID">Update</a></button> |
+                            <button @onclick="()=>BladeDelete(blade)">Delete</button>
+                        </td>
+                    </tr>
+                }
             }
-        
+        }
     </tbody>
 </table>
 
@@ -45,7 +49,7 @@
     protected override void OnInitialized()
     {
         //indsæt
-        bladeList = blade.ReadAllBlades();
+        bladeList = blade.ReadAllBladesAndSamurais();
     }
 
     /// <summary>

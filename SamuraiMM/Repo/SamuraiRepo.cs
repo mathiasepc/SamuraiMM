@@ -217,8 +217,20 @@ namespace SamuraiMM.Repo
                 sam.Horse = new HorseModel()
                 {
                     Name = reader["Name"].ToString(),
-                    SamuraiID = Convert.ToInt32(reader["SamuraiId"])
+                    //SamuraiID = Convert.ToInt32(reader["SamuraiId"]) ? 5: 0
+                    SamuraiID = reader["samuraiId"] != null ? samuraiID = Convert.ToInt32(reader["SamuraiId"]) : 0
+
                 };
+
+                //?: operator - the ternary conditional operator (Conditional If statement)
+                //if (reader["SamuraiId"] != null) //Hvis samurai har en horse så gør det her
+                //{
+                //    samuraiID = Convert.ToInt32(reader["SamuraiId"]); // <-
+                //}
+                //else
+                //{
+                //    samuraiID = 0;
+                //}
 
                 //returner den nye model
                 return sam;
