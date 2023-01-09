@@ -33,6 +33,21 @@ namespace SamuraiMM.Repo
         }
 
         /// <summary>
+        /// Den smadre hele tabllen (horse) og indsætter et tomt felt i LastName
+        /// 
+        /// dvs. der du injecters felt forbliver tomt og den table som står i truncate smadres
+        /// </summary>
+        public void InsertWithInjection()
+        {
+            string samuraiCMD = "'); truncate table Horse; --";
+            SqlConnection con = new SqlConnection(ADO.ConnectionString);
+            SqlCommand cmd = new SqlCommand($"Insert into Samurai(FirstName, LastName) values ('Mathias','{samuraiCMD}' )", con);
+            con.Open();
+            cmd.ExecuteNonQuery();
+            con.Close();
+        }
+
+        /// <summary>
         /// Laver en metode som indsætter i tabellen Samurai
         /// </summary>
         /// <param name="samurai"></param>
