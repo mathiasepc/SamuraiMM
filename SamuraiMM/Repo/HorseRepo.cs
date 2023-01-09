@@ -39,13 +39,8 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new();
 
-                if (horse.Samurai.Deleted == 1)
-                {
-                    //istansiere SqlCommand klassen og indsætter i databasen
-                    sqlCommand = new($"INSERT INTO Horse (Name, SamuraiID, HorseRace) values('{horse.Name}', '{horse.SamuraiID}', '{horse.HorseRace}')", sqlConnection);
-
-                }
-
+                //istansiere SqlCommand klassen og indsætter i databasen
+                sqlCommand = new($"INSERT INTO Horse (Name, SamuraiID, HorseRace) values('{horse.Name}', '{horse.SamuraiID}', '{horse.HorseRace}')", sqlConnection);
 
                 //sender til min database
                 sqlCommand.ExecuteNonQuery();
@@ -59,10 +54,18 @@ namespace SamuraiMM.Repo
             {
                 //åbner vejen
                 sqlConnection.Open();
+                SqlCommand sqlCommand = new();
 
-                //istansiere SqlCommand klassen og indsætter i databasen
-                SqlCommand sqlCommand = new($"INSERT INTO Horse (Name, SamuraiID, HorseRace) values(@f1, @f2, @f3)", sqlConnection);
-
+                SamuraiRepo s = new();
+                var samlist = s.ReadAllDeadSamurais();
+                foreach (var samurai in samlist)
+                {
+                    if (horse.SamuraiID != samurai.ID)
+                    {
+                        //istansiere SqlCommand klassen og indsætter i databasen
+                        sqlCommand = new($"INSERT INTO Horse (Name, SamuraiID, HorseRace) values(@f1, @f2, @f3)", sqlConnection);
+                    }
+                }
                 sqlCommand.Parameters.AddWithValue("@f1", horse.Name);
                 sqlCommand.Parameters.AddWithValue("@f2", horse.SamuraiID);
                 sqlCommand.Parameters.AddWithValue("@f3", horse.HorseRace);

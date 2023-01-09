@@ -312,6 +312,35 @@ namespace SamuraiMM.Repo
             }
         }
 
+        public List<SamuraiModel> ReadAllDeadSamurais()
+        {
+            //vi laver en list som vi indsætter data'en i
+            List<SamuraiModel> allSamurais = new();
+
+            using (SqlConnection con = new SqlConnection(ADO.ConnectionString))
+            {
+                con.Open();
+
+                //Laver en SqlCommando
+                SqlCommand command = new SqlCommand("SELECT * FROM Samurai where Samurai.Deleted = 2", con);
+
+                //vi bruger SqlDataReader for at kunne læse data'en fra databasen hvor vi indsætter vores commando
+                SqlDataReader reader = command.ExecuteReader();
+
+                //laver et while loop for at få alt data fra databasen
+                while (reader.Read())
+                {
+                    //laver en midlertidig model for at kunne overfører den ene person til vores List
+                    SamuraiModel samTemp = new SamuraiModel() { ID = reader.GetInt32(0), FirstName = reader.GetString(1), LastName = reader.GetString(2), Birthdate = reader.GetDateTime(3), Deleted = reader.GetInt32(4) };
+
+                    //overfører den ene person til List
+                    allSamurais.Add(samTemp);
+                }
+                //returner Listen med Data
+                return allSamurais;
+            }
+        }
+
         //Vi bruger den ikke men det til visning
         public SamuraiModel ReadSamuraisQuotes(int samuraiID)
         {
