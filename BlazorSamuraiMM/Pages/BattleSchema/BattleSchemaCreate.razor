@@ -21,23 +21,21 @@
 
         <div class="formButton">
             <button @onclick="Back">Back</button>
-            <button type="submit">Confirm</button>
+            <button type="submit">Confirm</button>   
         </div>
     </div>
     
 </EditForm>
 
-
-
 @code {
     /// <summary>
     /// vores gå tilbage knap
     /// </summary>
-    private void Back()
+        private void Back()
     {
         //skift vindue
         NavManager.NavigateTo("/battleSchema");
-    }
+    }    /// 
 
     //istansiere vores model
     BattleSchemaModel battleSchemaModel = new();
@@ -66,4 +64,6 @@
             NavManager.NavigateTo($"/errorIDPage/{url}/{CurrentId}/{currentModel}/{infostring}");
         }
     }
+
+
 }
