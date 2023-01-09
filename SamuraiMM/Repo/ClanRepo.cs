@@ -59,7 +59,7 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //laver en string som fortæller hvad sql skal gøre
-                string sqlCommand = new($"Delete from Clan Where ID ='{ID}'");
+                string sqlCommand = new($"UPDATE Clan SET Deleted = 2 Where ID = {ID}");
 
                 SqlDataAdapter sqlDataAdapter = new();
 
