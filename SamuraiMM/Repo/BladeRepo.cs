@@ -182,7 +182,7 @@ namespace SamuraiMM.Repo
                     bladeTemp.ID = Convert.ToInt32(reader["id"]);
                     bladeTemp.Name = reader["Name"].ToString();
                     bladeTemp.Description = reader["Description"].ToString();
-                    bladeTemp.Samurai = new SamuraiModel() { FirstName = reader["FirstName"].ToString(), LastName = reader["LastName"].ToString() };
+                    bladeTemp.Samurai = new SamuraiModel() { FirstName = reader["FirstName"].ToString(), LastName = reader["LastName"].ToString(), Deleted = Convert.ToInt32(reader["Deleted"]) };
                     //overfører den ene person til List
                     allBlades.Add(bladeTemp);
                 }
