@@ -11,8 +11,8 @@ namespace SamuraiMM.Interfaces
         public void CreateTableBattleSchema();
         public void InsertBattleSchema(BattleSchemaModel batsam);
         public void DeleteBattleSchema(int ID);
-        public void UpdateBattleSchema(BattleSchemaModel batsam);
+        public void UpdateBattleSchema(BattleSchemaModel batsam, int oldSamuraiID, int oldBattlesID);
         public List<BattleSchemaModel> ReadAllBattleSchema();
-        public SamuraiModel ReadOneSamuraiBattles2(int samuraiID);
+        public BattleSchemaModel ReadOneBattleSchema(int SamuraiID, int BattlesID);
     }
 }

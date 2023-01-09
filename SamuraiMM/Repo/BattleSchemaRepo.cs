@@ -71,7 +71,7 @@ namespace SamuraiMM.Repo
         /// Vi laver en metode som skal opdatere databasen
         /// </summary>
         /// <param name="samurai"></param>
-        public void UpdateBattleSchema(BattleSchemaModel batsam)
+        public void UpdateBattleSchema(BattleSchemaModel batsam, int oldSamuraiID, int oldBattlesID)
         {
             using (SqlConnection sqlConnection = new(ADO.ConnectionString))
             {
@@ -79,7 +79,7 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //Laver en SQLCommando for at update databasen og indsætter sqlConnection
-                SqlCommand commandChange = new($"UPDATE BattleSchema SET BattlesID = '{batsam.BattlesID}', SamuraiID = '{batsam.SamuraiID}' Where SamuraiID = {batsam.SamuraiID}", sqlConnection);
+                SqlCommand commandChange = new($"UPDATE BattleSchema SET BattlesID = '{batsam.BattlesID}', SamuraiID = '{batsam.SamuraiID}' Where SamuraiID = {oldSamuraiID} And BattlesID = {oldBattlesID}", sqlConnection);
 
                 //eksekver
                 commandChange.ExecuteNonQuery();
@@ -220,6 +220,50 @@ namespace SamuraiMM.Repo
                     Console.WriteLine($"{reader["SamuraiName"]} participated in {reader["Title"]}. \nEvent Description: {reader["Description"]} \nStart: {reader["StartDate"]} End: {reader["EndDate"]} \n");
                 }
                 reader.Close();
+            }
+        }
+
+        public BattleSchemaModel ReadOneBattleSchema(int tempSamuraiID, int tempBattlesID)
+        {
+            //vi laver en list som vi indsætter data'en i
+
+            using (SqlConnection con = new SqlConnection(ADO.ConnectionString))
+            {
+                con.Open();
+
+                //Laver en SqlCommando
+                SqlCommand command = new SqlCommand($"SELECT * FROM Samurai JOIN BattleSchema ON Samurai.ID = BattleSchema.SamuraiID JOIN Battle ON BattleSchema.BattlesID = Battle.ID where (SamuraiID = {tempSamuraiID}) and (BattlesID = {tempBattlesID})", con);
+
+                //vi bruger SqlDataReader for at kunne læse data'en fra databasen hvor vi indsætter vores commando
+                SqlDataReader reader = command.ExecuteReader();
+
+                reader.Read();
+
+                BattleSchemaModel batsamTemp = new BattleSchemaModel();
+                batsamTemp.Battles = new List<BattleModel>();
+                batsamTemp.BattlesID = Convert.ToInt32(reader["BattlesID"]);
+                batsamTemp.Samurais = new List<SamuraiModel>();
+                batsamTemp.SamuraiID = Convert.ToInt32(reader["SamuraiID"]);
+
+                //laver et while loop for at få alt data fra databasen
+      
+                    //laver en midlertidig model for at kunne overfører den ene person til vores List
+                    batsamTemp.Battles.Add(new BattleModel()
+                    {
+                        EventTitle = reader["EventTitle"].ToString(),
+                        Description = reader["Description"].ToString(),
+                        EventStartDate = Convert.ToDateTime(reader["EventStartDate"]),
+                        EventSlutDate = Convert.ToDateTime(reader["EventSlutDate"]),
+                    });
+
+                    batsamTemp.Samurais.Add(new SamuraiModel()
+                    {
+                        FirstName = reader["FirstName"].ToString(),
+                        LastName = reader["LastName"].ToString(),
+                        Birthdate = Convert.ToDateTime(reader["Birthdate"]),
+                    });
+               
+                return batsamTemp;
             }
         }
 

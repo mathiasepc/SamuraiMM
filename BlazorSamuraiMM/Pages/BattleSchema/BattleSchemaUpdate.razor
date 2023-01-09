@@ -1,4 +1,4 @@
-﻿@page "/battleSchemaUpdate/{CurrentId}"
+﻿@page "/battleSchemaUpdate/{CurrentId}/{CurrentId2}"
 @inject IBattleSchema battleSchema
 @inject NavigationManager NavManager
 
@@ -15,14 +15,11 @@
     </div>
     <div class="row">
         <div class="">
-            <label>Blade name</label>
-            <input class="form-control" @bind="bladeModel.Name" />
-            <label>Description</label>
-            <input class="form-control" @bind="bladeModel.Description" />
-            <label>SamuraiId</label>
-            <input class="form-control" @bind="bladeModel.SamuraiID" />
+            <label>SamuraiID</label>
+            <input class="form-control" @bind="battleSchemaModel.SamuraiID" />
+            <label>BattlesID</label>
+            <input class="form-control" @bind="battleSchemaModel.BattlesID" />
         </div>
-
 
         <div class="formButton">
             <button type="submit">Confirm</button>
@@ -34,6 +31,8 @@
     //parameter gør at vi kan hente dataen ned fra url som bliver parset med
     [Parameter]
     public string CurrentId { get; set; }
+    [Parameter]
+    public string CurrentId2 { get; set; }
 
     //instansiere model
     BattleSchemaModel battleSchemaModel = new();
@@ -45,13 +44,13 @@
     protected override void OnInitialized()
     {
         //indsætter i model
-        battleSchemaModel = battleSchema.ReadOneSamuraiBattles2(battleSchemaModel.SamuraiID);
+        battleSchemaModel = battleSchema.ReadOneBattleSchema(Convert.ToInt32(CurrentId), Convert.ToInt32(CurrentId2));
     }
 
     private void Back()
     {
         //skift vindue
-        NavManager.NavigateTo("/samurai");
+        NavManager.NavigateTo("/battleSchema");
     }
 
     /// <summary>
@@ -62,19 +61,19 @@
         try
         {
             //kør metode
-            battleSchema.UpdateBattleSchema(battleSchemaModel);
+            battleSchema.UpdateBattleSchema(battleSchemaModel, Convert.ToInt32(CurrentId), Convert.ToInt32(CurrentId2));
             //skift vindue
-            NavManager.NavigateTo("blade");
+            NavManager.NavigateTo("battleSchema");
         }
         catch
         {
             //gør vores navigate to klar
-            string infostring = $"{(bladeModel.SamuraiID).ToString()} is not an existent Samurai ID";
-            string currentModel = "Blade Model";
-            string url = "bladeUpdate";
+            string infostring = $"'{battleSchemaModel.SamuraiID.ToString()}' or '{battleSchemaModel.BattlesID.ToString()}' is not an existent BattleID or SamuraiID";
+            string currentModel = "BattleSchema Model";
+            string url = "battleSchemaUpdate";
 
             //skift vindue
-            NavManager.NavigateTo($"/errorIDPage/{url}/{CurrentId}/{currentModel}/{infostring}");
+            NavManager.NavigateTo($"/errorIDPage/{url}/{CurrentId}/{CurrentId2}/{currentModel}/{infostring}");
         }
     }
 }
