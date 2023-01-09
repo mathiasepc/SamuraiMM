@@ -2,7 +2,7 @@
 
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    background-image: url("https://rare-gallery.com/uploads/posts/4551881-japanese-men-digital-art-nature-trees-forest-painting-wood-water-river-grass-sunlight-samurai-silhouette-birds-hills-katana.jpg")
+    background-image: url("https://i.imgur.com/wVtTDjZ.jpg")
 }
 
 /*Header sectionen*/
@@ -20,6 +20,7 @@ html, body {
     padding-top: 15px;
     padding-bottom: 25px;
     margin: auto;
+    border: 2px solid black; 
 }
 
     /*Knappen under overskriften*/
@@ -29,11 +30,12 @@ html, body {
     }
 
 .indexTopSection {
+    border: 2px solid black;
     color: green;
     display: flex;
     justify-content: center;
     flex-direction: column;
-    background-color: rgba(255,150,50,0.55);
+    background-color: rgba(255,150,50,0.85);
     width: 40%;
     padding: 30px;
 }
