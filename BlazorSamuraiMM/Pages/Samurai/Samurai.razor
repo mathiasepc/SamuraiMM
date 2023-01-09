@@ -64,7 +64,10 @@
                 {
                     <td>@item.QuoteText</td>
                 }
+                @if (IDResult.Horse != null)
+                {
                 <td>@IDResult.Horse.Name</td>
+                }
                 <td>@IDResult.Clan.ClanName</td>
                 @foreach (var item in IDResult.Blades)
                 {
@@ -121,6 +124,7 @@
 
     private void Search()
     {
+        IDResult = new();
         IDResult = samurai.ReadOneSamuraisProps(SearchId);
     }
 

@@ -1,11 +1,15 @@
 ﻿using SamuraiMM.Interfaces;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Numerics;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace SamuraiMM.Repo
 {
@@ -207,28 +211,25 @@ namespace SamuraiMM.Repo
         }
 
 
-        public SamuraiModel ReadOneSamuraisProps(int samuraiID)
+        public SamuraiModel ReadOneSamuraisProps(int tempsamuraiID)
         {
             using (SqlConnection con = new SqlConnection(ADO.ConnectionString))
             {
                 //laver en sql commando
-                SqlCommand cmd = new SqlCommand("" +
-                    "SELECT Samurai.FirstName AS Name, Samurai.LastName AS Lastname, Samurai.Birthdate AS BirthDate, Quote.QuoteText AS QuoteText, Horse.Name AS HorseName, Clan.ClanName as ClanName, Blade.Name as BladeName, Battle.EventTitle as EventTitle, Samurai.ID as SamuraiID" +
-                    "FROM Samurai " +
-                    "INNER JOIN Quote ON Samurai.ID=Quote.SamuraiID" +
-                    "INNER JOIN Horse ON Samurai.ID=Horse.SamuraiID" +
-                    "INNER JOIN Clan on Clan.ID=Samurai.ClanID" +
-                    "INNER JOIN Blade on Blade.SamuraiID=Samurai.ID" +
+                SqlCommand cmd = new SqlCommand("SELECT Samurai.FirstName AS Name, Samurai.LastName AS Lastname, Samurai.Birthdate AS BirthDate, Quote.QuoteText AS QuoteText, Horse.Name AS HorseName, Clan.ClanName as ClanName, Blade.Name as BladeName, Battle.EventTitle as EventTitle, Samurai.ID as SamuraiID" +
+                    " FROM Samurai " +
+                    "INNER JOIN Quote ON Samurai.ID=Quote.SamuraiID " +
+                    "INNER JOIN Horse ON Samurai.ID=Horse.SamuraiID " +
+                    "INNER JOIN Clan on Clan.ID=Samurai.ClanID " +
+                    "INNER JOIN Blade on Blade.SamuraiID=Samurai.ID " +
                     "JOIN BattleSchema ON Samurai.ID = BattleSchema.SamuraiID " +
-                    "JOIN Battle ON BattleSchema.BattlesID = Battle.ID", con);
+                    "JOIN Battle ON BattleSchema.BattlesID = Battle.ID " +
+                   $"WHERE Samurai.ID={tempsamuraiID}", con);
 
                 con.Open();
 
                 //vi bruger SqlDataReader for at kunne læse data'en fra databasen hvor vi indsætter vores commando
                 SqlDataReader reader = cmd.ExecuteReader();
-
-                //læser dataen
-                reader.Read();
 
                 //vi laver en nu model hvor vi indsætter værdierne
                 SamuraiModel sam = new SamuraiModel();
@@ -239,21 +240,21 @@ namespace SamuraiMM.Repo
                 while (reader.Read())
                 {
                     //de forskellige værdier fra databasen
-                    sam.ID = Convert.ToInt32(reader["id"]);
-                    sam.FirstName = reader["FirstName"].ToString();
-                    sam.LastName = reader["LastName"].ToString();
+                    sam.ID = Convert.ToInt32(reader["SamuraiID"]);
+                    sam.FirstName = reader["Name"].ToString();
+                    sam.LastName = reader["Lastname"].ToString();
                     sam.Birthdate = Convert.ToDateTime(reader["BirthDate"]);
                     sam.Quotes.Add(new QuoteModel()
                     {
                         QuoteText = reader["QuoteText"].ToString(),
                         //SamuraiID = Convert.ToInt32(reader["SamuraiId"]) ? 5: 0
-                        SamuraiID = reader["samuraiId"] != null ? samuraiID = Convert.ToInt32(reader["SamuraiId"]) : 0
+                        SamuraiID = reader["samuraiId"] != null ? Convert.ToInt32(reader["SamuraiId"]) : 0
                     });
                     sam.Horse = new HorseModel()
                     {
-                        Name = reader["Name"].ToString()
+                        Name = reader["HorseName"].ToString(),
                         //SamuraiID = Convert.ToInt32(reader["SamuraiId"]) ? 5: 0
-                        //SamuraiID = reader["samuraiId"] != null ? samuraiID = Convert.ToInt32(reader["SamuraiId"]) : 0
+                        SamuraiID = reader["samuraiId"] != null ? Convert.ToInt32(reader["SamuraiId"]) : 0
                     };
                     sam.Clan = new ClanModel()
                     {
@@ -261,7 +262,7 @@ namespace SamuraiMM.Repo
                     };
                     sam.Blades.Add(new BladeModel()
                     {
-                        Name = reader["Name"].ToString()
+                        Name = reader["BladeName"].ToString()
                     });
                     sam.Battles.Add(new BattleModel()
                     {
