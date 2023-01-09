@@ -18,5 +18,6 @@ namespace SamuraiMM.Interfaces
         public List<SamuraiModel> ReadAllSamurais();
         public SamuraiModel ReadSamuraisQuotes(int samuraiID);
         public List<SamuraiModel> ReadAllSamuraiAndQuotes();
+        public SamuraiModel ReadOneSamuraisProps(int samuraiID);
     }
 }

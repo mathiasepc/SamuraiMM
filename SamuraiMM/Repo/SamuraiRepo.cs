@@ -206,13 +206,21 @@ namespace SamuraiMM.Repo
             }
         }
 
-        
+
         public SamuraiModel ReadOneSamuraisProps(int samuraiID)
         {
             using (SqlConnection con = new SqlConnection(ADO.ConnectionString))
             {
                 //laver en sql commando
-                SqlCommand cmd = new SqlCommand($"select * from Samurai, Horse, Quote, Blade, Clan, BattleSchema where Horse.SamuraiId={samuraiID} AND Samurai.Id = {samuraiID}", con);
+                SqlCommand cmd = new SqlCommand("" +
+                    "SELECT Samurai.FirstName AS Name, Samurai.LastName AS Lastname, Samurai.Birthdate AS BirthDate, Quote.QuoteText AS QuoteText, Horse.Name AS HorseName, Clan.ClanName as ClanName, Blade.Name as BladeName, Battle.EventTitle as EventTitle, Samurai.ID as SamuraiID" +
+                    "FROM Samurai " +
+                    "INNER JOIN Quote ON Samurai.ID=Quote.SamuraiID" +
+                    "INNER JOIN Horse ON Samurai.ID=Horse.SamuraiID" +
+                    "INNER JOIN Clan on Clan.ID=Samurai.ClanID" +
+                    "INNER JOIN Blade on Blade.SamuraiID=Samurai.ID" +
+                    "JOIN BattleSchema ON Samurai.ID = BattleSchema.SamuraiID " +
+                    "JOIN Battle ON BattleSchema.BattlesID = Battle.ID", con);
 
                 con.Open();
 
@@ -225,18 +233,41 @@ namespace SamuraiMM.Repo
                 //vi laver en nu model hvor vi indsætter værdierne
                 SamuraiModel sam = new SamuraiModel();
 
-                //de forskellige værdier fra databasen
-                sam.ID = Convert.ToInt32(reader["id"]);
-                sam.FirstName = reader["FirstName"].ToString();
-                sam.LastName = reader["LastName"].ToString();
-                sam.Birthdate = Convert.ToDateTime(reader["BirthDate"]);
-                sam.Horse = new HorseModel()
+                sam.Quotes = new();
+                sam.Blades = new();
+                sam.Battles = new();
+                while (reader.Read())
                 {
-                    Name = reader["Name"].ToString(),
-                    //SamuraiID = Convert.ToInt32(reader["SamuraiId"]) ? 5: 0
-                    SamuraiID = reader["samuraiId"] != null ? samuraiID = Convert.ToInt32(reader["SamuraiId"]) : 0
-
-                };
+                    //de forskellige værdier fra databasen
+                    sam.ID = Convert.ToInt32(reader["id"]);
+                    sam.FirstName = reader["FirstName"].ToString();
+                    sam.LastName = reader["LastName"].ToString();
+                    sam.Birthdate = Convert.ToDateTime(reader["BirthDate"]);
+                    sam.Quotes.Add(new QuoteModel()
+                    {
+                        QuoteText = reader["QuoteText"].ToString(),
+                        //SamuraiID = Convert.ToInt32(reader["SamuraiId"]) ? 5: 0
+                        SamuraiID = reader["samuraiId"] != null ? samuraiID = Convert.ToInt32(reader["SamuraiId"]) : 0
+                    });
+                    sam.Horse = new HorseModel()
+                    {
+                        Name = reader["Name"].ToString()
+                        //SamuraiID = Convert.ToInt32(reader["SamuraiId"]) ? 5: 0
+                        //SamuraiID = reader["samuraiId"] != null ? samuraiID = Convert.ToInt32(reader["SamuraiId"]) : 0
+                    };
+                    sam.Clan = new ClanModel()
+                    {
+                        ClanName = reader["ClanName"].ToString()
+                    };
+                    sam.Blades.Add(new BladeModel()
+                    {
+                        Name = reader["Name"].ToString()
+                    });
+                    sam.Battles.Add(new BattleModel()
+                    {
+                        EventTitle = reader["EventTitle"].ToString()
+                    });
+                }
 
                 //?: operator - the ternary conditional operator (Conditional If statement)
                 //if (reader["SamuraiId"] != null) //Hvis samurai har en horse så gør det her

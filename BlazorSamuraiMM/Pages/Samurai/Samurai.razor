@@ -48,10 +48,11 @@
                 <td>FirstName</td>
                 <td>LastName</td>
                 <td>Birthdate</td>
-                @if (IDResult.Horse != null)
-                {
-                    <td>Horse name</td>
-                }
+                <td>Quotes</td>
+                <td>Horse name</td>
+                <td>Clan Name</td>
+                <td>Blades</td>
+                <td>Battles</td>
             </tr>
         </thead>
         <tbody>
@@ -59,11 +60,21 @@
                 <td>@IDResult.FirstName</td>
                 <td>@IDResult.LastName</td>
                 <td>@IDResult.Birthdate.Year</td>
-                @*Hvis samuraien ikke har en hest, så skal vi sørge at det ikke bliver displayet ellers crasher programmet*@
-                @if (IDResult.Horse != null)
+                @foreach (var item in IDResult.Quotes)
                 {
-                    <td>@IDResult.Horse.Name</td>
+                    <td>@item.QuoteText</td>
                 }
+                <td>@IDResult.Horse.Name</td>
+                <td>@IDResult.Clan.ClanName</td>
+                @foreach (var item in IDResult.Blades)
+                {
+                    <td>@item.Name</td>
+                }
+                @foreach(var item in IDResult.Battles)
+                {
+                    <td>@item.EventTitle</td>
+                }
+
             </tr>
         </tbody>
     </table>
@@ -110,25 +121,7 @@
 
     private void Search()
     {
-        var tempSamList = samurai.ReadAllSamurais();
-
-        foreach (var item in tempSamList)
-        {
-            if (item.ID == SearchId)
-            {
-                //Hvis han har en hest så brug den her function
-                try
-                {
-                    IDResult = samurai.ReadSamuraisHouse(SearchId);
-                }
-
-                //Ellers bruger den en anden function
-                catch
-                {
-                    IDResult = samurai.ReadOneSamurai(SearchId);
-                }
-            }
-        }
+        IDResult = samurai.ReadOneSamuraisProps(SearchId);
     }
 
 
