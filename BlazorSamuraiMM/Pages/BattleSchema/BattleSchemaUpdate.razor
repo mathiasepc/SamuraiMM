@@ -1,21 +1,20 @@
-﻿@page "/bladeCreate"
+﻿@page "/battleSchemaUpdate/{CurrentId}"
 @inject IBlade blade
 @inject NavigationManager NavManager
 
-<div class="topSection">
-    <h3>Create a blade</h3>
-</div>
-
-<EditForm Model="@bladeModel" OnValidSubmit="CreateBlade">
+<h3>Update Blade</h3>
+<EditForm Model="@bladeModel" OnValidSubmit="UpdateBlade">
     @*For at vores beskreder fra vores validering kan vises*@
-    <ValidationSummary />
-    @*For at vores validering på modelleren kan bruges skal vi tilføje følgende*@
-    <DataAnnotationsValidator />
+    <div class="errorBox">
+        <ValidationSummary />
+        @*For at vores validering på modelleren kan bruges skal vi tilføje følgende*@
+        <DataAnnotationsValidator />
+    </div>
     <div class="row">
         <div class="">
             <label>Blade name</label>
             <input class="form-control" @bind="bladeModel.Name" />
-            <label>Blade description</label>
+            <label>Description</label>
             <input class="form-control" @bind="bladeModel.Description" />
             <label>SamuraiId</label>
             <input class="form-control" @bind="bladeModel.SamuraiID" />
@@ -27,43 +26,49 @@
             <button type="submit">Confirm</button>
         </div>
     </div>
-    
 </EditForm>
-
-
-
 @code {
-    /// <summary>
-    /// vores gå tilbage knap
-    /// </summary>
-    private void Back()
-    {
-        //skift vindue
-        NavManager.NavigateTo("/blade");
-    }
+    //parameter gør at vi kan hente dataen ned fra url som bliver parset med
+    [Parameter]
+    public string CurrentId { get; set; }
 
-    //istansiere vores model
+    //instansiere model
     BladeModel bladeModel = new();
 
     /// <summary>
-    /// vores indsæt metode
+    /// overrider er så vi overskriver dataen hver gang
+    /// gør klar til udprint
     /// </summary>
-    private void CreateBlade()
+    protected override void OnInitialized()
+    {
+        //indsætter i model
+        bladeModel = blade.ReadOneBlade(Convert.ToInt32(CurrentId));
+    }
+
+    private void Back()
+    {
+        //skift vindue
+        NavManager.NavigateTo("/samurai");
+    }
+
+    /// <summary>
+    /// vores update metode
+    /// </summary>
+    private void UpdateBlade()
     {
         try
         {
             //kør metode
-            blade.InsertBlade(bladeModel);
+            blade.UpdateBlade(bladeModel);
             //skift vindue
             NavManager.NavigateTo("blade");
         }
         catch
         {
-            //bygger vores navigateTo ordenligt op
+            //gør vores navigate to klar
             string infostring = $"{(bladeModel.SamuraiID).ToString()} is not an existent Samurai ID";
             string currentModel = "Blade Model";
-            string CurrentId = " ";
-            string url = "bladeCreate";
+            string url = "bladeUpdate";
 
             //skift vindue
             NavManager.NavigateTo($"/errorIDPage/{url}/{CurrentId}/{currentModel}/{infostring}");

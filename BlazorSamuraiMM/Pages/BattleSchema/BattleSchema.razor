@@ -1,0 +1,77 @@
+﻿@page "/battleschema"
+@inject IBattleSchema battleschema
+@inject NavigationManager NavManager
+
+<div class="topSection">
+    <h3>List of battleschema</h3>
+    <button @onclick="CreateBattleSchema">Add battleschema</button>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <td>Event Title</td>
+            <td>Description</td>
+            <td>Samurai Participant</td>
+            <td>Functions</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var battleschema in battleSchemaList)
+        {
+            <tr>
+                @foreach (var item in battleschema.Battles)
+                {
+                    <td>@item.EventTitle</td>
+                    <td>@item.Description</td>
+                }
+                @foreach (var item in battleschema.Samurais)
+                {
+                    <td>@item.FirstName @item.LastName</td>
+                }
+                <td>
+                    <button><a href="battleSchemaUpdate/@battleschema.SamuraiID">Update</a></button> |
+                    <button @onclick="()=>BattleSchemaDelete(battleschema)">Delete</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    //istansiere vores List
+    List<BattleSchemaModel> battleSchemaList = new();
+
+    /// <summary>
+    /// overrider er så vi overskriver dataen hver gang
+    /// gør klar til udprint
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        //indsæt
+        battleSchemaList = battleschema.ReadAllBattleSchema();
+    }
+
+    /// <summary>
+    /// vores knap til at komme hen for at indsætte i tabel
+    /// </summary>
+    private void CreateBattleSchema()
+    {
+        //Skift
+        NavManager.NavigateTo("/BattleSchemaCreate");
+    }
+
+    /// <summary>
+    /// vores knap til at delete
+    /// </summary>
+    /// <param name="battleSchemaModel"></param>
+    private void BattleSchemaDelete(BattleSchemaModel battleSchemaModel)
+    {
+        //kør metode
+        battleschema.DeleteBattleSchema(battleSchemaModel.SamuraiID);
+
+        //refresh vindue
+        StateHasChanged();
+    }
+
+}

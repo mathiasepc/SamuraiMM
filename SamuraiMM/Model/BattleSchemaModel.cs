@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace SamuraiMM.Model
 {
-    public class BattleSamuraiModel
+    public class BattleSchemaModel
     {
-        public int ID { get; set; }
-
         public int SamuraiID { get; set; }  
         public List<SamuraiModel> Samurais { get; set; }
 
