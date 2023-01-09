@@ -41,7 +41,7 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //istansiere SqlCommand klassen og indsætter i databasen
-                SqlCommand sqlCommand = new($"INSERT INTO Battle (EventTitle, Description, EventStartDate, EventSlutDate, Deleted) values('{Battle.EventTitle}', '{Battle.Description}',@f3,@f4, '0')", sqlConnection);
+                SqlCommand sqlCommand = new($"INSERT INTO Battle (EventTitle, Description, EventStartDate, EventSlutDate, Deleted) values('{Battle.EventTitle}', '{Battle.Description}',@f3,@f4, '1')", sqlConnection);
 
                 sqlCommand.Parameters.AddWithValue("@f3", Battle.EventStartDate);
                 sqlCommand.Parameters.AddWithValue("@f4", Battle.EventSlutDate);
@@ -63,15 +63,12 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //laver en string som fortæller hvad sql skal gøre
-                string sqlCommand = new($"Delete from Battle Where ID ='{ID}'");
+                SqlCommand sqlCommand = new($"UPDATE Battle SET Deleted = 2 Where ID = {ID}", sqlConnection);
 
                 SqlDataAdapter sqlDataAdapter = new();
 
-                //putter min sql commando og connectionstring i deleteCommand
-                sqlDataAdapter.DeleteCommand = new(sqlCommand, sqlConnection);
-
                 //eksekverer commandoen´og sletter rækken.
-                sqlDataAdapter.DeleteCommand.ExecuteNonQuery();
+                sqlCommand.ExecuteNonQuery();
             }
         }
 
@@ -156,7 +153,7 @@ namespace SamuraiMM.Repo
                 while (reader.Read())
                 {
                     //laver en midlertidig model for at kunne overfører den ene person til vores List
-                    BattleModel BattleTemp = new BattleModel() { ID = reader.GetInt32(0), EventTitle = reader.GetString(1), Description = reader.GetString(2), EventStartDate = reader.GetDateTime(3), EventSlutDate = reader.GetDateTime(4)};
+                    BattleModel BattleTemp = new BattleModel() { ID = reader.GetInt32(0), EventTitle = reader.GetString(1), Description = reader.GetString(2), EventStartDate = reader.GetDateTime(3), EventSlutDate = reader.GetDateTime(4), Deleted = reader.GetInt32(5)};
 
                     //overfører den ene person til List
                     allBattles.Add(BattleTemp);

@@ -9,34 +9,36 @@
 <table>
     <thead>
         <tr>
-            <td>Event Title</td>
-            <td>Description</td>
-            <td>Start Date</td>
-            <td>End Date</td>
-            <td>Functions</td>
+                    <td>Event Title</td>
+                    <td>Description</td>
+                    <td>Start Date</td>
+                    <td>End Date</td>
+                    <td>Functions</td>
         </tr>
     </thead>
-    <tbody>     
-            @foreach (var battle in battlesList)
+    <tbody>
+        @foreach (var battle in battlesList)
+        {
+            @if (battle.Deleted != 2)
             {
                 <tr>
-                <td>@battle.EventTitle </td>
-                <td>@battle.Description </td>
-                <td>@battle.EventStartDate </td>
-                <td>@battle.EventSlutDate </td>
-                <td>
-                    <button><a href="battleUpdate/@battle.ID">Update</a></button> |
-                    <button @onclick="()=>BattleDelete(battle)">Delete</button>
-                </td>
+                    <td>@battle.EventTitle </td>
+                    <td>@battle.Description </td>
+                    <td>@battle.EventStartDate </td>
+                    <td>@battle.EventSlutDate </td>
+                    <td>
+                        <button><a href="battleUpdate/@battle.ID">Update</a></button> |
+                        <button @onclick="()=>BattleDelete(battle)">Delete</button>
+                    </td>
                 </tr>
-   
             }
-        
+        }
+
     </tbody>
 </table>
 
 @code {
-    //istansiere vores Liste 
+    //istansiere vores Liste
     List<BattleModel> battlesList = new();
 
     /// <summary>
@@ -44,7 +46,7 @@
     /// gør klar til udprint
     /// </summary>
     protected override void OnInitialized()
-    { 
+    {
         //indsæt
         battlesList = battle.ReadAllBattles();
     }
