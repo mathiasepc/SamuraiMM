@@ -2,7 +2,10 @@
 @inject IClan clan
 @inject NavigationManager NavManager
 
-<h3>Update Clan</h3>
+<div class="topSection">
+    <h3>Update a clan</h3>
+    <button @onclick="Back">Back</button>
+</div>
 <EditForm Model="@clanModel" OnValidSubmit="UpdateClan">
     @*For at vores beskreder fra vores validering kan vises*@
     <div class="errorBox">
@@ -14,14 +17,10 @@
         <div class="">
             <label>Clan name</label>
             <input class="form-control" @bind="clanModel.ClanName" />
-            <label>SamuraiId</label>
-            <input class="form-control" @bind="clanModel.Samurais" />
-            
         </div>
 
 
         <div class="formButton">
-            <button @onclick="Back">Back</button>
             <button type="submit">Confirm</button>
         </div>
     </div>

@@ -2,7 +2,10 @@
 @inject IBlade blade
 @inject NavigationManager NavManager
 
-<h3>Update Blade</h3>
+<div class="topSection">
+    <h3>Update a blade</h3>
+    <button @onclick="Back">Back</button>
+</div>
 <EditForm Model="@bladeModel" OnValidSubmit="UpdateBlade">
     @*For at vores beskreder fra vores validering kan vises*@
     <div class="errorBox">
@@ -22,7 +25,6 @@
 
 
         <div class="formButton">
-            <button @onclick="Back">Back</button>
             <button type="submit">Confirm</button>
         </div>
     </div>
@@ -48,7 +50,7 @@
     private void Back()
     {
         //skift vindue
-        NavManager.NavigateTo("/samurai");
+        NavManager.NavigateTo("/blade");
     }
 
     /// <summary>

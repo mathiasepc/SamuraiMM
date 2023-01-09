@@ -17,18 +17,18 @@
         </tr>
     </thead>
     <tbody>
-            @foreach (var blade in bladeList)
-            {
-                    <tr>
-                        <td>@blade.Name</td>
-                        <td>@blade.Description</td>
-                    <td>@blade.Samurai.FirstName @blade.Samurai.LastName</td>
-                        <td>
-                            <button><a href="bladeUpdate/@blade.ID">Update</a></button> |
-                            <button @onclick="()=>BladeDelete(blade)">Delete</button>
-                        </td>
-                    </tr>
-            }
+        @foreach (var blade in bladeList)
+        {
+            <tr>
+                <td>@blade.Name</td>
+                <td>@blade.Description</td>
+                <td>@blade.Samurai.FirstName @blade.Samurai.LastName</td>
+                <td>
+                    <button><a href="bladeUpdate/@blade.ID">Update</a></button> |
+                    <button @onclick="()=>BladeDelete(blade)">Delete</button>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 

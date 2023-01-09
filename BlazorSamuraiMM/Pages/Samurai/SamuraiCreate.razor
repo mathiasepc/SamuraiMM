@@ -4,6 +4,7 @@
 
 <div class="topSection">
     <h3>Create a samurai</h3>
+    <button @onclick="Back">Back</button>
 </div>
 <EditForm Model="@samuraiModel" OnValidSubmit="CreateSamurai">
     @*For at vores beskreder fra vores validering kan vises*@
@@ -24,7 +25,6 @@
 
 
         <div class="formButton">
-            <button @onclick="Back">Back</button>
             <button type="submit">Confirm</button>
         </div>
     </div>

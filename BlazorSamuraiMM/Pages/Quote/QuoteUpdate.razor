@@ -4,6 +4,7 @@
 
 <div class="topSection">
     <h3>Update Quote</h3>
+    <button @onclick="Back">Back</button>
 </div>
 
 <EditForm Model="@quoteModel" OnValidSubmit="UpdateQuote">
@@ -23,7 +24,6 @@
 
 
         <div class="formButton">
-            <button @onclick="Back">Back</button>
             <button type="submit">Confirm</button>
         </div>
     </div>

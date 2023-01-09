@@ -4,6 +4,7 @@
 
 <div class="topSection">
     <h3>Create a battleschema</h3>
+    <button @onclick="Back">Back</button>
 </div>
 <EditForm Model="@battleSchemaModel" OnValidSubmit="CreateBattleSchema">
     @*For at vores beskreder fra vores validering kan vises*@
@@ -19,8 +20,7 @@
         </div>
 
         <div class="formButton">
-            <button @onclick="Back">Back</button>
-            <button type="submit">Confirm</button>   
+            <button type="submit">Confirm</button>
         </div>
     </div>
 </EditForm>
@@ -29,11 +29,11 @@
     /// <summary>
     /// vores gå tilbage knap
     /// </summary>
-        private void Back()
+    private void Back()
     {
         //skift vindue
         NavManager.NavigateTo("/battleSchema");
-    }    
+    }
 
     //istansiere vores model
     BattleSchemaModel battleSchemaModel = new();

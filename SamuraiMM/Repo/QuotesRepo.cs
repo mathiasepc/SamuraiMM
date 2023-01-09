@@ -105,8 +105,8 @@ namespace SamuraiMM.Repo
                 QuoteModel quo = new QuoteModel();
 
                 //de forskellige værdier fra databasen
-                quo.ID = Convert.ToInt32(reader["id"]);
                 quo.QuoteText = reader["QuoteText"].ToString();
+                quo.SamuraiID = Convert.ToInt32(reader["SamuraiID"]);
 
                 //returner den nye model
                 return quo;
@@ -169,6 +169,7 @@ namespace SamuraiMM.Repo
                     //laver en midlertidig model for at kunne overfører den ene person til vores List
                     QuoteModel quoteTemp = new QuoteModel()
                     {
+                        ID = Convert.ToInt32(reader.GetInt32(0)),
                         QuoteText = reader["QuoteText"].ToString(),
                         SamuraiID = Convert.ToInt32(reader["SamuraiID"]),
                         Samurai = new SamuraiModel

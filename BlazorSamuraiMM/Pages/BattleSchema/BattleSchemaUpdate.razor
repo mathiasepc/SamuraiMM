@@ -2,7 +2,8 @@
 @inject IBlade blade
 @inject NavigationManager NavManager
 
-<h3>Update Blade</h3>
+<h3>Update battleSchema</h3>
+            <button @onclick="Back">Back</button>
 <EditForm Model="@bladeModel" OnValidSubmit="UpdateBlade">
     @*For at vores beskreder fra vores validering kan vises*@
     <div class="errorBox">
@@ -22,7 +23,6 @@
 
 
         <div class="formButton">
-            <button @onclick="Back">Back</button>
             <button type="submit">Confirm</button>
         </div>
     </div>

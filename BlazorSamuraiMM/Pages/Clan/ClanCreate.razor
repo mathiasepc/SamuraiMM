@@ -4,6 +4,7 @@
 
 <div class="topSection">
     <h3>Create a clan</h3>
+    <button @onclick="Back">Back</button>
 </div>
 
 <EditForm Model="@clanModel" OnValidSubmit="CreateClan">
@@ -19,7 +20,6 @@
 
 
         <div class="formButton">
-            <button @onclick="Back">Back</button>
             <button type="submit">Confirm</button>
         </div>
     </div>
