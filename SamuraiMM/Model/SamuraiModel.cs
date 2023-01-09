@@ -25,6 +25,7 @@ namespace SamuraiMM.Model
         //Da Date er en struct(Value Type) og ikke en reference type. Har den som default en value. Derfor laver vi en range i stedet
         [Range(typeof(DateTime), "01/01/1753", "01/01/9999", ErrorMessage = "Date is out of Range: 01/01/1753-01/01/9999")]
         public DateTime Birthdate { get; set; }
+        public int Deleted { get; set; }
         public HorseModel Horse { get; set; }
         public List<BladeModel> Blades { get; set; }
         public List<QuoteModel> Quotes { get; set; }

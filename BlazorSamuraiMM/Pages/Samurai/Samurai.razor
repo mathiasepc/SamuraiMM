@@ -20,13 +20,16 @@
         @foreach (var samurai in samuraiList)
         {
             <tr>
-                <td>@samurai.FirstName</td>
-                <td>@samurai.LastName</td>
-                <td>@samurai.Birthdate.Year</td>
-                <td>
-                    <button><a href="samuraiUpdate/@samurai.ID">Update</a></button> |
-                    <button @onclick="()=>SamuraiDelete(samurai)">Delete</button>
-                </td>
+                @if (samurai.Deleted == 0)
+                {
+                    <td>@samurai.FirstName</td>
+                    <td>@samurai.LastName</td>
+                    <td>@samurai.Birthdate.Year</td>
+                    <td>
+                        <button><a href="samuraiUpdate/@samurai.ID">Update</a></button> |
+                        <button @onclick="()=>SamuraiDelete(samurai)">Delete</button>
+                    </td>
+                }
             </tr>
 
         }
@@ -42,82 +45,88 @@
 
 @if (IDResult != null)
 {
-    <table>
-        <thead>
-            <tr>
-                <td>FirstName</td>
-                <td>LastName</td>
-                <td>Birthdate</td>
-                @foreach (var item in IDResult.Quotes)
-                {
-                    @if (item.QuoteText != null)
-                    {
-                        <td>Quotes</td>
-                    }
-                }
-                @if (IDResult.Horse != null)
-                {
-                    <td>Horse name</td>
-                }
-                @if (IDResult.Clan != null)
-                {
-                    <td>Clan Name</td>
-                }
-                @foreach (var item in IDResult.Blades)
-                {
-                    @if (item.Name != null)
-                    {
-                        <td>Blades</td>
+    @if (IDResult.Deleted != 1)
+    {
 
-                    }
-                }
-                @foreach (var item in IDResult.Battles)
-                {
+        <table>
+            <thead>
+                <tr>
 
-                    @if (item.EventTitle != null)
-                    {
-                        <td>Battles</td>
-                    }
-                }
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>@IDResult.FirstName</td>
-                <td>@IDResult.LastName</td>
-                <td>@IDResult.Birthdate.Year</td>
-                @if (IDResult.Quotes != null)
-                {
+                    <td>FirstName</td>
+                    <td>LastName</td>
+                    <td>Birthdate</td>
                     @foreach (var item in IDResult.Quotes)
                     {
-                        <td>@item.QuoteText</td>
+                        @if (item.QuoteText != null)
+                        {
+                            <td>Quotes</td>
+                        }
                     }
-                }
-                @if (IDResult.Horse != null)
-                {
-                    <td>@IDResult.Horse.Name</td>
-                }
-                @if (IDResult.Clan != null)
-                {
-                    <td>@IDResult.Clan.ClanName</td>
-                }
-                @if (IDResult.Blades != null)
-                {
+                    @if (IDResult.Horse != null)
+                    {
+                        <td>Horse name</td>
+                    }
+                    @if (IDResult.Clan != null)
+                    {
+                        <td>Clan Name</td>
+                    }
                     @foreach (var item in IDResult.Blades)
                     {
-                        <td>@item.Name</td>
+                        @if (item.Name != null)
+                        {
+                            <td>Blades</td>
+
+                        }
                     }
-                }
-                @if (IDResult.Battles != null)
-                {
                     @foreach (var item in IDResult.Battles)
                     {
-                        <td>@item.EventTitle</td>
+
+                        @if (item.EventTitle != null)
+                        {
+                            <td>Battles</td>
+                        }
                     }
-                }
-            </tr>
-        </tbody>
-    </table>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@IDResult.FirstName</td>
+                    <td>@IDResult.LastName</td>
+                    <td>@IDResult.Birthdate.Year</td>
+                    @if (IDResult.Quotes != null)
+                    {
+                        @foreach (var item in IDResult.Quotes)
+                        {
+                            <td>@item.QuoteText</td>
+                        }
+                    }
+                    @if (IDResult.Horse != null)
+                    {
+                        <td>@IDResult.Horse.Name</td>
+                    }
+                    @if (IDResult.Clan != null)
+                    {
+                        <td>@IDResult.Clan.ClanName</td>
+                    }
+                    @if (IDResult.Blades != null)
+                    {
+                        @foreach (var item in IDResult.Blades)
+                        {
+                            <td>@item.Name</td>
+                        }
+                    }
+                    @if (IDResult.Battles != null)
+                    {
+                        @foreach (var item in IDResult.Battles)
+                        {
+                            <td>@item.EventTitle</td>
+                        }
+                    }
+                </tr>
+            </tbody>
+        </table>
+    }
 }
 
 @code {

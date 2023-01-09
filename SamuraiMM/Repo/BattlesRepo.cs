@@ -21,7 +21,7 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //Fortæller hvad den skal gøre i SQL
-                SqlCommand command = new SqlCommand($"CREATE TABLE Battle(ID int Identity(1,1) Primary Key, EventTitle nvarchar(50), Description nvarchar(200), EventStartDate datetime, EventSlutDate datetime); ", sqlConnection);
+                SqlCommand command = new SqlCommand($"CREATE TABLE Battle(ID int Identity(1,1) Primary Key, EventTitle nvarchar(50), Description nvarchar(200), EventStartDate datetime, EventSlutDate datetime, Deleted int); ", sqlConnection);
 
                 //opretter tablen
                 command.ExecuteNonQuery();
@@ -41,7 +41,7 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //istansiere SqlCommand klassen og indsætter i databasen
-                SqlCommand sqlCommand = new($"INSERT INTO Battle (EventTitle, Description, EventStartDate, EventSlutDate) values('{Battle.EventTitle}', '{Battle.Description}',@f3,@f4)", sqlConnection);
+                SqlCommand sqlCommand = new($"INSERT INTO Battle (EventTitle, Description, EventStartDate, EventSlutDate, Deleted) values('{Battle.EventTitle}', '{Battle.Description}',@f3,@f4, 's0')", sqlConnection);
 
                 sqlCommand.Parameters.AddWithValue("@f3", Battle.EventStartDate);
                 sqlCommand.Parameters.AddWithValue("@f4", Battle.EventSlutDate);

@@ -20,7 +20,7 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //Fortæller hvad den skal gøre i SQL
-                SqlCommand command = new SqlCommand($"CREATE TABLE Clan(ID int Identity(1,1) Primary Key, ClanName nvarchar(50)); ", sqlConnection);
+                SqlCommand command = new SqlCommand($"CREATE TABLE Clan(ID int Identity(1,1) Primary Key, ClanName nvarchar(50), Deleted int); ", sqlConnection);
 
                 //opretter tablen
                 command.ExecuteNonQuery();
@@ -40,7 +40,7 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //istansiere SqlCommand klassen og indsætter i databasen
-                SqlCommand sqlCommand = new($"INSERT INTO Clan (ClanName) values('{clan.ClanName}')", sqlConnection);
+                SqlCommand sqlCommand = new($"INSERT INTO Clan (ClanName, Deleted) values('{clan.ClanName}', '0')", sqlConnection);
 
                 //sender til min database
                 sqlCommand.ExecuteNonQuery();

@@ -29,7 +29,7 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //Fortæller hvad den skal gøre i SQL
-                SqlCommand command = new SqlCommand($"CREATE TABLE Samurai(ID int Identity(1,1) Primary Key, FirstName nvarchar(50), LastName nvarchar(50), Birthdate datetime, ClanID int Foreign KEY references Clan(ID)); ", sqlConnection);
+                SqlCommand command = new SqlCommand($"CREATE TABLE Samurai(ID int Identity(1,1) Primary Key, FirstName nvarchar(50), LastName nvarchar(50), Birthdate datetime, Deleted int, ClanID int Foreign KEY references Clan(ID)); ", sqlConnection);
 
                 //opretter tablen
                 command.ExecuteNonQuery();
@@ -69,11 +69,11 @@ namespace SamuraiMM.Repo
                 //Indsætter i databasen
                 if (samurai.ClanID != 0)
                 {
-                    sqlCommand = new($"INSERT INTO Samurai (FirstName, LastName, Birthdate, ClanID) values('{samurai.FirstName}', '{samurai.LastName}', @f3,{samurai.ClanID})", sqlConnection);
+                    sqlCommand = new($"INSERT INTO Samurai (FirstName, LastName, Birthdate, ClanID, Deleted) values('{samurai.FirstName}', '{samurai.LastName}', @f3,{samurai.ClanID}), '0' ", sqlConnection);
                 }
                 else
                 {
-                    sqlCommand = new($"INSERT INTO Samurai (FirstName, LastName, Birthdate) values('{samurai.FirstName}', '{samurai.LastName}', @f3)", sqlConnection);
+                    sqlCommand = new($"INSERT INTO Samurai (FirstName, LastName, Birthdate, Deleted) values('{samurai.FirstName}', '{samurai.LastName}', @f3, '0')", sqlConnection);
                 }
 
                 //Da database ikke kan forstå datetime, parse vi den ind i en variable for sig.
@@ -96,15 +96,9 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //laver en string som fortæller hvad sql skal gøre
-                string sqlCommand = new($"Delete from Samurai Where ID ='{samuraiID}'");
+                SqlCommand sqlCommand = new($"UPDATE Samurai SET Deleted = 1 Where ID = {samuraiID}", sqlConnection);
 
-                SqlDataAdapter sqlDataAdapter = new();
-
-                //putter min sql commando og connectionstring i deleteCommand
-                sqlDataAdapter.DeleteCommand = new(sqlCommand, sqlConnection);
-
-                //eksekverer commandoen´og sletter rækken.
-                sqlDataAdapter.DeleteCommand.ExecuteNonQuery();
+                sqlCommand.ExecuteNonQuery();
             }
         }
 
@@ -266,6 +260,7 @@ namespace SamuraiMM.Repo
                     {
                         EventTitle = reader["EventTitle"].ToString()
                     });
+                    sam.Deleted = Convert.ToInt32(reader["Deleted"]);
                 }
 
                 //?: operator - the ternary conditional operator (Conditional If statement)
@@ -306,7 +301,7 @@ namespace SamuraiMM.Repo
                 while (reader.Read())
                 {
                     //laver en midlertidig model for at kunne overfører den ene person til vores List
-                    SamuraiModel samTemp = new SamuraiModel() { ID = reader.GetInt32(0), FirstName = reader.GetString(1), LastName = reader.GetString(2), Birthdate = reader.GetDateTime(3) };
+                    SamuraiModel samTemp = new SamuraiModel() { ID = reader.GetInt32(0), FirstName = reader.GetString(1), LastName = reader.GetString(2), Birthdate = reader.GetDateTime(3), Deleted = reader.GetInt32(4) };
 
                     //overfører den ene person til List
                     allSamurais.Add(samTemp);
