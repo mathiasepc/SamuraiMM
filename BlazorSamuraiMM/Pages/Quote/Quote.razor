@@ -10,26 +10,34 @@
 <table>
     <thead>
         <tr>
-            <td>Quote</td>
-            <td>Samurai name</td>
-            <td>Functions</td>
+            
+                    @foreach (var quote in quoteList)
+        {
+                @if (quote.Samurai.Deleted != 2)
+                {
+                    <td>Quote</td>
+                    <td>Samurai name</td>
+                    <td>Functions</td>
+                }
+        }
+            
         </tr>
     </thead>
     <tbody>
         @foreach (var quote in quoteList)
         {
             <tr>
-                <td>@quote.QuoteText</td>
-
-                <td>@quote.Samurai.FirstName @quote.Samurai.LastName</td>
-                <td>
-                    <button><a href="quoteUpdate/@quote.ID">Update</a></button> |
-                    <button @onclick="()=>QuoteDelete(quote)">Delete</button>
-                </td>
+                @if (quote.Samurai.Deleted != 2)
+                {
+                    <td>@quote.QuoteText</td>
+                    <td>@quote.Samurai.FirstName @quote.Samurai.LastName</td>
+                    <td>
+                        <button><a href="quoteUpdate/@quote.ID">Update</a></button> |
+                        <button @onclick="()=>QuoteDelete(quote)">Delete</button>
+                    </td>
+                }
             </tr>
-
         }
-
     </tbody>
 </table>
 

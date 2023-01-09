@@ -175,7 +175,8 @@ namespace SamuraiMM.Repo
                         Samurai = new SamuraiModel
                         {
                             FirstName = reader["FirstName"].ToString(),
-                            LastName = reader["LastName"].ToString()
+                            LastName = reader["LastName"].ToString(),
+                            Deleted = Convert.ToInt32(reader["Deleted"])
                         }
                     };
 
