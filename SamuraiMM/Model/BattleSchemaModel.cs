@@ -17,5 +17,6 @@ namespace SamuraiMM.Model
         [Required(ErrorMessage = "BattlesID is required.")]
         public int BattlesID { get; set; }
         public List<BattleModel> Battles { get; set; }
+        public SamuraiModel samuraiModel { get; set; }
     }
 }

@@ -1,10 +1,12 @@
 ﻿@page "/battleSchemaUpdate/{CurrentId}"
-@inject IBlade blade
+@inject IBattleSchema battleSchema
 @inject NavigationManager NavManager
 
-<h3>Update battleSchema</h3>
-            <button @onclick="Back">Back</button>
-<EditForm Model="@bladeModel" OnValidSubmit="UpdateBlade">
+<div class="topSection">
+    <h3>Update battleSchema</h3>
+    <button @onclick="Back">Back</button>
+</div>
+<EditForm Model="@battleSchemaModel" OnValidSubmit="UpdateBattleSchema">
     @*For at vores beskreder fra vores validering kan vises*@
     <div class="errorBox">
         <ValidationSummary />
@@ -27,13 +29,14 @@
         </div>
     </div>
 </EditForm>
+
 @code {
     //parameter gør at vi kan hente dataen ned fra url som bliver parset med
     [Parameter]
     public string CurrentId { get; set; }
 
     //instansiere model
-    BladeModel bladeModel = new();
+    BattleSchemaModel battleSchemaModel = new();
 
     /// <summary>
     /// overrider er så vi overskriver dataen hver gang
@@ -42,7 +45,7 @@
     protected override void OnInitialized()
     {
         //indsætter i model
-        bladeModel = blade.ReadOneBlade(Convert.ToInt32(CurrentId));
+        battleSchemaModel = battleSchema.ReadOneSamuraiBattles2(battleSchemaModel.SamuraiID);
     }
 
     private void Back()
@@ -54,12 +57,12 @@
     /// <summary>
     /// vores update metode
     /// </summary>
-    private void UpdateBlade()
+    private void UpdateBattleSchema()
     {
         try
         {
             //kør metode
-            blade.UpdateBlade(bladeModel);
+            battleSchema.UpdateBattleSchema(battleSchemaModel);
             //skift vindue
             NavManager.NavigateTo("blade");
         }
