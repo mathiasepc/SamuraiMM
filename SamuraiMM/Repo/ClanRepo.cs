@@ -40,7 +40,7 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //istansiere SqlCommand klassen og indsætter i databasen
-                SqlCommand sqlCommand = new($"INSERT INTO Clan (ClanName, Deleted) values('{clan.ClanName}', '0')", sqlConnection);
+                SqlCommand sqlCommand = new($"INSERT INTO Clan (ClanName, Deleted) values('{clan.ClanName}', '1')", sqlConnection);
 
                 //sender til min database
                 sqlCommand.ExecuteNonQuery();

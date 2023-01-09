@@ -37,9 +37,14 @@ namespace SamuraiMM.Repo
             {
                 //åbner vejen
                 sqlConnection.Open();
+                SqlCommand sqlCommand = new();
 
-                //istansiere SqlCommand klassen og indsætter i databasen
-                SqlCommand sqlCommand = new($"INSERT INTO Horse (Name, SamuraiID, HorseRace) values('{horse.Name}', '{horse.SamuraiID}', '{horse.HorseRace}')", sqlConnection);
+                if (horse.Samurai.Deleted == 1)
+                {
+                    //istansiere SqlCommand klassen og indsætter i databasen
+                    sqlCommand = new($"INSERT INTO Horse (Name, SamuraiID, HorseRace) values('{horse.Name}', '{horse.SamuraiID}', '{horse.HorseRace}')", sqlConnection);
+
+                }
 
 
                 //sender til min database
@@ -98,8 +103,13 @@ namespace SamuraiMM.Repo
                 //åbner vejen
                 sqlConnection.Open();
 
-                //Laver en SQLCommando for at update databasen og indsætter sqlConnection
-                SqlCommand commandChange = new($"UPDATE Horse SET Name = '{horse.Name}', SamuraiID = '{horse.SamuraiID}', HorseRace = '{horse.HorseRace}' Where SamuraiID = {id}", sqlConnection);
+                SqlCommand commandChange = new();
+
+                if (horse.Samurai.Deleted == 1)
+                {
+                    //Laver en SQLCommando for at update databasen og indsætter sqlConnection
+                    commandChange = new($"UPDATE Horse SET Name = '{horse.Name}', SamuraiID = '{horse.SamuraiID}', HorseRace = '{horse.HorseRace}' Where SamuraiID = {id}", sqlConnection);
+                }
 
                 //eksekver
                 commandChange.ExecuteNonQuery();

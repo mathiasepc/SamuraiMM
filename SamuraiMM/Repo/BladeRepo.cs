@@ -37,11 +37,14 @@ namespace SamuraiMM.Repo
             //laver en vej til min server bruger using for at den selv lukker.
             using (SqlConnection sqlConnection = new(ADO.ConnectionString))
             {
+                SqlCommand sqlCommand = new();
                 //åbner vejen
                 sqlConnection.Open();
-
-                //istansiere SqlCommand klassen og indsætter i databasen
-                SqlCommand sqlCommand = new($"INSERT INTO Blade (Name, Description, SamuraiID) values('{blade.Name}', '{blade.Description}','{blade.SamuraiID}')", sqlConnection);
+                if (blade.Samurai.Deleted == 1)
+                {
+                    //istansiere SqlCommand klassen og indsætter i databasen
+                    sqlCommand = new($"INSERT INTO Blade (Name, Description, SamuraiID) values('{blade.Name}', '{blade.Description}','{blade.SamuraiID}')", sqlConnection);
+                }
 
                 //sender til min database
                 sqlCommand.ExecuteNonQuery();
@@ -83,8 +86,13 @@ namespace SamuraiMM.Repo
                 //åbner vejen
                 sqlConnection.Open();
 
-                //Laver en SQLCommando for at update databasen og indsætter sqlConnection
-                SqlCommand commandChange = new($"UPDATE Blade SET Name = '{blade.Name}', Description = '{blade.Description}', SamuraiID = '{blade.SamuraiID}' Where ID = {blade.ID}", sqlConnection);
+                SqlCommand commandChange = new();
+
+                if (blade.Samurai.Deleted == 1)
+                {
+                    //Laver en SQLCommando for at update databasen og indsætter sqlConnection
+                    commandChange = new($"UPDATE Blade SET Name = '{blade.Name}', Description = '{blade.Description}', SamuraiID = '{blade.SamuraiID}' Where ID = {blade.ID}", sqlConnection);
+                }
 
                 //eksekver
                 commandChange.ExecuteNonQuery();

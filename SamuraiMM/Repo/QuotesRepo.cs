@@ -19,6 +19,7 @@ namespace SamuraiMM.Repo
                 //åbner for connection
                 sqlConnection.Open();
 
+
                 //Fortæller hvad den skal gøre i SQL
                 SqlCommand command = new SqlCommand($"CREATE TABLE Quote(ID int Identity(1,1) Primary Key, QuoteText nvarchar(50), SamuraiID int Foreign KEY references Samurai(ID)); ", sqlConnection);
 
@@ -39,9 +40,13 @@ namespace SamuraiMM.Repo
                 //åbner vejen
                 sqlConnection.Open();
 
-                //istansiere SqlCommand klassen og indsætter i databasen
-                SqlCommand sqlCommand = new($"INSERT INTO Quote (QuoteText, SamuraiID) values('{quote.QuoteText}', '{quote.SamuraiID}')", sqlConnection);
+                SqlCommand sqlCommand = new();
 
+                if (quote.Samurai.Deleted == 1)
+                {
+                    //istansiere SqlCommand klassen og indsætter i databasen
+                    sqlCommand = new($"INSERT INTO Quote (QuoteText, SamuraiID) values('{quote.QuoteText}', '{quote.SamuraiID}')", sqlConnection);
+                }
                 //sender til min database
                 sqlCommand.ExecuteNonQuery();
             }
@@ -78,8 +83,13 @@ namespace SamuraiMM.Repo
                 //åbner vejen
                 sqlConnection.Open();
 
-                //Laver en SQLCommando for at update databasen og indsætter sqlConnection
-                SqlCommand commandChange = new($"UPDATE Quote SET QuoteText = '{quote.QuoteText}', SamuraiId = {quote.SamuraiID} Where ID = {quote.ID}", sqlConnection);
+                SqlCommand commandChange = new();
+
+                if (quote.Samurai.Deleted == 1)
+                {
+                    //Laver en SQLCommando for at update databasen og indsætter sqlConnection
+                    commandChange = new($"UPDATE Quote SET QuoteText = '{quote.QuoteText}', SamuraiId = {quote.SamuraiID} Where ID = {quote.ID}", sqlConnection);
+                }
 
                 //eksekver
                 commandChange.ExecuteNonQuery();
