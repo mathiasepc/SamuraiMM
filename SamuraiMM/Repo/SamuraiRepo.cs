@@ -246,15 +246,11 @@ namespace SamuraiMM.Repo
                     sam.Birthdate = Convert.ToDateTime(reader["BirthDate"]);
                     sam.Quotes.Add(new QuoteModel()
                     {
-                        QuoteText = reader["QuoteText"].ToString(),
-                        //SamuraiID = Convert.ToInt32(reader["SamuraiId"]) ? 5: 0
-                        SamuraiID = reader["samuraiId"] != null ? Convert.ToInt32(reader["SamuraiId"]) : 0
+                        QuoteText = reader["QuoteText"].ToString()
                     });
                     sam.Horse = new HorseModel()
                     {
-                        Name = reader["HorseName"].ToString(),
-                        //SamuraiID = Convert.ToInt32(reader["SamuraiId"]) ? 5: 0
-                        SamuraiID = reader["samuraiId"] != null ? Convert.ToInt32(reader["SamuraiId"]) : 0
+                        Name = reader["HorseName"].ToString()
                     };
                     sam.Clan = new ClanModel()
                     {

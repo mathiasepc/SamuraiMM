@@ -48,11 +48,35 @@
                 <td>FirstName</td>
                 <td>LastName</td>
                 <td>Birthdate</td>
-                <td>Quotes</td>
-                <td>Horse name</td>
-                <td>Clan Name</td>
-                <td>Blades</td>
-                <td>Battles</td>
+                @foreach (var item in IDResult.Quotes)
+                {
+                    @if (item.QuoteText != null)
+                    {
+                        <td>Quotes</td>
+                    }
+                }
+                @if (IDResult.Horse != null)
+                {
+                    <td>Horse name</td>
+                }
+                @if (IDResult.Clan != null)
+                {
+                    <td>Clan Name</td>
+                }
+                @foreach (var item in IDResult.Blades)
+                {
+                    @if (item.Name != null)
+                    {
+                        <td>Blades</td>
+                    }
+                }
+                @foreach (var item in IDResult.Battles)
+                {
+                    @if (item.EventTitle != null)
+                    {
+                        <td>Battles</td>
+                    }
+                }
             </tr>
         </thead>
         <tbody>
@@ -60,24 +84,35 @@
                 <td>@IDResult.FirstName</td>
                 <td>@IDResult.LastName</td>
                 <td>@IDResult.Birthdate.Year</td>
-                @foreach (var item in IDResult.Quotes)
+                @if (IDResult.Quotes != null)
                 {
-                    <td>@item.QuoteText</td>
+                    @foreach (var item in IDResult.Quotes)
+                    {
+                        <td>@item.QuoteText</td>
+                    }
                 }
                 @if (IDResult.Horse != null)
                 {
-                <td>@IDResult.Horse.Name</td>
+                    <td>@IDResult.Horse.Name</td>
                 }
-                <td>@IDResult.Clan.ClanName</td>
-                @foreach (var item in IDResult.Blades)
+                @if (IDResult.Clan != null)
                 {
-                    <td>@item.Name</td>
+                    <td>@IDResult.Clan.ClanName</td>
                 }
-                @foreach(var item in IDResult.Battles)
+                @if (IDResult.Blades != null)
                 {
-                    <td>@item.EventTitle</td>
+                    @foreach (var item in IDResult.Blades)
+                    {
+                        <td>@item.Name</td>
+                    }
                 }
-
+                @if (IDResult.Battles != null)
+                {
+                    @foreach (var item in IDResult.Battles)
+                    {
+                        <td>@item.EventTitle</td>
+                    }
+                }
             </tr>
         </tbody>
     </table>
@@ -124,7 +159,6 @@
 
     private void Search()
     {
-        IDResult = new();
         IDResult = samurai.ReadOneSamuraisProps(SearchId);
     }
 
