@@ -5,7 +5,6 @@
 <div class="topSection">
     <h3>Create a battleschema</h3>
 </div>
-
 <EditForm Model="@battleSchemaModel" OnValidSubmit="CreateBattleSchema">
     @*For at vores beskreder fra vores validering kan vises*@
     <ValidationSummary />
@@ -24,7 +23,6 @@
             <button type="submit">Confirm</button>   
         </div>
     </div>
-    
 </EditForm>
 
 @code {
@@ -35,7 +33,7 @@
     {
         //skift vindue
         NavManager.NavigateTo("/battleSchema");
-    }    /// 
+    }    
 
     //istansiere vores model
     BattleSchemaModel battleSchemaModel = new();
@@ -50,12 +48,12 @@
             //kør metode
             battleschema.InsertBattleSchema(battleSchemaModel);
             //skift vindue
-            NavManager.NavigateTo("battleschema");
+            NavManager.NavigateTo("/battleSchema");
         }
         catch
         {
             //bygger vores navigateTo ordenligt op
-            string infostring = $"'{battleSchemaModel.SamuraiID}' or '{battleSchemaModel.BattlesID}' is not an existent BattleID or SamuraiID";
+            string infostring = $"'{battleSchemaModel.SamuraiID.ToString()}' or '{battleSchemaModel.BattlesID.ToString()}' is not an existent BattleID or SamuraiID";
             string currentModel = "BattleSchema Model";
             string CurrentId = " ";
             string url = "battleSchemaCreate";
@@ -64,6 +62,4 @@
             NavManager.NavigateTo($"/errorIDPage/{url}/{CurrentId}/{currentModel}/{infostring}");
         }
     }
-
-
 }
