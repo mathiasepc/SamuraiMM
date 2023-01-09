@@ -3,7 +3,7 @@
 @inject NavigationManager NavManager
 
 <div class="topSection">
-    <h3>List of clans</h3>
+    <h3>List of clans with members</h3>
     <button @onclick="CreateClan">Add clan</button>
 </div>
 
@@ -33,6 +33,22 @@
                 </tr>
             }
 
+</tbody>
+</table>
+
+<div class="topSection">
+    <h3>List of clans without members</h3>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <td>Clan Name</td>
+            <td>Functions</td>
+        </tr>
+    </thead>
+    <tbody>
+
         @foreach (var nosamclans in noSamClansList)
         {
             <tr>
@@ -44,8 +60,9 @@
             </tr>
         }
         
-    </tbody>
+</tbody>
 </table>
+
 
 @code {
     //istansiere Lists

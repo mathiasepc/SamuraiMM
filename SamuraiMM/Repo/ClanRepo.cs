@@ -152,7 +152,7 @@ namespace SamuraiMM.Repo
                 con.Open();
 
                 //Laver en SqlCommando
-                SqlCommand command = new SqlCommand("SELECT * FROM Clan JOIN Samurai ON Samurai.ClanID != Clan.ID", con);
+                SqlCommand command = new SqlCommand("select Clan.ClanName from Clan left outer join Samurai on Clan.ID = Samurai.ClanID group by Clan.ClanName,clan.id, Samurai.ClanID having count(Samurai.ClanID) = 0", con);
 
                 //vi bruger SqlDataReader for at kunne læse data'en fra databasen hvor vi indsætter vores commando
                 SqlDataReader reader = command.ExecuteReader();
@@ -163,7 +163,6 @@ namespace SamuraiMM.Repo
                     //laver en midlertidig model for at kunne overfører den ene person til vores List
                     ClanModel clanTemp = new ClanModel();
 
-                    clanTemp.ID = Convert.ToInt32(reader["id"]);
                     clanTemp.ClanName = reader["ClanName"].ToString();
                     //overfører den ene person til List
                     allClans.Add(clanTemp);
