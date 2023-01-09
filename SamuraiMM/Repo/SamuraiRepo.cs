@@ -238,7 +238,7 @@ namespace SamuraiMM.Repo
                 sam.Blades = new();
                 sam.Battles = new();
                 while (reader.Read())
-                {
+                { 
                     //de forskellige værdier fra databasen
                     sam.ID = Convert.ToInt32(reader["SamuraiID"]);
                     sam.FirstName = reader["Name"].ToString();
@@ -246,7 +246,9 @@ namespace SamuraiMM.Repo
                     sam.Birthdate = Convert.ToDateTime(reader["BirthDate"]);
                     sam.Quotes.Add(new QuoteModel()
                     {
-                        QuoteText = reader["QuoteText"].ToString()
+                        QuoteText = reader["QuoteText"].ToString(),
+                        //SamuraiID = Convert.ToInt32(reader["SamuraiId"]) ? 5: 0
+                        SamuraiID = reader["samuraiId"] != null ? Convert.ToInt32(reader["SamuraiId"]) : 0
                     });
                     sam.Horse = new HorseModel()
                     {
