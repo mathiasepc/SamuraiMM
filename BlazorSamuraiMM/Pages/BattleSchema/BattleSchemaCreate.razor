@@ -1,35 +1,31 @@
-﻿@page "/samuraiCreate"
-@inject ISamurai samurai
+﻿@page "/battleSchemaCreate"
+@inject IBattleSchema battleschema
 @inject NavigationManager NavManager
 
 <div class="topSection">
-    <h3>Create a samurai</h3>
+    <h3>Create a battleschema</h3>
 </div>
-<EditForm Model="@samuraiModel" OnValidSubmit="CreateSamurai">
+
+<EditForm Model="@battleSchemaModel" OnValidSubmit="CreateBattleSchema">
     @*For at vores beskreder fra vores validering kan vises*@
     <ValidationSummary />
     @*For at vores validering på modelleren kan bruges skal vi tilføje følgende*@
     <DataAnnotationsValidator />
     <div class="row">
         <div class="">
-            <label>First name</label>
-            <input class="form-control" @bind="samuraiModel.FirstName" />
-            <label>Last name</label>
-            <input class="form-control" @bind="samuraiModel.LastName" />
-            <label>Birthdate</label>
-            <input class="form-control" @bind="samuraiModel.Birthdate" />
-            <label>Clan ID</label>
-            <input class="form-control" @bind="samuraiModel.ClanID" />
+            <label>SamuraiID</label>
+            <input class="form-control" @bind="battleSchemaModel.SamuraiID" />
+            <label>BattlesID</label>
+            <input class="form-control" @bind="battleSchemaModel.BattlesID" />
         </div>
-
 
         <div class="formButton">
             <button @onclick="Back">Back</button>
             <button type="submit">Confirm</button>
         </div>
     </div>
+    
 </EditForm>
-
 
 
 
@@ -40,31 +36,31 @@
     private void Back()
     {
         //skift vindue
-        NavManager.NavigateTo("/samurai");
+        NavManager.NavigateTo("/battleSchema");
     }
 
     //istansiere vores model
-    SamuraiModel samuraiModel = new();
+    BattleSchemaModel battleSchemaModel = new();
 
     /// <summary>
-    /// vores indsæt i tabellen metode
+    /// vores indsæt metode
     /// </summary>
-    private void CreateSamurai()
+    private void CreateBattleSchema()
     {
         try
         {
             //kør metode
-            samurai.InsertSamurai(samuraiModel);
+            battleschema.InsertBattleSchema(battleSchemaModel);
             //skift vindue
-            NavManager.NavigateTo("samurai");
+            NavManager.NavigateTo("battleschema");
         }
         catch
         {
             //bygger vores navigateTo ordenligt op
-            string infostring = $"{(samuraiModel.ClanID).ToString()} is out of range.";
-            string currentModel = "Samurai Model";
+            string infostring = $"'{battleSchemaModel.SamuraiID}' or '{battleSchemaModel.BattlesID}' is not an existent BattleID or SamuraiID";
+            string currentModel = "BattleSchema Model";
             string CurrentId = " ";
-            string url = "samuraiCreate";
+            string url = "battleSchemaCreate";
 
             //skift vindue
             NavManager.NavigateTo($"/errorIDPage/{url}/{CurrentId}/{currentModel}/{infostring}");

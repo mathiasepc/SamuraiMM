@@ -17,24 +17,18 @@
         </tr>
     </thead>
     <tbody>
-        @if (bladeList != null)
-        {
             @foreach (var blade in bladeList)
             {
-                @foreach (var item in blade.Samurai)
-                {
                     <tr>
                         <td>@blade.Name</td>
                         <td>@blade.Description</td>
-                        <td>@item.FirstName @item.LastName</td>
+                    <td>@blade.Samurai.FirstName @blade.Samurai.LastName</td>
                         <td>
                             <button><a href="bladeUpdate/@blade.ID">Update</a></button> |
                             <button @onclick="()=>BladeDelete(blade)">Delete</button>
                         </td>
                     </tr>
-                }
             }
-        }
     </tbody>
 </table>
 

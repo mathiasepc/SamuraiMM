@@ -178,12 +178,11 @@ namespace SamuraiMM.Repo
                 {
                     //laver en midlertidig model for at kunne overfører den ene person til vores List
                     BladeModel bladeTemp = new BladeModel();
-                    bladeTemp.Samurai = new List<SamuraiModel>();
 
                     bladeTemp.ID = Convert.ToInt32(reader["id"]);
                     bladeTemp.Name = reader["Name"].ToString();
                     bladeTemp.Description = reader["Description"].ToString();
-                    bladeTemp.Samurai.Add(new SamuraiModel() { FirstName = reader["FirstName"].ToString(), LastName = reader["LastName"].ToString() });
+                    bladeTemp.Samurai = new SamuraiModel() { FirstName = reader["FirstName"].ToString(), LastName = reader["LastName"].ToString() };
                     //overfører den ene person til List
                     allBlades.Add(bladeTemp);
                 }

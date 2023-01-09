@@ -47,23 +47,23 @@ SamuraiRepo samd = new();
 //samd.InsertSamurai(m3);
 //samd.InsertSamurai(m4);
 
-SamuraiBattlesRepo sb = new();
+BattleSchemaRepo sb = new();
 
 //sb.CreateTableSamuraiBattles();
 
-BattleSamuraiModel m5 = new BattleSamuraiModel()
+BattleSchemaModel m5 = new BattleSchemaModel()
 {
     SamuraiID = 1,
     BattlesID = 1
 };
 
-BattleSamuraiModel m6 = new BattleSamuraiModel()
+BattleSchemaModel m6 = new BattleSchemaModel()
 {
     SamuraiID = 2,
     BattlesID = 1
 };
 
-BattleSamuraiModel m7 = new BattleSamuraiModel()
+BattleSchemaModel m7 = new BattleSchemaModel()
 {
     SamuraiID = 1,
     BattlesID = 2
@@ -125,7 +125,7 @@ SamuraiRepo sam = new();
 HorseRepo hor = new();
 QuotesRepo q = new();
 BladeRepo blade = new();
-SamuraiBattlesRepo s = new();
+BattleSchemaRepo s = new();
 
 cl.CreateTableClan();
 sam.CreateTableSamurai();
@@ -133,7 +133,7 @@ hor.CreateTableHorse();
 q.CreateTableQuote();
 blade.CreateTableBlade();
 b.CreateTableBattles();
-s.CreateTableSamuraiBattles();
+s.CreateTableBattleSchema();
 
 
 

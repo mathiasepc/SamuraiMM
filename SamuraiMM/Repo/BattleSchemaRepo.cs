@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 
 namespace SamuraiMM.Repo
 {
-    public class SamuraiBattlesRepo
+    public class BattleSchemaRepo : IBattleSchema
     { 
 
         ADOHandler ADO = new();
 
-        public void CreateTableSamuraiBattles()
+        public void CreateTableBattleSchema()
         {
             //fortæller hvad connectionen er til min database
             using (SqlConnection sqlConnection = new(ADO.ConnectionString))
@@ -31,7 +31,7 @@ namespace SamuraiMM.Repo
             }
         }
 
-        public void InsertBattleSamurais(BattleSamuraiModel batsam)/*Kan bare base CarModel i stedet for alle propperty i Modellen.*/
+        public void InsertBattleSchema(BattleSchemaModel batsam)/*Kan bare base CarModel i stedet for alle propperty i Modellen.*/
         {
             //laver en vej til min server bruger using for at den selv lukker.
             using (SqlConnection sqlConnection = new(ADO.ConnectionString))
@@ -44,6 +44,45 @@ namespace SamuraiMM.Repo
 
                 //sender til min database
                 sqlCommand.ExecuteNonQuery();
+            }
+        }
+
+        public void DeleteBattleSchema(int ID)
+        {
+            using (SqlConnection sqlConnection = new(ADO.ConnectionString))
+            {
+                //åbner for min connection
+                sqlConnection.Open();
+
+                //laver en string som fortæller hvad sql skal gøre
+                string sqlCommand = new($"Delete from BattleSchema Where SamuraiID ='{ID}'");
+
+                SqlDataAdapter sqlDataAdapter = new();
+
+                //putter min sql commando og connectionstring i deleteCommand
+                sqlDataAdapter.DeleteCommand = new(sqlCommand, sqlConnection);
+
+                //eksekverer commandoen´og sletter rækken.
+                sqlDataAdapter.DeleteCommand.ExecuteNonQuery();
+            }
+        }
+
+        /// <summary>
+        /// Vi laver en metode som skal opdatere databasen
+        /// </summary>
+        /// <param name="samurai"></param>
+        public void UpdateBattleSchema(BattleSchemaModel batsam)
+        {
+            using (SqlConnection sqlConnection = new(ADO.ConnectionString))
+            {
+                //åbner vejen
+                sqlConnection.Open();
+
+                //Laver en SQLCommando for at update databasen og indsætter sqlConnection
+                SqlCommand commandChange = new($"UPDATE BattleSchema SET BattlesID = '{batsam.BattlesID}', SamuraiID = '{batsam.SamuraiID}' Where SamuraiID = {batsam.SamuraiID}", sqlConnection);
+
+                //eksekver
+                commandChange.ExecuteNonQuery();
             }
         }
 
@@ -184,10 +223,10 @@ namespace SamuraiMM.Repo
             }
         }
 
-        public List<BattleSamuraiModel> ReadAllBattlesAndSamurais()
+        public List<BattleSchemaModel> ReadAllBattleSchema()
         {
             //vi laver en list som vi indsætter data'en i
-            List<BattleSamuraiModel> AllBatSams = new();
+            List<BattleSchemaModel> AllBatSams = new();
 
             using (SqlConnection con = new SqlConnection(ADO.ConnectionString))
             {
@@ -203,7 +242,7 @@ namespace SamuraiMM.Repo
                 while (reader.Read())
                 {
                     //laver en midlertidig model for at kunne overfører den ene person til vores List
-                    BattleSamuraiModel batsamTemp = new BattleSamuraiModel();
+                    BattleSchemaModel batsamTemp = new BattleSchemaModel();
 
                     batsamTemp.Battles = new List<BattleModel>();
                     batsamTemp.BattlesID = Convert.ToInt32(reader["BattlesID"]);

@@ -26,7 +26,7 @@ namespace SamuraiMM.Model
         [Range(typeof(DateTime), "01/01/1753", "01/01/9999", ErrorMessage = "Date is out of Range: 01/01/1753-01/01/9999")]
         public DateTime Birthdate { get; set; }
         public HorseModel Horse { get; set; }
-        public BladeModel Blade { get; set; }
+        public List<BladeModel> Blades { get; set; }
         public List<QuoteModel> Quotes { get; set; }
         public ClanModel Clan { get; set; } 
         public List<BattleModel> Battles { get; set; }  

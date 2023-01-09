@@ -23,6 +23,7 @@ namespace BlazorSamuraiMM
             builder.Services.AddScoped<IClan, ClanRepo>();
             builder.Services.AddScoped<IBattle, BattlesRepo>();
             builder.Services.AddScoped<IBlade, BladeRepo>();
+            builder.Services.AddScoped<IBattleSchema, BattleSchemaRepo>();
 
             //builder.Services.AddScoped<IBattlesSamurai, SamuraiBattlesRepo>();
 
