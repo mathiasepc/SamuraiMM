@@ -47,6 +47,10 @@ namespace SamuraiMM.Repo
             }
         }
 
+        /// <summary>
+        /// vores metode for at slette
+        /// </summary>
+        /// <param name="ID"></param>
         public void DeleteClan(int ID)
         {
             using (SqlConnection sqlConnection = new(ADO.ConnectionString))
@@ -113,6 +117,7 @@ namespace SamuraiMM.Repo
             }
         }
 
+        //Bruger vi ikke men til visning
         public List<ClanModel> ReadAllClans()
         {
             //vi laver en list som vi indsætter data'en i
@@ -142,6 +147,10 @@ namespace SamuraiMM.Repo
             }
         }
 
+        /// <summary>
+        /// henter alle clans som ikke har en samurai tilknyttet
+        /// </summary>
+        /// <returns></returns>
         public List<ClanModel> ReadAllClansExcludingSamurais()
         {
             //vi laver en list som vi indsætter data'en i
@@ -172,6 +181,10 @@ namespace SamuraiMM.Repo
             }
         }
 
+        /// <summary>
+        /// henter alle clan som har tilknyttet en samurai
+        /// </summary>
+        /// <returns></returns>
         public List<ClanModel> ReadAllClansAndSamurais()
         {
             //vi laver en list som vi indsætter data'en i

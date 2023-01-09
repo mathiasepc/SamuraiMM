@@ -206,6 +206,7 @@ namespace SamuraiMM.Repo
             }
         }
 
+        
         public SamuraiModel ReadOneSamuraisProps(int samuraiID)
         {
             using (SqlConnection con = new SqlConnection(ADO.ConnectionString))
@@ -285,6 +286,7 @@ namespace SamuraiMM.Repo
             }
         }
 
+        //Vi bruger den ikke men det til visning
         public SamuraiModel ReadSamuraisQuotes(int samuraiID)
         {
             using (SqlConnection con = new SqlConnection(ADO.ConnectionString))
@@ -313,6 +315,8 @@ namespace SamuraiMM.Repo
                 return sam;
             }
         }
+
+        //Vi bruger den ikke men det til visning
         public List<SamuraiModel> ReadAllSamuraiAndQuotes()
         {
             //vi laver en list som vi indsætter data'en i

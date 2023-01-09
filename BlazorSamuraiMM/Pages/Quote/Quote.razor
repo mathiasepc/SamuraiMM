@@ -11,7 +11,7 @@
     <thead>
         <tr>
             <td>Quote</td>
-            <td>Samurai ID</td>
+            <td>Samurai name</td>
             <td>Functions</td>
         </tr>
     </thead>
@@ -20,7 +20,8 @@
         {
             <tr>
                 <td>@quote.QuoteText</td>
-                <td>@quote.SamuraiID</td>
+
+                <td>@quote.Samurai.FirstName @quote.Samurai.LastName</td>
                 <td>
                     <button><a href="QuoteUpdate/@quote.ID">Update</a></button> |
                     <button @onclick="()=>QuoteDelete(quote)">Delete</button>
@@ -43,7 +44,7 @@
     protected override void OnInitialized()
     {
         //indsæt
-        quoteList = quote.ReadAllQuotes();
+        quoteList = quote.ReadAllQuotesWithSamuraiName();
     }
 
     /// <summary>

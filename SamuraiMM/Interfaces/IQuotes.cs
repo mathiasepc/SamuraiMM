@@ -14,5 +14,6 @@ namespace SamuraiMM.Interfaces
         public void UpdateQuote(QuoteModel quote);
         public List<QuoteModel> ReadAllQuotes();
         public QuoteModel ReadOneQuote(int quoteID);
+        public List<QuoteModel> ReadAllQuotesWithSamuraiName();
     }
 }

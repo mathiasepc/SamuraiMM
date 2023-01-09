@@ -48,6 +48,10 @@ namespace SamuraiMM.Repo
             }
         }
 
+        /// <summary>
+        /// vores metode for at slette
+        /// </summary>
+        /// <param name="ID"></param>
         public void DeleteBlade(int ID)
         {
             using (SqlConnection sqlConnection = new(ADO.ConnectionString))
@@ -87,6 +91,11 @@ namespace SamuraiMM.Repo
             }
         }
 
+        /// <summary>
+        /// henter information om en blade
+        /// </summary>
+        /// <param name="bladeID"></param>
+        /// <returns></returns>
         public BladeModel ReadOneBlade(int bladeID)
         {
             using (SqlConnection con = new SqlConnection(ADO.ConnectionString))
@@ -115,6 +124,7 @@ namespace SamuraiMM.Repo
             }
         }
 
+        //bruger vi ikke men til visning
         public List<BladeModel> ReadAllBlades()
         {
             //vi laver en list som vi indsætter data'en i
@@ -144,6 +154,10 @@ namespace SamuraiMM.Repo
             }
         }
 
+        /// <summary>
+        /// henter alle blades som er tilknyttet en samurai
+        /// </summary>
+        /// <returns></returns>
         public List<BladeModel> ReadAllBladesAndSamurais()
         {
             //vi laver en list som vi indsætter data'en i

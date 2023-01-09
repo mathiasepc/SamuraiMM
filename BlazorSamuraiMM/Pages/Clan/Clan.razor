@@ -17,23 +17,22 @@
     </thead>
     <tbody>
 
-
         @foreach (var clans in clansList)
-            {
-                <tr>
+        {
+            <tr>
                 <td>@clans.ClanName</td>
-                        @foreach (var item in clans.Samurais)
-                        {
-                            <td>@item.FirstName @item.LastName</td>
-                        }
-                    <td>
-                        <button><a href="clanUpdate/@clans.ID">Update</a></button> |
-                        <button @onclick="()=>ClanDelete(clans)">Delete</button>
-                    </td>
-                </tr>
-            }
+                @foreach (var item in clans.Samurais)
+                {
+                    <td>@item.FirstName @item.LastName</td>
+                }
+                <td>
+                    <button><a href="clanUpdate/@clans.ID">Update</a></button> |
+                    <button @onclick="()=>ClanDelete(clans)">Delete</button>
+                </td>
+            </tr>
+        }
 
-</tbody>
+    </tbody>
 </table>
 
 <div class="topSection">
@@ -59,8 +58,8 @@
                 </td>
             </tr>
         }
-        
-</tbody>
+
+    </tbody>
 </table>
 
 

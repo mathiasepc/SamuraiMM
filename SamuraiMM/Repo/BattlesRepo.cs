@@ -51,6 +51,10 @@ namespace SamuraiMM.Repo
             }
         }
 
+        /// <summary>
+        /// vores metode for at slette
+        /// </summary>
+        /// <param name="ID"></param>
         public void DeleteBattle(int ID)
         {
             using (SqlConnection sqlConnection = new(ADO.ConnectionString))
@@ -94,6 +98,11 @@ namespace SamuraiMM.Repo
             }
         }
 
+        /// <summary>
+        /// henter en blade med samurai i
+        /// </summary>
+        /// <param name="battleID"></param>
+        /// <returns></returns>
         public BattleModel ReadOneBattle(int battleID)
         {
             using (SqlConnection con = new SqlConnection(ADO.ConnectionString))
@@ -124,6 +133,10 @@ namespace SamuraiMM.Repo
             }
         }
 
+        /// <summary>
+        /// henter alle battles
+        /// </summary>
+        /// <returns></returns>
         public List<BattleModel> ReadAllBattles()
         {
             //vi laver en list som vi indsætter data'en i

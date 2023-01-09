@@ -113,6 +113,7 @@ namespace SamuraiMM.Repo
             }
         }
 
+        //Vi bruger den ikke men det til visning
         public List<QuoteModel> ReadAllQuotes()
         {
             //vi laver en list som vi indsætter data'en i
@@ -132,7 +133,50 @@ namespace SamuraiMM.Repo
                 while (reader.Read())
                 {
                     //laver en midlertidig model for at kunne overfører den ene person til vores List
-                    QuoteModel quoteTemp = new QuoteModel() { ID = reader.GetInt32(0), QuoteText = reader.GetString(1), SamuraiID = reader.GetInt32(2) };
+                    QuoteModel quoteTemp = new QuoteModel()
+                    {
+                        ID = reader.GetInt32(0),
+                        QuoteText = reader.GetString(1),
+                        SamuraiID = reader.GetInt32(2)
+                    };
+
+                    //overfører den ene person til List
+                    allQuotes.Add(quoteTemp);
+                }
+                //returner Listen med Data
+                return allQuotes;
+            }
+
+        }
+        public List<QuoteModel> ReadAllQuotesWithSamuraiName()
+        {
+            //vi laver en list som vi indsætter data'en i
+            List<QuoteModel> allQuotes = new();
+
+            using (SqlConnection con = new SqlConnection(ADO.ConnectionString))
+            {
+                con.Open();
+
+                //Laver en SqlCommando der henter quotes samt navne fra samurai
+                SqlCommand command = new SqlCommand("SELECT * FROM Quote Join Samurai on Quote.SamuraiID=Samurai.ID", con);
+
+                //vi bruger SqlDataReader for at kunne læse data'en fra databasen hvor vi indsætter vores commando
+                SqlDataReader reader = command.ExecuteReader();
+
+                //laver et while loop for at få alt data fra databasen
+                while (reader.Read())
+                {
+                    //laver en midlertidig model for at kunne overfører den ene person til vores List
+                    QuoteModel quoteTemp = new QuoteModel()
+                    {
+                        QuoteText = reader["QuoteText"].ToString(),
+                        SamuraiID = Convert.ToInt32(reader["SamuraiID"]),
+                        Samurai = new SamuraiModel
+                        {
+                            FirstName = reader["FirstName"].ToString(),
+                            LastName = reader["LastName"].ToString()
+                        }
+                    };
 
                     //overfører den ene person til List
                     allQuotes.Add(quoteTemp);

@@ -11,6 +11,9 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace SamuraiMM.Repo
 {
+    /// <summary>
+    /// Vi bruger indtil videre intet. men til visning.
+    /// </summary>
     internal class DataHandlerRepo : IDataHandler
     {
         //opretter klassen med connectionString

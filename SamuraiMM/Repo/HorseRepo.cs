@@ -29,10 +29,7 @@ namespace SamuraiMM.Repo
             }
         }
 
-        /// <summary>
-        /// Laver en metode som indsætter i tabellen Samurai
-        /// </summary>
-        /// <param name="horse"></param>
+        //Vi bruger den ikke men det til visning
         public void InsertHorse(HorseModel horse)/*Kan bare base CarModel i stedet for alle propperty i Modellen.*/
         {
             //laver en vej til min server bruger using for at den selv lukker.
@@ -137,6 +134,7 @@ namespace SamuraiMM.Repo
             }
         }
 
+        //Vi bruger den ikke men det til visning
         public List<HorseModel> ReadAllHorses()
         {
             //vi laver en list som vi indsætter data'en i
@@ -166,6 +164,10 @@ namespace SamuraiMM.Repo
             }
         }
 
+        /// <summary>
+        /// Læser alle heste med samurai navne i
+        /// </summary>
+        /// <returns></returns>
         public List<HorseModel> ReadAllHorsesAndSamurai()
         {
             //vi laver en list som vi indsætter data'en i
