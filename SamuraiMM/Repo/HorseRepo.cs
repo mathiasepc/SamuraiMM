@@ -192,7 +192,7 @@ namespace SamuraiMM.Repo
                     horseTemp.SamuraiID = Convert.ToInt32(reader["SamuraiID"]);
                     horseTemp.Name = reader["Name"].ToString();
                     horseTemp.HorseRace = reader["HorseRace"].ToString();
-                    horseTemp.Samurai = new SamuraiModel() { FirstName = reader["FirstName"].ToString(), LastName = reader["LastName"].ToString() };
+                    horseTemp.Samurai = new SamuraiModel() { FirstName = reader["FirstName"].ToString(), LastName = reader["LastName"].ToString(), Deleted = Convert.ToInt32(reader["Deleted"]) };
                     //overfører den ene person til List
                     allHorses.Add(horseTemp);
                 }

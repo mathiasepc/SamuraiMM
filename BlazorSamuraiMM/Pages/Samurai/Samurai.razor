@@ -20,7 +20,7 @@
         @foreach (var samurai in samuraiList)
         {
             <tr>
-                @if (samurai.Deleted == 0)
+                @if (samurai.Deleted == 1)
                 {
                     <td>@samurai.FirstName</td>
                     <td>@samurai.LastName</td>
@@ -45,7 +45,7 @@
 
 @if (IDResult != null)
 {
-    @if (IDResult.Deleted != 1)
+    @if (IDResult.Deleted != 2)
     {
 
         <table>

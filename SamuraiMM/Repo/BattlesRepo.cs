@@ -41,7 +41,7 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //istansiere SqlCommand klassen og indsætter i databasen
-                SqlCommand sqlCommand = new($"INSERT INTO Battle (EventTitle, Description, EventStartDate, EventSlutDate, Deleted) values('{Battle.EventTitle}', '{Battle.Description}',@f3,@f4, 's0')", sqlConnection);
+                SqlCommand sqlCommand = new($"INSERT INTO Battle (EventTitle, Description, EventStartDate, EventSlutDate, Deleted) values('{Battle.EventTitle}', '{Battle.Description}',@f3,@f4, '0')", sqlConnection);
 
                 sqlCommand.Parameters.AddWithValue("@f3", Battle.EventStartDate);
                 sqlCommand.Parameters.AddWithValue("@f4", Battle.EventSlutDate);

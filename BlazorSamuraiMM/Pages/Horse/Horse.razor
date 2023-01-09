@@ -11,22 +11,31 @@
         <tr>
             <td>Name</td>
             <td>Horse Race</td>
-            <td>Owner of Horse</td>
+            @foreach (var horse in horsesList)
+            {
+                @if (horse.Samurai.Deleted != 2)
+                {
+                    <td>Owner of Horse</td>
+                }
+            }
             <td>Functions</td>
         </tr>
     </thead>
     <tbody>
         @foreach (var horse in horsesList)
-        { 
-                <tr>
-                    <td>@horse.Name</td>
-                    <td>@horse.HorseRace</td>
+        {
+            <tr>
+                <td>@horse.Name</td>
+                <td>@horse.HorseRace</td>
+                @if (horse.Samurai.Deleted != 2)
+                {
                     <td>@horse.Samurai.FirstName @horse.Samurai.LastName</td>
-                    <td>
+                }
+                <td>
                     <button><a href="horseUpdate/@horse.SamuraiID">Update</a></button> |
                     <button @onclick="()=>HorseDelete(horse)">Delete</button>
-                    </td>
-                </tr>
+                </td>
+            </tr>
         }
     </tbody>
 </table>

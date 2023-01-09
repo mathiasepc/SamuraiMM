@@ -69,11 +69,11 @@ namespace SamuraiMM.Repo
                 //Indsætter i databasen
                 if (samurai.ClanID != 0)
                 {
-                    sqlCommand = new($"INSERT INTO Samurai (FirstName, LastName, Birthdate, ClanID, Deleted) values('{samurai.FirstName}', '{samurai.LastName}', @f3,{samurai.ClanID}), '0' ", sqlConnection);
+                    sqlCommand = new($"INSERT INTO Samurai (FirstName, LastName, Birthdate, ClanID, Deleted) values('{samurai.FirstName}', '{samurai.LastName}', @f3,{samurai.ClanID}), '1' ", sqlConnection);
                 }
                 else
                 {
-                    sqlCommand = new($"INSERT INTO Samurai (FirstName, LastName, Birthdate, Deleted) values('{samurai.FirstName}', '{samurai.LastName}', @f3, '0')", sqlConnection);
+                    sqlCommand = new($"INSERT INTO Samurai (FirstName, LastName, Birthdate, Deleted) values('{samurai.FirstName}', '{samurai.LastName}', @f3, '1')", sqlConnection);
                 }
 
                 //Da database ikke kan forstå datetime, parse vi den ind i en variable for sig.
@@ -96,7 +96,7 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //laver en string som fortæller hvad sql skal gøre
-                SqlCommand sqlCommand = new($"UPDATE Samurai SET Deleted = 1 Where ID = {samuraiID}", sqlConnection);
+                SqlCommand sqlCommand = new($"UPDATE Samurai SET Deleted = 2 Where ID = {samuraiID}", sqlConnection);
 
                 sqlCommand.ExecuteNonQuery();
             }
@@ -210,7 +210,7 @@ namespace SamuraiMM.Repo
             using (SqlConnection con = new SqlConnection(ADO.ConnectionString))
             {
                 //laver en sql commando
-                SqlCommand cmd = new SqlCommand("SELECT Samurai.FirstName AS Name, Samurai.LastName AS Lastname, Samurai.Birthdate AS BirthDate, Quote.QuoteText AS QuoteText, Horse.Name AS HorseName, Clan.ClanName as ClanName, Blade.Name as BladeName, Battle.EventTitle as EventTitle, Samurai.ID as SamuraiID" +
+                SqlCommand cmd = new SqlCommand("SELECT Samurai.FirstName AS Name, Samurai.LastName AS Lastname, Samurai.Birthdate AS BirthDate, Quote.QuoteText AS QuoteText, Horse.Name AS HorseName, Clan.ClanName as ClanName, Blade.Name as BladeName, Battle.EventTitle as EventTitle, Samurai.ID as SamuraiID, Samurai.Deleted as Deleted" +
                     " FROM Samurai " +
                     "INNER JOIN Quote ON Samurai.ID=Quote.SamuraiID " +
                     "INNER JOIN Horse ON Samurai.ID=Horse.SamuraiID " +
@@ -238,6 +238,7 @@ namespace SamuraiMM.Repo
                     sam.FirstName = reader["Name"].ToString();
                     sam.LastName = reader["Lastname"].ToString();
                     sam.Birthdate = Convert.ToDateTime(reader["BirthDate"]);
+                    sam.Deleted = Convert.ToInt32(reader["Deleted"]);
                     sam.Quotes.Add(new QuoteModel()
                     {
                         QuoteText = reader["QuoteText"].ToString(),
@@ -260,7 +261,7 @@ namespace SamuraiMM.Repo
                     {
                         EventTitle = reader["EventTitle"].ToString()
                     });
-                    sam.Deleted = Convert.ToInt32(reader["Deleted"]);
+                    
                 }
 
                 //?: operator - the ternary conditional operator (Conditional If statement)

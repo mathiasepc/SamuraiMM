@@ -16,5 +16,6 @@ namespace SamuraiMM.Model
         [StringLength(50, ErrorMessage = "Clan name is too long.")]
         public string ClanName { get; set; }
         public List<SamuraiModel> Samurais { get; set; }
+        public int Deleted { get; set; }
     }
 }

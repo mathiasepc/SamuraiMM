@@ -97,7 +97,7 @@ namespace SamuraiMM.Repo
                 con.Open();
 
                 //laver en sql commando
-                SqlCommand cmd = new SqlCommand($"select * from Clan where id={clanID}", con);
+                SqlCommand cmd = new SqlCommand($"select * from Clan where ID={clanID}", con);
 
                 //vi bruger SqlDataReader for at kunne læse data'en fra databasen hvor vi indsætter vores commando
                 SqlDataReader reader = cmd.ExecuteReader();
@@ -109,7 +109,7 @@ namespace SamuraiMM.Repo
                 ClanModel cla = new ClanModel();
 
                 //de forskellige værdier fra databasen
-                cla.ID = Convert.ToInt32(reader["id"]);
+                cla.ID = Convert.ToInt32(reader["ID"]);
                 cla.ClanName = reader["ClanName"].ToString();
 
                 //returner den nye model
@@ -161,7 +161,7 @@ namespace SamuraiMM.Repo
                 con.Open();
 
                 //Laver en SqlCommando
-                SqlCommand command = new SqlCommand("select Clan.ClanName from Clan left outer join Samurai on Clan.ID = Samurai.ClanID group by Clan.ClanName,clan.id, Samurai.ClanID having count(Samurai.ClanID) = 0", con);
+                SqlCommand command = new SqlCommand("select Clan.ClanName,Clan.ID,Clan.Deleted from Clan left outer join Samurai on Clan.ID = Samurai.ClanID group by Clan.ClanName,Clan.ID,Clan.Deleted, Samurai.ClanID having count(Samurai.ClanID) = 0", con);
 
                 //vi bruger SqlDataReader for at kunne læse data'en fra databasen hvor vi indsætter vores commando
                 SqlDataReader reader = command.ExecuteReader();
@@ -173,6 +173,8 @@ namespace SamuraiMM.Repo
                     ClanModel clanTemp = new ClanModel();
 
                     clanTemp.ClanName = reader["ClanName"].ToString();
+                    clanTemp.ID = Convert.ToInt32(reader["ID"]);
+                    clanTemp.Deleted = Convert.ToInt32(reader["Deleted"]);
                     //overfører den ene person til List
                     allClans.Add(clanTemp);
                 }
@@ -209,6 +211,7 @@ namespace SamuraiMM.Repo
 
                     clanTemp.ID = Convert.ToInt32(reader["id"]);
                     clanTemp.ClanName = reader["ClanName"].ToString();
+                    clanTemp.Deleted = Convert.ToInt32(reader["Deleted"]);
                     clanTemp.Samurais.Add(new SamuraiModel() { FirstName = reader["FirstName"].ToString(), LastName = reader["LastName"].ToString() });
                     //overfører den ene person til List
                     allClans.Add(clanTemp);
