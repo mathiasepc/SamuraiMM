@@ -69,7 +69,7 @@ namespace SamuraiMM.Repo
                 //Indsætter i databasen
                 if (samurai.ClanID != 0)
                 {
-                    sqlCommand = new($"INSERT INTO Samurai (FirstName, LastName, Birthdate, ClanID, Deleted) values('{samurai.FirstName}', '{samurai.LastName}', @f3,{samurai.ClanID}), '1' ", sqlConnection);
+                    sqlCommand = new($"INSERT INTO Samurai (FirstName, LastName, Birthdate, Deleted, ClanID) values('{samurai.FirstName}', '{samurai.LastName}', @f3, '1', {samurai.ClanID}) ", sqlConnection);
                 }
                 else
                 {
@@ -232,7 +232,7 @@ namespace SamuraiMM.Repo
                 sam.Blades = new();
                 sam.Battles = new();
                 while (reader.Read())
-                { 
+                {
                     //de forskellige værdier fra databasen
                     sam.ID = Convert.ToInt32(reader["SamuraiID"]);
                     sam.FirstName = reader["Name"].ToString();
@@ -261,7 +261,7 @@ namespace SamuraiMM.Repo
                     {
                         EventTitle = reader["EventTitle"].ToString()
                     });
-                    
+
                 }
 
                 //?: operator - the ternary conditional operator (Conditional If statement)
