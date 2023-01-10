@@ -24,7 +24,7 @@
                 {
                     @foreach (var item in battleschema.Samurais)
                     {
-                        @if (battle.Delete != 2 && item.Deleted != 2)
+                        @if (battle.Removed != 2 && item.Deleted != 2)
                         {
                             <td>@battle.EventTitle</td>
                             <td>@battle.Description</td>
