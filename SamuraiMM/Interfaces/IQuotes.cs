@@ -11,7 +11,7 @@ namespace SamuraiMM.Interfaces
         public void CreateTableQuote();
         public void InsertQuote(QuoteModel quote);
         public void DeleteQuote(int ID);
-        public void UpdateQuote(QuoteModel quote);
+        public void UpdateQuote(QuoteModel quote, int ID);
         public List<QuoteModel> ReadAllQuotes();
         public QuoteModel ReadOneQuote(int quoteID);
         public List<QuoteModel> ReadAllQuotesWithSamuraiName();

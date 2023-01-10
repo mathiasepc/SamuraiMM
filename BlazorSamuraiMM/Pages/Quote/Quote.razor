@@ -19,15 +19,19 @@
         @foreach (var quote in quoteList)
         {
             <tr>
+                <td>@quote.QuoteText</td>
                 @if (quote.Samurai.Deleted != 2)
                 {
-                    <td>@quote.QuoteText</td>
                     <td>@quote.Samurai.FirstName @quote.Samurai.LastName</td>
+                }
+                @if (quote.Samurai.Deleted == 2)
+                {
+                    <td> </td>
+                }
                     <td>
                         <button><a href="quoteUpdate/@quote.ID">Update</a></button> |
                         <button @onclick="()=>QuoteDelete(quote)">Delete</button>
                     </td>
-                }
             </tr>
         }
     </tbody>

@@ -87,7 +87,7 @@ namespace SamuraiMM.Repo
         /// Vi laver en metode som skal opdatere databasen
         /// </summary>
         /// <param name="samurai"></param>
-        public void UpdateQuote(QuoteModel quote)
+        public void UpdateQuote(QuoteModel quote, int ID)
         {
             using (SqlConnection sqlConnection = new(ADO.ConnectionString))
             {
@@ -108,7 +108,7 @@ namespace SamuraiMM.Repo
                     if (quote.SamuraiID == alive.ID)
                     {
                         //Laver en SQLCommando for at update databasen og indsætter sqlConnection
-                        commandChange = new($"UPDATE Quote SET QuoteText = '{quote.QuoteText}', SamuraiId = {quote.SamuraiID} Where ID = {quote.ID}", sqlConnection);
+                        commandChange = new($"UPDATE Quote SET QuoteText = '{quote.QuoteText}', SamuraiId = {quote.SamuraiID} Where ID = {ID}", sqlConnection);
                     }
                 }
 
