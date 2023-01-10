@@ -54,12 +54,18 @@ namespace SamuraiMM.Repo
             {
                 //åbner vejen
                 sqlConnection.Open();
+
                 SqlCommand sqlCommand = new();
 
+                //istansiere samurai klassen
                 SamuraiRepo s = new();
+
+                //henter døde samurai
                 var samlist = s.ReadAllDeadSamurais();
+
                 foreach (var samurai in samlist)
                 {
+                    //hvis indtastet er forskellige for død samurai
                     if (horse.SamuraiID != samurai.ID)
                     {
                         //istansiere SqlCommand klassen og indsætter i databasen
@@ -108,12 +114,21 @@ namespace SamuraiMM.Repo
 
                 SqlCommand commandChange = new();
 
-                if (horse.Samurai.Deleted == 1)
-                {
-                    //Laver en SQLCommando for at update databasen og indsætter sqlConnection
-                    commandChange = new($"UPDATE Horse SET Name = '{horse.Name}', SamuraiID = '{horse.SamuraiID}', HorseRace = '{horse.HorseRace}' Where SamuraiID = {id}", sqlConnection);
-                }
+                //istansiere samurai klassen
+                SamuraiRepo s = new();
 
+                //henter døde samurai
+                var samlist = s.ReadAllDeadSamurais();
+
+                foreach (var samurai in samlist)
+                {
+                    //hvis indtastet er forskellige for død samurai
+                    if (horse.SamuraiID != samurai.ID)
+                    {
+                        //Laver en SQLCommando for at update databasen og indsætter sqlConnection
+                        commandChange = new($"UPDATE Horse SET Name = '{horse.Name}', SamuraiID = '{horse.SamuraiID}', HorseRace = '{horse.HorseRace}' Where SamuraiID = {id}", sqlConnection);
+                    }
+                }
                 //eksekver
                 commandChange.ExecuteNonQuery();
             }
