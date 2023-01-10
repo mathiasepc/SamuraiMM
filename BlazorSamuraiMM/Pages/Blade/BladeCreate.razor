@@ -22,12 +22,12 @@
             <label>Choose Samurai: </label>
             @if (samuraiList.Count > 0)
             {
-            <InputSelect @bind-Value="bladeModel.SamuraiID" id="categorySelect">
-            @foreach (var item in samuraiList)
-            {
-                    <option value="@item.ID">@item.FirstName @item.LastName</option>
-            }
-            </InputSelect>
+                <InputSelect @bind-Value="bladeModel.SamuraiID" id="categorySelect">
+                    @foreach (var item in samuraiList)
+                    {
+                        <option value="@item.ID">@item.FirstName @item.LastName</option>
+                    }
+                </InputSelect>
             }
         </div>
 
