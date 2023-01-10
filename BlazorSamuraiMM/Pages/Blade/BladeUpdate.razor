@@ -16,18 +16,21 @@
     </div>
     <div class="row">
         <div class="">
-            <label>Blade name</label>
+            <label>Blade name: </label>
             <input class="form-control" @bind="bladeModel.Name" />
-            <label>Description</label>
+            <label>Description: </label>
             <input class="form-control" @bind="bladeModel.Description" />
+            <label>Choose Samurai: </label>
             @if (samuraiList.Count > 0)
             {
+                <div>
                 <InputSelect @bind-Value="bladeModel.SamuraiID" id="categorySelect">
                     @foreach (var item in samuraiList)
                     {
                         <option value="@item.ID">@item.FirstName @item.LastName</option>
                     }
                 </InputSelect>
+                </div>
             }
         </div>
 
