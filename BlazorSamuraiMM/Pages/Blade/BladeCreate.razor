@@ -1,5 +1,6 @@
 ﻿@page "/bladeCreate"
 @inject IBlade blade
+@inject ISamurai samurai
 @inject NavigationManager NavManager
 
 <div class="topSection">
@@ -18,8 +19,13 @@
             <input class="form-control" @bind="bladeModel.Name" />
             <label>Blade description</label>
             <input class="form-control" @bind="bladeModel.Description" />
-            <label>SamuraiId</label>
-            <input class="form-control" @bind="bladeModel.SamuraiID" />
+            <label>Choose Samurai: </label>
+            <InputSelect @bind-Value="bladeModel.SamuraiID" id="categorySelect">
+            @foreach (var item in samuraiList)
+            {
+                    <option value="@item.ID">@item.FirstName @item.LastName</option>
+            }
+            </InputSelect>
         </div>
 
 
@@ -33,6 +39,19 @@
 
 
 @code {
+    //istansiere vores List
+    List<SamuraiModel> samuraiList = new();
+
+    /// <summary>
+    /// overrider er så vi overskriver dataen hver gang
+    /// gør klar til udprint
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        //indsæt
+        samuraiList = samurai.ReadAllAliveSamurais();
+    }
+
     /// <summary>
     /// vores gå tilbage knap
     /// </summary>
