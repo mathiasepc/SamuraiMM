@@ -27,6 +27,6 @@ namespace SamuraiMM.Model
         [Range(typeof(DateTime), "01/01/1753", "01/01/9999", ErrorMessage = "Date is out of Range: 01/01/1753-01/01/9999")]
         public DateTime EventSlutDate { get; set; }
         public List<SamuraiModel> Samurais { get; set; }
-        public int Delete { get; set; }
+        public int Removed { get; set; }
     }
 }

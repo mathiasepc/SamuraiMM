@@ -39,9 +39,28 @@ namespace SamuraiMM.Repo
                 //åbner vejen
                 sqlConnection.Open();
 
-                //istansiere SqlCommand klassen og indsætter i databasen
-                SqlCommand sqlCommand = new($"INSERT INTO BattleSchema (SamuraiID, BattlesID) values('{batsam.SamuraiID}', '{batsam.BattlesID}')", sqlConnection);
+                //istansiere samurai klassen
+                SamuraiRepo s = new();
+                BattlesRepo b = new();
 
+                //henter døde samurai
+                var samlist = s.ReadAllDeadSamurais();
+                var batlist = b.ReadAllDeadBattles();
+
+                SqlCommand sqlCommand = new();
+
+                foreach (var samurai in samlist)
+                {
+                    foreach (var battles in batlist)
+                    {
+                        //hvis indtastet er forskellige for død samurai
+                        if (batsam.SamuraiID != samurai.ID || batsam.BattlesID != battles.ID)
+                        {
+                            //istansiere SqlCommand klassen og indsætter i databasen
+                            sqlCommand = new($"INSERT INTO BattleSchema (SamuraiID, BattlesID) values('{batsam.SamuraiID}', '{batsam.BattlesID}')", sqlConnection);
+                        }
+                    }
+                }
                 //sender til min database
                 sqlCommand.ExecuteNonQuery();
             }
@@ -78,11 +97,30 @@ namespace SamuraiMM.Repo
                 //åbner vejen
                 sqlConnection.Open();
 
-                //Laver en SQLCommando for at update databasen og indsætter sqlConnection
-                SqlCommand commandChange = new($"UPDATE BattleSchema SET BattlesID = '{batsam.BattlesID}', SamuraiID = '{batsam.SamuraiID}' Where SamuraiID = {oldSamuraiID} And BattlesID = {oldBattlesID}", sqlConnection);
+                //istansiere samurai klassen
+                SamuraiRepo s = new();
+                BattlesRepo b = new();
 
+                //henter døde samurai
+                var samlist = s.ReadAllDeadSamurais();
+                var batlist = b.ReadAllDeadBattles();
+
+                SqlCommand sqlCommand = new();
+
+                foreach (var samurai in samlist)
+                {
+                    foreach (var battles in batlist)
+                    {
+                        //hvis indtastet er forskellige for død samurai
+                        if (batsam.SamuraiID != samurai.ID || batsam.BattlesID != battles.ID)
+                        {
+                            //istansiere SqlCommand klassen og indsætter i databasen
+                            sqlCommand = new($"UPDATE BattleSchema SET BattlesID = '{batsam.BattlesID}', SamuraiID = '{batsam.SamuraiID}' Where SamuraiID = {oldSamuraiID} And BattlesID = {oldBattlesID}", sqlConnection);
+                        }
+                    }
+                } 
                 //eksekver
-                commandChange.ExecuteNonQuery();
+                sqlCommand.ExecuteNonQuery();
             }
         }
 
@@ -298,7 +336,7 @@ namespace SamuraiMM.Repo
                         Description = reader["Description"].ToString(),
                         EventStartDate = Convert.ToDateTime(reader["EventStartDate"]),
                         EventSlutDate = Convert.ToDateTime(reader["EventSlutDate"]),
-                        Delete = Convert.ToInt32(reader["Delete"])
+                        Removed = Convert.ToInt32(reader["Delete"])
                     });
 
                     batsamTemp.Samurais.Add(new SamuraiModel()

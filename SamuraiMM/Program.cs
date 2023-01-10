@@ -127,13 +127,19 @@ QuotesRepo q = new();
 BladeRepo blade = new();
 BattleSchemaRepo s = new();
 
-cl.CreateTableClan();
-sam.CreateTableSamurai();
-hor.CreateTableHorse();
-q.CreateTableQuote();
-blade.CreateTableBlade();
-b.CreateTableBattles();
-s.CreateTableBattleSchema();
+//cl.CreateTableClan();
+//sam.CreateTableSamurai();
+//hor.CreateTableHorse();
+//q.CreateTableQuote();
+//blade.CreateTableBlade();
+//b.CreateTableBattles();
+//s.CreateTableBattleSchema();
+
+var list = b.ReadAllDeadBattles();
+foreach (var item in list)
+{
+    Console.WriteLine(item.EventTitle);
+}
 
 
 
