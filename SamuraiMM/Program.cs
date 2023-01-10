@@ -144,7 +144,7 @@ Console.ReadKey();
 
 
 
-Login l = new();
+LoginRepo l = new();
 
 //l.CreateTableLogin();
 
