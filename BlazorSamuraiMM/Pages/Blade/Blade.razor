@@ -12,13 +12,7 @@
         <tr>
             <td>Name</td>
             <td>Description</td>
-            @foreach (var blade in bladeList)
-            {
-                @if (blade.Samurai.Deleted == 1)
-                {
-                    <td>Owner of Blade</td>
-                }
-            }
+            <td>Owner of Blade</td>
             <td>Functions</td>
         </tr>
     </thead>
@@ -32,6 +26,10 @@
                 @if (blade.Samurai.Deleted == 1)
                 {
                     <td>@blade.Samurai.FirstName @blade.Samurai.LastName</td>
+                }
+                @if (blade.Samurai.Deleted != 1)
+                {
+                    <td> </td>
                 }
 
                 <td>

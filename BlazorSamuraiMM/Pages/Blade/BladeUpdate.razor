@@ -1,5 +1,6 @@
 ﻿@page "/bladeUpdate/{CurrentId}"
 @inject IBlade blade
+@inject ISamurai samurai
 @inject NavigationManager NavManager
 
 <div class="topSection">
@@ -19,8 +20,12 @@
             <input class="form-control" @bind="bladeModel.Name" />
             <label>Description</label>
             <input class="form-control" @bind="bladeModel.Description" />
-            <label>SamuraiId</label>
-            <input class="form-control" @bind="bladeModel.SamuraiID" />
+            <InputSelect @bind-Value="bladeModel.SamuraiID" id="categorySelect">
+            @foreach (var item in samuraiList)
+            {
+                    <option value="@item.ID">@item.FirstName @item.LastName</option>
+            }
+            </InputSelect>
         </div>
 
 
@@ -36,6 +41,7 @@
 
     //instansiere model
     BladeModel bladeModel = new();
+    List<SamuraiModel> samuraiList = new();
 
     /// <summary>
     /// overrider er så vi overskriver dataen hver gang
@@ -45,6 +51,7 @@
     {
         //indsætter i model
         bladeModel = blade.ReadOneBlade(Convert.ToInt32(CurrentId));
+        samuraiList = samurai.ReadAllAliveSamurais();
     }
 
     private void Back()
