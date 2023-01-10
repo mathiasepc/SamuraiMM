@@ -298,6 +298,7 @@ namespace SamuraiMM.Repo
                         Description = reader["Description"].ToString(),
                         EventStartDate = Convert.ToDateTime(reader["EventStartDate"]),
                         EventSlutDate = Convert.ToDateTime(reader["EventSlutDate"]),
+                        Deleted = Convert.ToInt32(reader["Deleted"])
                     });
 
                     batsamTemp.Samurais.Add(new SamuraiModel()
@@ -305,6 +306,7 @@ namespace SamuraiMM.Repo
                         FirstName = reader["FirstName"].ToString(),
                         LastName = reader["LastName"].ToString(),
                         Birthdate = Convert.ToDateTime(reader["Birthdate"]),
+                        Deleted = Convert.ToInt32(reader)
                     });
 
                     //overfører den ene person til List
