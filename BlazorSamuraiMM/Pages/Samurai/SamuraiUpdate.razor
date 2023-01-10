@@ -1,5 +1,6 @@
 ﻿@page "/samuraiUpdate/{CurrentId}"
 @inject ISamurai samurai
+@inject IClan clan
 @inject NavigationManager NavManager
 
 <div class="topSection">
@@ -22,8 +23,17 @@
             <input class="form-control" @bind="samuraiModel.LastName" />
             <label>Birthdate</label>
             <input class="form-control" @bind="samuraiModel.Birthdate" />
-            <label>Clan ID</label>
-            <input class="form-control" @bind="samuraiModel.ClanID" />
+            @foreach (var item in clanAlive)
+            {
+                @if (item != null && item.Deleted != 2)
+                {
+                    <InputSelect @bind-Value="samuraiModel.ClanID" id="categorySelect">
+
+                        <option value="@item.ID">@item.ClanName</option>
+
+                    </InputSelect>
+                }
+            }
         </div>
 
 
@@ -40,6 +50,7 @@
 
     //istansiere vores model
     SamuraiModel samuraiModel = new();
+    public List<ClanModel> clanAlive = new();
 
     /// <summary>
     /// overrider er så vi overskriver dataen hver gang
@@ -49,6 +60,7 @@
     {
         //indsæt
         samuraiModel = samurai.ReadOneSamurai(Convert.ToInt32(CurrentId));
+        clanAlive = clan.ReadAllAliveClan();
     }
 
     private void Back()

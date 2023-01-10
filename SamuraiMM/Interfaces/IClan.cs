@@ -16,5 +16,6 @@ namespace SamuraiMM.Interfaces
         public ClanModel ReadOneClan(int clanID);
         public List<ClanModel> ReadAllClansAndSamurais();
         public List<ClanModel> ReadAllClansExcludingSamurais();
+        public List<ClanModel> ReadAllAliveClan();
     }
 }

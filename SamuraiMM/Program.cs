@@ -135,12 +135,6 @@ BattleSchemaRepo s = new();
 //b.CreateTableBattles();
 //s.CreateTableBattleSchema();
 
-var list = b.ReadAllDeadBattles();
-foreach (var item in list)
-{
-    Console.WriteLine(item.EventTitle);
-}
-
 
 
 
