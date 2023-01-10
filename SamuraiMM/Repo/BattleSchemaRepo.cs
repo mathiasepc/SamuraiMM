@@ -102,7 +102,7 @@ namespace SamuraiMM.Repo
                 BattlesRepo b = new();
 
                 //henter døde samurai
-                var samlist = s.ReadAllDeadSamurais();
+                var samlist = s.ReadAllAliveSamurais();
                 var batlist = b.ReadAllAliveBattles();
 
                 SqlCommand sqlCommand = new();
@@ -112,7 +112,7 @@ namespace SamuraiMM.Repo
                     foreach (var battles in batlist)
                     {
                         //hvis indtastet er forskellige for død samurai
-                        if (batsam.SamuraiID != samurai.ID || batsam.BattlesID != battles.ID)
+                        if (batsam.SamuraiID == samurai.ID || batsam.BattlesID == battles.ID)
                         {
                             //istansiere SqlCommand klassen og indsætter i databasen
                             sqlCommand = new($"UPDATE BattleSchema SET BattlesID = '{batsam.BattlesID}', SamuraiID = '{batsam.SamuraiID}' Where SamuraiID = {oldSamuraiID} And BattlesID = {oldBattlesID}", sqlConnection);
