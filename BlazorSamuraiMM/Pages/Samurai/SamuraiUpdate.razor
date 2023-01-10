@@ -23,16 +23,18 @@
             <input class="form-control" @bind="samuraiModel.LastName" />
             <label>Birthdate</label>
             <input class="form-control" @bind="samuraiModel.Birthdate" />
-            @foreach (var item in clanAlive)
+
+            @if (clanAlive.Count() > 0)
             {
-                @if (item != null && item.Deleted != 2)
-                {
-                    <InputSelect @bind-Value="samuraiModel.ClanID" id="categorySelect">
-
-                        <option value="@item.ID">@item.ClanName</option>
-
-                    </InputSelect>
-                }
+                <InputSelect @bind-Value="samuraiModel.ClanID" id="categorySelect">
+                    @foreach (var item in clanAlive)
+                    {
+                        @if (item.Deleted != 2)
+                        {
+                            <option value="@item.ID">@item.ClanName</option>
+                        }
+                    }
+                </InputSelect>
             }
         </div>
 
