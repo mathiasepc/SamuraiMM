@@ -96,10 +96,20 @@ namespace SamuraiMM.Repo
 
                 SqlCommand commandChange = new();
 
-                if (quote.Samurai.Deleted == 1)
+                //henter samurai repo
+                SamuraiRepo samurai = new();
+
+                //henter døde samurai
+                var samDød = samurai.ReadAllDeadSamurais();
+
+                foreach (var død in samDød)
                 {
-                    //Laver en SQLCommando for at update databasen og indsætter sqlConnection
-                    commandChange = new($"UPDATE Quote SET QuoteText = '{quote.QuoteText}', SamuraiId = {quote.SamuraiID} Where ID = {quote.ID}", sqlConnection);
+                    //hvis id er forskellige for den døde
+                    if (quote.SamuraiID != død.ID)
+                    {
+                        //Laver en SQLCommando for at update databasen og indsætter sqlConnection
+                        commandChange = new($"UPDATE Quote SET QuoteText = '{quote.QuoteText}', SamuraiId = {quote.SamuraiID} Where ID = {quote.ID}", sqlConnection);
+                    }
                 }
 
                 //eksekver

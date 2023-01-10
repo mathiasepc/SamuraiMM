@@ -49,10 +49,10 @@ namespace SamuraiMM.Repo
                 //vi henter døde samurais
                 var samDead = sam.ReadAllDeadSamurais();
 
-                foreach (var item in samDead)
+                foreach (var dead in samDead)
                 {
                     //hvis indtastet er forskellig for død samurai
-                    if (blade.SamuraiID != item.ID)
+                    if (blade.SamuraiID != dead.ID)
                     {
                         //istansiere SqlCommand klassen og indsætter i databasen
                         sqlCommand = new($"INSERT INTO Blade (Name, Description, SamuraiID) values('{blade.Name}', '{blade.Description}','{blade.SamuraiID}')", sqlConnection);
@@ -102,12 +102,21 @@ namespace SamuraiMM.Repo
 
                 SqlCommand commandChange = new();
 
-                if (blade.Samurai.Deleted == 1)
-                {
-                    //Laver en SQLCommando for at update databasen og indsætter sqlConnection
-                    commandChange = new($"UPDATE Blade SET Name = '{blade.Name}', Description = '{blade.Description}', SamuraiID = '{blade.SamuraiID}' Where ID = {blade.ID}", sqlConnection);
-                }
+                //Vi henter Repo
+                SamuraiRepo sam = new();
 
+                //vi henter døde samurais
+                var samDead = sam.ReadAllDeadSamurais();
+
+                foreach (var dead in samDead)
+                {
+                    //hvis indtastet er forskellig for død samurai
+                    if (blade.SamuraiID != dead.ID)
+                    {
+                        //Laver en SQLCommando for at update databasen og indsætter sqlConnection
+                        commandChange = new($"UPDATE Blade SET Name = '{blade.Name}', Description = '{blade.Description}', SamuraiID = '{blade.SamuraiID}' Where ID = {blade.ID}", sqlConnection);
+                    }
+                }
                 //eksekver
                 commandChange.ExecuteNonQuery();
             }
