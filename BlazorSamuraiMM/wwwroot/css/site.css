@@ -10,6 +10,21 @@ html, body {
     /*background-image: linear-gradient(180deg, rgb(50, 0, 50) 0%, #0a2464 70%);*/
 }
 
+/*Div udenom valideringsbeskederne*/
+.errorBox {
+    margin-left: 15px;
+    background-color: rgba(255,150,50,0.85);
+    width: 17.4%;
+}
+
+/*Fejl beskederne (validering)*/
+.validation-message {
+    padding-top: 5px;
+    font-weight: bold;
+    color: black;
+    padding-bottom: 5px;
+}
+
 /*Det er overskriften*/
 .topSection {
     display: flex;
@@ -20,7 +35,7 @@ html, body {
     padding-top: 15px;
     padding-bottom: 25px;
     margin: auto;
-    border: 2px solid black; 
+    border: 2px solid black;
 }
 
     /*Knappen under overskriften*/
@@ -185,10 +200,6 @@ h1:focus {
 
 .invalid {
     outline: 1px solid red;
-}
-
-.validation-message {
-    color: red;
 }
 
 #blazor-error-ui {
