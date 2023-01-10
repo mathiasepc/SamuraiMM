@@ -127,14 +127,17 @@ QuotesRepo q = new();
 BladeRepo blade = new();
 BattleSchemaRepo s = new();
 
-//cl.CreateTableClan();
-//sam.CreateTableSamurai();
-//hor.CreateTableHorse();
-//q.CreateTableQuote();
-//blade.CreateTableBlade();
-//b.CreateTableBattles();
-//s.CreateTableBattleSchema();
-
+cl.CreateTableClan();
+Console.ReadKey();
+sam.CreateTableSamurai();
+Console.ReadKey();
+hor.CreateTableHorse();
+q.CreateTableQuote();
+blade.CreateTableBlade();
+b.CreateTableBattles();
+Console.ReadKey();
+s.CreateTableBattleSchema();
+Console.ReadKey();
 
 
 

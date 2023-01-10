@@ -61,12 +61,12 @@ namespace SamuraiMM.Repo
                 SamuraiRepo s = new();
 
                 //henter døde samurai
-                var samlist = s.ReadAllDeadSamurais();
+                var samlist = s.ReadAllAliveSamurais();
 
                 foreach (var samurai in samlist)
                 {
                     //hvis indtastet er forskellige for død samurai
-                    if (horse.SamuraiID != samurai.ID)
+                    if (horse.SamuraiID == samurai.ID)
                     {
                         //istansiere SqlCommand klassen og indsætter i databasen
                         sqlCommand = new($"INSERT INTO Horse (Name, SamuraiID, HorseRace) values(@f1, @f2, @f3)", sqlConnection);
