@@ -21,7 +21,7 @@ namespace SamuraiMM.Model
         [StringLength(200, ErrorMessage = "Description is too long.")]
         public string Description { get; set; }
         //Laver en range for Int 1 - max int value
-        [Range(1, int.MaxValue, ErrorMessage = "Please enter a SamuraiID. Cant be 0.")]
+        [Range(1, int.MaxValue, ErrorMessage = "You need to create a samurai first.")]
         public int SamuraiID { get; set; }
         public SamuraiModel Samurai { get; set; }
     }
