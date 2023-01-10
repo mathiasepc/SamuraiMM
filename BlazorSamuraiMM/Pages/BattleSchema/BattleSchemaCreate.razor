@@ -1,5 +1,7 @@
 ﻿@page "/battleSchemaCreate"
 @inject IBattleSchema battleschema
+@inject ISamurai samurai
+@inject IBattle battle
 @inject NavigationManager NavManager
 
 <div class="topSection">
@@ -13,10 +15,30 @@
     <DataAnnotationsValidator />
     <div class="row">
         <div class="">
-            <label>SamuraiID</label>
-            <input class="form-control" @bind="battleSchemaModel.SamuraiID" />
-            <label>BattlesID</label>
-            <input class="form-control" @bind="battleSchemaModel.BattlesID" />
+            <label>SamuraiID:</label>
+            @if (samuraiList.Count() > 0)
+            {
+                <div>
+                    <InputSelect @bind-Value="battleSchemaModel.SamuraiID" id="categorySelect">
+                        @foreach (var item in samuraiList)
+                        {
+                            <option value="@item.ID">@item.FirstName @item.LastName</option>
+                        }
+                    </InputSelect>
+                </div>
+            }
+            <label>BattlesID:</label>
+            @if (battleList.Count() > 0)
+            {
+                <div>
+                    <InputSelect @bind-Value="battleSchemaModel.BattlesID" id="categorySelect">
+                        @foreach (var item in battleList)
+                        {
+                            <option value="@item.ID">@item.EventTitle</option>
+                        }
+                    </InputSelect>
+                </div>
+            }
         </div>
 
         <div class="formButton">
@@ -26,6 +48,21 @@
 </EditForm>
 
 @code {
+    //istansiere vores model
+    BattleSchemaModel battleSchemaModel = new();
+    List<SamuraiModel> samuraiList = new();
+    List<BattleModel> battleList = new();
+    /// <summary>
+    /// overrider er så vi overskriver dataen hver gang
+    /// gør klar til udprint
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        battleList = battle.ReadAllAliveBattles();
+        //indsæt
+        samuraiList = samurai.ReadAllAliveSamurais();
+    }
+
     /// <summary>
     /// vores gå tilbage knap
     /// </summary>
@@ -34,9 +71,6 @@
         //skift vindue
         NavManager.NavigateTo("/battleSchema");
     }
-
-    //istansiere vores model
-    BattleSchemaModel battleSchemaModel = new();
 
     /// <summary>
     /// vores indsæt metode

@@ -17,17 +17,22 @@
     </div>
     <div class="row">
         <div class="">
-            <label>Horse name</label>
+            <label>Horse name:</label>
             <input class="form-control" @bind="horseModel.Name" />
-            <label>Horse race</label>
+            <label>Horse race:</label>
             <input class="form-control" @bind="horseModel.HorseRace" />
             <label>Choose Samurai: </label>
-            <InputSelect @bind-Value="horseModel.SamuraiID" id="categorySelect">
-                @foreach (var item in samuraiList)
-                {
-                    <option value="@item.ID">@item.FirstName @item.LastName</option>
-                }
-                </InputSelect>
+            @if (samuraiList.Count() > 0)
+            {
+                <div>
+                    <InputSelect @bind-Value="horseModel.SamuraiID" id="categorySelect">
+                        @foreach (var item in samuraiList)
+                        {
+                            <option value="@item.ID">@item.FirstName @item.LastName</option>
+                        }
+                    </InputSelect>
+                </div>
+            }
         </div>
 
         <div class="formButton">

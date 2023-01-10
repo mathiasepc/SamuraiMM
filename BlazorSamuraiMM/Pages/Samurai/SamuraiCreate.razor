@@ -14,24 +14,26 @@
     <DataAnnotationsValidator />
     <div class="row">
         <div class="">
-            <label>First name</label>
+            <label>First name:</label>
             <input class="form-control" @bind="samuraiModel.FirstName" />
-            <label>Last name</label>
+            <label>Last name:</label>
             <input class="form-control" @bind="samuraiModel.LastName" />
-            <label>Birthdate</label>
+            <label>Birthdate:</label>
             <input class="form-control" @bind="samuraiModel.Birthdate" />
-
+            <label>Choose a clan:</label>
             @if (clanAlive.Count() > 0)
             {
-                <InputSelect @bind-Value="samuraiModel.ClanID" id="categorySelect">
-                    @foreach (var item in clanAlive)
-                    {
-                        @if (item.Deleted != 2)
+                <div>
+                    <InputSelect @bind-Value="samuraiModel.ClanID" id="categorySelect">
+                        @foreach (var item in clanAlive)
                         {
-                            <option value="@item.ID">@item.ClanName</option>
+                            @if (item.Deleted != 2)
+                            {
+                                <option value="@item.ID">@item.ClanName</option>
+                            }
                         }
-                    }
-                </InputSelect>
+                    </InputSelect>
+                </div>
             }
         </div>
 
