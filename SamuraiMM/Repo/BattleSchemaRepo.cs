@@ -44,8 +44,8 @@ namespace SamuraiMM.Repo
                 BattlesRepo b = new();
 
                 //henter døde samurai
-                var samlist = s.ReadAllDeadSamurais();
-                var batlist = b.ReadAllDeadBattles();
+                var samlist = s.ReadAllAliveSamurais();
+                var batlist = b.ReadAllAliveBattles();
 
                 SqlCommand sqlCommand = new();
 
@@ -103,7 +103,7 @@ namespace SamuraiMM.Repo
 
                 //henter døde samurai
                 var samlist = s.ReadAllDeadSamurais();
-                var batlist = b.ReadAllDeadBattles();
+                var batlist = b.ReadAllAliveBattles();
 
                 SqlCommand sqlCommand = new();
 

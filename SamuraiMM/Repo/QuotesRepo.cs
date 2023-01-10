@@ -47,12 +47,12 @@ namespace SamuraiMM.Repo
                 SamuraiRepo sam = new SamuraiRepo();
 
                 //henter døde samurai
-                var deadSamurai = sam.ReadAllDeadSamurais();
+                var aliveSamurai = sam.ReadAllAliveSamurais();
 
-                foreach (var item in deadSamurai)
+                foreach (var alive in aliveSamurai)
                 {
                     //hvis indtastede er forskellige for død samurai
-                    if (quote.SamuraiID != item.ID)
+                    if (quote.SamuraiID == alive.ID)
                     {
                         //istansiere SqlCommand klassen og indsætter i databasen
                         sqlCommand = new($"INSERT INTO Quote (QuoteText, SamuraiID) values('{quote.QuoteText}', '{quote.SamuraiID}')", sqlConnection);
@@ -100,12 +100,12 @@ namespace SamuraiMM.Repo
                 SamuraiRepo samurai = new();
 
                 //henter døde samurai
-                var samDød = samurai.ReadAllDeadSamurais();
+                var aliveSamurai = samurai.ReadAllAliveSamurais();
 
-                foreach (var død in samDød)
+                foreach (var alive in aliveSamurai)
                 {
                     //hvis id er forskellige for den døde
-                    if (quote.SamuraiID != død.ID)
+                    if (quote.SamuraiID == alive.ID)
                     {
                         //Laver en SQLCommando for at update databasen og indsætter sqlConnection
                         commandChange = new($"UPDATE Quote SET QuoteText = '{quote.QuoteText}', SamuraiId = {quote.SamuraiID} Where ID = {quote.ID}", sqlConnection);

@@ -47,12 +47,12 @@ namespace SamuraiMM.Repo
                 SamuraiRepo sam = new();
 
                 //vi henter døde samurais
-                var samDead = sam.ReadAllDeadSamurais();
+                var aliveSamurai = sam.ReadAllAliveSamurais();
 
-                foreach (var dead in samDead)
+                foreach (var alive in aliveSamurai)
                 {
                     //hvis indtastet er forskellig for død samurai
-                    if (blade.SamuraiID != dead.ID)
+                    if (blade.SamuraiID == alive.ID)
                     {
                         //istansiere SqlCommand klassen og indsætter i databasen
                         sqlCommand = new($"INSERT INTO Blade (Name, Description, SamuraiID) values('{blade.Name}', '{blade.Description}','{blade.SamuraiID}')", sqlConnection);
@@ -106,12 +106,12 @@ namespace SamuraiMM.Repo
                 SamuraiRepo sam = new();
 
                 //vi henter døde samurais
-                var samDead = sam.ReadAllDeadSamurais();
+                var aliveSamurai = sam.ReadAllAliveSamurais();
 
-                foreach (var dead in samDead)
+                foreach (var alive in aliveSamurai)
                 {
                     //hvis indtastet er forskellig for død samurai
-                    if (blade.SamuraiID != dead.ID)
+                    if (blade.SamuraiID == alive.ID)
                     {
                         //Laver en SQLCommando for at update databasen og indsætter sqlConnection
                         commandChange = new($"UPDATE Blade SET Name = '{blade.Name}', Description = '{blade.Description}', SamuraiID = '{blade.SamuraiID}' Where ID = {blade.ID}", sqlConnection);

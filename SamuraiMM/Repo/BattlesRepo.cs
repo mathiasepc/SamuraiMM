@@ -163,7 +163,7 @@ namespace SamuraiMM.Repo
             }
         }
 
-        public List<BattleModel> ReadAllDeadBattles()
+        public List<BattleModel> ReadAllAliveBattles()
         {
             //vi laver en list som vi indsætter data'en i
             List<BattleModel> allBattles = new();
@@ -173,7 +173,7 @@ namespace SamuraiMM.Repo
                 con.Open();
 
                 //Laver en SqlCommando
-                SqlCommand command = new SqlCommand("SELECT * FROM Battle where Removed = 2", con);
+                SqlCommand command = new SqlCommand("SELECT * FROM Battle where Removed = 1", con);
 
                 //vi bruger SqlDataReader for at kunne læse data'en fra databasen hvor vi indsætter vores commando
                 SqlDataReader reader = command.ExecuteReader();

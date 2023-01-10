@@ -118,12 +118,12 @@ namespace SamuraiMM.Repo
                 SamuraiRepo s = new();
 
                 //henter døde samurai
-                var samlist = s.ReadAllDeadSamurais();
+                var aliveSamurai = s.ReadAllAliveSamurais();
 
-                foreach (var samurai in samlist)
+                foreach (var alive in aliveSamurai)
                 {
                     //hvis indtastet er forskellige for død samurai
-                    if (horse.SamuraiID != samurai.ID)
+                    if (horse.SamuraiID == alive.ID)
                     {
                         //Laver en SQLCommando for at update databasen og indsætter sqlConnection
                         commandChange = new($"UPDATE Horse SET Name = '{horse.Name}', SamuraiID = '{horse.SamuraiID}', HorseRace = '{horse.HorseRace}' Where SamuraiID = {id}", sqlConnection);
