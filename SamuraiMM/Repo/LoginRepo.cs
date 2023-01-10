@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SamuraiMM.Repo
 {
-    public class Login : ILogin
+    public class LoginRepo : ILogin
     {
         private string Email = string.Empty;
         private string Password = string.Empty;
@@ -29,7 +29,7 @@ namespace SamuraiMM.Repo
             }
         }
 
-        private bool ValidateEmail(string Email)
+        public bool ValidateEmail(string Email)
         {
             string regexEmail = "^[a-zA-Z0-9.+]+@[a-zA-Z0-9.-]+.[a-zA-z0-9]{2,4}$";
             Regex reg = new Regex(regexEmail);
@@ -116,7 +116,7 @@ namespace SamuraiMM.Repo
                 connection.Open();
 
                 //opdatere i databasen
-                SqlCommand command = new($"UPDATE Login SET UserSession = 1 WHERE Password={Password} and Email={Email}", connection);
+                SqlCommand command = new($"UPDATE Login SET UserSession = 1 WHERE Password='{Password}' and Email='{Email}'", connection);
 
                 //opdaterer UserSession
                 UserSession = 1;
