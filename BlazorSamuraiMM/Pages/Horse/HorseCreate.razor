@@ -1,5 +1,6 @@
 ﻿@page "/horseCreate"
 @inject IHorse horse
+@inject ISamurai samurai
 @inject NavigationManager NavManager
 
 <div class="topSection">
@@ -17,9 +18,16 @@
             <input class="form-control" @bind="horseModel.Name" />
             <label>Horse race</label>
             <input class="form-control" @bind="horseModel.HorseRace" />
-            <label>SamuraiId</label>
-            <input class="form-control" @bind="horseModel.SamuraiID" />
+            <label>Choose Samurai: </label>
+            <InputSelect @bind-Value="horseModel.SamuraiID" id="categorySelect">
+            @foreach (var item in samuraiList)
+            {
+                    <option value="@item.ID">@item.FirstName @item.LastName</option>
+            }
+            </InputSelect>
         </div>
+
+     
 
 
         <div class="formButton">
@@ -30,6 +38,20 @@
 </EditForm>
 
 @code {
+
+    //istansiere vores List
+    List<SamuraiModel> samuraiList = new();
+
+    /// <summary>
+    /// overrider er så vi overskriver dataen hver gang
+    /// gør klar til udprint
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        //indsæt
+        samuraiList = samurai.ReadAllAliveSamurais();
+    }
+
     /// <summary>
     /// vores tilbage knap
     /// </summary>
@@ -57,7 +79,7 @@
         catch
         {
             //bygger vores navigateTo ordenligt op
-            string infostring = $"{(horseModel.SamuraiID).ToString()} might already be in use or out of range.";
+            string infostring = $"{(horseModel.SamuraiID).ToString()} that samurai already owns a horse!";
             string currentModel = "Horse Model";
             string CurrentId = " ";
             string url = "horseCreate";

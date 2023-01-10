@@ -1,5 +1,6 @@
 ﻿@page "/horseUpdate/{CurrentId}"
 @inject IHorse horse
+@inject ISamurai samurai
 @inject NavigationManager NavManager
 
 <div class="topSection">
@@ -20,8 +21,13 @@
             <input class="form-control" @bind="horseModel.Name" />
             <label>Horse race</label>
             <input class="form-control" @bind="horseModel.HorseRace" />
-            <label>SamuraiId</label>
-            <input class="form-control" @bind="horseModel.SamuraiID" />
+            <label>Choose Samurai: </label>
+            <InputSelect @bind-Value="horseModel.SamuraiID" id="categorySelect">
+                @foreach (var item in samuraiList)
+                {
+                            <option value="@item.ID">@item.FirstName @item.LastName</option>
+                }
+                </InputSelect>
         </div>
 
         <div class="formButton">
@@ -37,6 +43,7 @@
 
     //istansiere model
     HorseModel horseModel = new();
+    List<SamuraiModel> samuraiList = new();
 
     /// <summary>
     /// overrider er så vi overskriver dataen hver gang
@@ -46,6 +53,7 @@
     {
         //indsætter
         horseModel = horse.ReadOneHorse(Convert.ToInt32(CurrentId));
+        samuraiList = samurai.ReadAllAliveSamurais();
     }
 
     private void Back()
@@ -69,7 +77,7 @@
         catch
         {
             //gør vores navigateTo klar
-            string infostring = $"{(horseModel.SamuraiID).ToString()} is not an existent Samurai ID";
+            string infostring = $"{(horseModel.SamuraiID).ToString()} that samurai already owns a horse!";
             string currentModel = "Horse Model";
             string url = "horseUpdate";
 

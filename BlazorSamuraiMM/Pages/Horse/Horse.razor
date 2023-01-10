@@ -11,13 +11,7 @@
         <tr>
             <td>Name</td>
             <td>Horse Race</td>
-            @foreach (var horse in horsesList)
-            {
-                @if (horse.Samurai.Deleted != 2)
-                {
-                    <td>Owner of Horse</td>
-                }
-            }
+            <td>Owner of Horse</td>
             <td>Functions</td>
         </tr>
     </thead>
@@ -30,6 +24,10 @@
                 @if (horse.Samurai.Deleted != 2)
                 {
                     <td>@horse.Samurai.FirstName @horse.Samurai.LastName</td>
+                }
+                @if (horse.Samurai.Deleted == 2)
+                {
+                <td> </td>
                 }
                 <td>
                     <button><a href="horseUpdate/@horse.SamuraiID">Update</a></button> |
