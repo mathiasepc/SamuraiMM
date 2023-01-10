@@ -54,7 +54,7 @@ namespace SamuraiMM.Repo
                     foreach (var battles in batlist)
                     {
                         //hvis indtastet er forskellige for død samurai
-                        if (batsam.SamuraiID != samurai.ID || batsam.BattlesID != battles.ID)
+                        if (batsam.SamuraiID == samurai.ID || batsam.BattlesID == battles.ID)
                         {
                             //istansiere SqlCommand klassen og indsætter i databasen
                             sqlCommand = new($"INSERT INTO BattleSchema (SamuraiID, BattlesID) values('{batsam.SamuraiID}', '{batsam.BattlesID}')", sqlConnection);
@@ -336,7 +336,7 @@ namespace SamuraiMM.Repo
                         Description = reader["Description"].ToString(),
                         EventStartDate = Convert.ToDateTime(reader["EventStartDate"]),
                         EventSlutDate = Convert.ToDateTime(reader["EventSlutDate"]),
-                        Removed = Convert.ToInt32(reader["Delete"])
+                        Removed = Convert.ToInt32(reader["Removed"])
                     });
 
                     batsamTemp.Samurais.Add(new SamuraiModel()
