@@ -17,7 +17,7 @@ namespace SamuraiMM
         /// 
         public string ConnectionString
         {
-            get => "Data Source=DESKTOP-GV81FRQ\\MSSQLSERVER01;Initial Catalog=Test;Integrated Security=True";
+            get => "Data Source=Martin-PC;Initial Catalog=TEC;Integrated Security=True";
         }
     }
 }

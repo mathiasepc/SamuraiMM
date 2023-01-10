@@ -20,19 +20,22 @@
         @foreach (var battleschema in battleSchemaList)
         {
             <tr>
-                @foreach (var item in battleschema.Battles)
+                @foreach (var battle in battleschema.Battles)
                 {
-                    <td>@item.EventTitle</td>
-                    <td>@item.Description</td>
+                    @foreach (var item in battleschema.Samurais)
+                    {
+                        @if (battle.Delete != 2 && item.Deleted != 2)
+                        {
+                            <td>@battle.EventTitle</td>
+                            <td>@battle.Description</td>
+                            <td>@item.FirstName @item.LastName</td>
+                            <td>
+                                <button><a href="battleSchemaUpdate/@battleschema.SamuraiID/@battleschema.BattlesID">Update</a></button> |
+                                <button @onclick="()=>BattleSchemaDelete(battleschema)">Delete</button>
+                            </td>
+                        }
+                    }
                 }
-                @foreach (var item in battleschema.Samurais)
-                {
-                    <td>@item.FirstName @item.LastName</td>
-                }
-                <td>
-                    <button><a href="battleSchemaUpdate/@battleschema.SamuraiID/@battleschema.BattlesID">Update</a></button> |
-                    <button @onclick="()=>BattleSchemaDelete(battleschema)">Delete</button>
-                </td>
             </tr>
         }
     </tbody>

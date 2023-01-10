@@ -21,7 +21,7 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //Fortæller hvad den skal gøre i SQL
-                SqlCommand command = new SqlCommand($"CREATE TABLE Battle(ID int Identity(1,1) Primary Key, EventTitle nvarchar(50), Description nvarchar(200), EventStartDate datetime, EventSlutDate datetime, Deleted int); ", sqlConnection);
+                SqlCommand command = new SqlCommand($"CREATE TABLE Battle(ID int Identity(1,1) Primary Key, EventTitle nvarchar(50), Description nvarchar(200), EventStartDate datetime, EventSlutDate datetime, Delete int); ", sqlConnection);
 
                 //opretter tablen
                 command.ExecuteNonQuery();
@@ -41,7 +41,7 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //istansiere SqlCommand klassen og indsætter i databasen
-                SqlCommand sqlCommand = new($"INSERT INTO Battle (EventTitle, Description, EventStartDate, EventSlutDate, Deleted) values('{Battle.EventTitle}', '{Battle.Description}',@f3,@f4, '1')", sqlConnection);
+                SqlCommand sqlCommand = new($"INSERT INTO Battle (EventTitle, Description, EventStartDate, EventSlutDate, Delete) values('{Battle.EventTitle}', '{Battle.Description}',@f3,@f4, '1')", sqlConnection);
 
                 sqlCommand.Parameters.AddWithValue("@f3", Battle.EventStartDate);
                 sqlCommand.Parameters.AddWithValue("@f4", Battle.EventSlutDate);
@@ -63,7 +63,7 @@ namespace SamuraiMM.Repo
                 sqlConnection.Open();
 
                 //laver en string som fortæller hvad sql skal gøre
-                SqlCommand sqlCommand = new($"UPDATE Battle SET Deleted = 2 Where ID = {ID}", sqlConnection);
+                SqlCommand sqlCommand = new($"UPDATE Battle SET Delete = 2 Where ID = {ID}", sqlConnection);
 
                 SqlDataAdapter sqlDataAdapter = new();
 
@@ -153,7 +153,7 @@ namespace SamuraiMM.Repo
                 while (reader.Read())
                 {
                     //laver en midlertidig model for at kunne overfører den ene person til vores List
-                    BattleModel BattleTemp = new BattleModel() { ID = reader.GetInt32(0), EventTitle = reader.GetString(1), Description = reader.GetString(2), EventStartDate = reader.GetDateTime(3), EventSlutDate = reader.GetDateTime(4), Deleted = reader.GetInt32(5)};
+                    BattleModel BattleTemp = new BattleModel() { ID = reader.GetInt32(0), EventTitle = reader.GetString(1), Description = reader.GetString(2), EventStartDate = reader.GetDateTime(3), EventSlutDate = reader.GetDateTime(4), Delete = reader.GetInt32(5)};
 
                     //overfører den ene person til List
                     allBattles.Add(BattleTemp);
