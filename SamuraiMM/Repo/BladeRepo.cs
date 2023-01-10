@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Numerics;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -37,17 +38,30 @@ namespace SamuraiMM.Repo
             //laver en vej til min server bruger using for at den selv lukker.
             using (SqlConnection sqlConnection = new(ADO.ConnectionString))
             {
-                SqlCommand sqlCommand = new();
                 //åbner vejen
                 sqlConnection.Open();
-                if (blade.Samurai.Deleted == 1)
-                {
-                    //istansiere SqlCommand klassen og indsætter i databasen
-                    sqlCommand = new($"INSERT INTO Blade (Name, Description, SamuraiID) values('{blade.Name}', '{blade.Description}','{blade.SamuraiID}')", sqlConnection);
-                }
 
+                SqlCommand sqlCommand = new();
+
+                //Vi henter Repo
+                SamuraiRepo sam = new();
+
+                //vi henter døde samurais
+                var samDead = sam.ReadAllDeadSamurais();
+
+                foreach (var item in samDead)
+                {
+                    //hvis indtastet er forskellig for død samurai
+                    if (blade.SamuraiID != item.ID)
+                    {
+                        //istansiere SqlCommand klassen og indsætter i databasen
+                        sqlCommand = new($"INSERT INTO Blade (Name, Description, SamuraiID) values('{blade.Name}', '{blade.Description}','{blade.SamuraiID}')", sqlConnection);
+
+                    }
+                }
                 //sender til min database
                 sqlCommand.ExecuteNonQuery();
+
             }
         }
 

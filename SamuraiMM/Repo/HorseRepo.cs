@@ -54,12 +54,18 @@ namespace SamuraiMM.Repo
             {
                 //åbner vejen
                 sqlConnection.Open();
+
                 SqlCommand sqlCommand = new();
 
+                //istansiere samurai klassen
                 SamuraiRepo s = new();
+
+                //henter døde samurai
                 var samlist = s.ReadAllDeadSamurais();
+
                 foreach (var samurai in samlist)
                 {
+                    //hvis indtastet er forskellige for død samurai
                     if (horse.SamuraiID != samurai.ID)
                     {
                         //istansiere SqlCommand klassen og indsætter i databasen

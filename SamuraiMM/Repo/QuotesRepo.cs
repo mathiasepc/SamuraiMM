@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SamuraiMM.Model;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -42,10 +43,20 @@ namespace SamuraiMM.Repo
 
                 SqlCommand sqlCommand = new();
 
-                if (quote.Samurai.Deleted == 1)
+                //henter samurai repo
+                SamuraiRepo sam = new SamuraiRepo();
+
+                //henter døde samurai
+                var deadSamurai = sam.ReadAllDeadSamurais();
+
+                foreach (var item in deadSamurai)
                 {
-                    //istansiere SqlCommand klassen og indsætter i databasen
-                    sqlCommand = new($"INSERT INTO Quote (QuoteText, SamuraiID) values('{quote.QuoteText}', '{quote.SamuraiID}')", sqlConnection);
+                    //hvis indtastede er forskellige for død samurai
+                    if (quote.SamuraiID != item.ID)
+                    {
+                        //istansiere SqlCommand klassen og indsætter i databasen
+                        sqlCommand = new($"INSERT INTO Quote (QuoteText, SamuraiID) values('{quote.QuoteText}', '{quote.SamuraiID}')", sqlConnection);
+                    }
                 }
                 //sender til min database
                 sqlCommand.ExecuteNonQuery();
