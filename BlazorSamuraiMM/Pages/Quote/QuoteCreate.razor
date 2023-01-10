@@ -1,5 +1,6 @@
 ﻿@page "/quoteCreate"
 @inject IQuotes quote
+@inject ISamurai samurai
 @inject NavigationManager NavManager
 
 <div class="topSection">
@@ -16,8 +17,18 @@
         <div class="">
             <label>Quote text</label>
             <input class="form-control" @bind="quoteModel.QuoteText" />
-            <label>SamuraiId</label>
-            <input class="form-control" @bind="quoteModel.SamuraiID" />
+            <label>Choose Samurai: </label>
+            @if (samuraiList.Count > 0)
+            {
+                <div>
+                    <InputSelect @bind-Value="quoteModel.SamuraiID" id="categorySelect">
+                        @foreach (var item in samuraiList)
+                        {
+                            <option value="@item.ID">@item.FirstName @item.LastName</option>
+                        }
+                    </InputSelect>
+                </div>
+            }
         </div>
 
         <div class="formButton">
@@ -30,6 +41,18 @@
 
 
 @code {
+    //istansiere vores List
+    List<SamuraiModel> samuraiList = new();
+
+    /// <summary>
+    /// overrider er så vi overskriver dataen hver gang
+    /// gør klar til udprint
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        //indsæt
+        samuraiList = samurai.ReadAllAliveSamurais();
+    }
     /// <summary>
     /// vores tilbage knap
     /// </summary>
