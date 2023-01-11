@@ -1,7 +1,9 @@
+using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using SamuraiMM.Interfaces;
 using SamuraiMM.Repo;
+
 
 namespace BlazorSamuraiMM
 {
@@ -14,6 +16,7 @@ namespace BlazorSamuraiMM
             // Add services to the container.
             builder.Services.AddRazorPages();
             builder.Services.AddServerSideBlazor();
+            builder.Services.AddBlazoredLocalStorage();
             //builder.Services.AddSingleton<WeatherForecastService>();
 
             // når du møder et interface så map det til et repo...

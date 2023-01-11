@@ -1,0 +1,24 @@
+﻿@inject NavigationManager NavManager
+@page "/loginErrorPage/{url}/{infostring}"
+
+<h3>Something went wrong</h3>
+
+<tr>
+    <td>
+         @infostring
+    </td>
+</tr>
+<button @onclick="@Back">Back</button>
+
+@code {
+
+    [Parameter]
+    public string url{ get; set; }
+    [Parameter]
+    public string infostring { get; set; }
+
+    private void Back()
+    {
+        NavManager.NavigateTo($"/{url}");
+    }
+}

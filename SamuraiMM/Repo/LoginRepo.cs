@@ -15,7 +15,7 @@ namespace SamuraiMM.Repo
         private int UserSession = 0;
 
         ADOHandler ADO = new();
-        
+
         public void CreateTableLogin()
         {
             using (SqlConnection connection = new(ADO.ConnectionString))
@@ -43,14 +43,22 @@ namespace SamuraiMM.Repo
             }
         }
 
-        public void CreateLogin(string email, string password)
+        public void CreateLogin(LoginModel loginModel)
         {
             using (SqlConnection connection = new(ADO.ConnectionString))
             {
+                List<LoginModel> loginList = new(GetAllUsers());
+                SqlCommand command = new();
                 connection.Open();
 
-                SqlCommand command = new($"Insert into Login(Email,Password,UserSession) values('{email}', '{password}', '0')", connection);
-
+                foreach (var login in loginList)
+                {
+                    if (loginModel.Email != login.Email)
+                    {
+                        command = new($"Insert into Login(Email,Password,UserSession) values('{loginModel.Email}', '{loginModel.Password}', '0')", connection);        
+                    }
+                }
+                //Forcer crash hvis email eksisterer allerede
                 command.ExecuteNonQuery();
             }
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SamuraiMM.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ namespace SamuraiMM.Interfaces
     {
         public string UserLogOut();
         public bool GetUser(LoginModel loginModel);
-        public void CreateLogin(string email, string password);
+        public void CreateLogin(LoginModel loginModel);
         public bool ValidateEmail(string Email);
         public List<LoginModel> GetAllUsers();
     }
