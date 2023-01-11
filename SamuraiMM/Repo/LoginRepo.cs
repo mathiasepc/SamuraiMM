@@ -113,7 +113,7 @@ namespace SamuraiMM.Repo
                 connection.Open();
 
                 //opdatere i databasen
-                SqlCommand command = new($"UPDATE Login SET UserSession = 1 WHERE Password='{Password}' and Email='{Email}'", connection);
+                SqlCommand command = new($"UPDATE Login SET UserSession = 1 WHERE Password='{loginModel.Password}' and Email='{loginModel.Email}'", connection);
 
                 //opdaterer UserSession
                 UserSession = 1;
@@ -134,7 +134,7 @@ namespace SamuraiMM.Repo
                 {
                     connection.Open();
 
-                    SqlCommand command = new($"UPDATE Login SET UserSession = 0 WHERE Password={Password} and Email={Email}", connection);
+                    SqlCommand command = new($"UPDATE Login SET UserSession = 0 WHERE Password={loginModel.Password} and Email={loginModel.Email}", connection);
 
                     //sætter UserSession = 0 så man er logget ud
                     UserSession = 0;
@@ -149,7 +149,7 @@ namespace SamuraiMM.Repo
                 return "Du skal være logget ind først";
             }
         }
-        public List<QuoteModel> ReadAllQuotesWithSamuraiName()
+        public List<LoginModel> GetAllUsers()
         {
             //vi laver en list som vi indsætter data'en i
             List<LoginModel> allLogin = new();

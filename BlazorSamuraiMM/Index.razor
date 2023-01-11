@@ -13,16 +13,38 @@
     </div>
     <label>Email:</label>
     <input class="" @bind="loginModel.Email" />
+
     <label>Password:</label>
-    <input class="" @bind="loginModel.Password" />
+    <input class="" @bind="" />
     <div class="formButton">
         <button type="submit">Login</button>
     </div>
-   
+    </div>
 
 </EditForm>
 <div class="formButton">
     <button @onclick="Back">Register</button>
 </div>
 
-@*<SurveyPrompt Title="How is Blazor working for you?" />*@
+@code {
+    //istansiere vores List
+    List<LoginModel> loginList = new();
+    
+
+    /// <summary>
+    /// overrider er så vi overskriver dataen hver gang
+    /// gør klar til udprint
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        //indsæt
+        loginList = login.GetUser();
+    }
+
+    public void GetUser()
+    {
+
+    }
+
+
+}
