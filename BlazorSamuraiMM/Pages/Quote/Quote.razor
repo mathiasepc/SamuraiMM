@@ -10,9 +10,9 @@
 <table>
     <thead>
         <tr>
-                    <td>Quote</td>
-                    <td>Samurai name</td>
-                    <td>Functions</td>
+            <td>Quote</td>
+            <td>Samurai name</td>
+            <td>Functions</td>
         </tr>
     </thead>
     <tbody>
@@ -28,10 +28,10 @@
                 {
                     <td> </td>
                 }
-                    <td>
-                        <button><a href="quoteUpdate/@quote.ID">Update</a></button> |
-                        <button @onclick="()=>QuoteDelete(quote)">Delete</button>
-                    </td>
+                <td>
+                    <button><a href="quoteUpdate/@quote.ID">Update</a></button> |
+                    <button @onclick="()=>QuoteDelete(quote)">Delete</button>
+                </td>
             </tr>
         }
     </tbody>
@@ -72,7 +72,5 @@
         //refresh side
         NavManager.NavigateTo(" ");
         NavManager.NavigateTo("/quote");
-
     }
-
 }
