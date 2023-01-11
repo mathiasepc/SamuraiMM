@@ -8,76 +8,65 @@
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
             <span class="navbar-toggler-icon"></span>
         </button>
-@*        <div class="formButton">
-            <button>logout</button>
-        </div>*@
     </div>
 
 </div>
 
-<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <nav class="flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="samurai">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Samurai
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="horse">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Horse
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="clan">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Clan
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="quote">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Quote
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="blade">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Blade
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="battle">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Battle
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="battleschema">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> BATTLE SCHEMA
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <button @onclick="LogOut">Log out</button>
-        </div>
-
-        @*        <div class="nav-item px-3">
-        <NavLink class="nav-link" href="counter">
-        <span class="oi oi-plus" aria-hidden="true"></span> Counter
-        </NavLink>
-        </div>*@
-        @*        <div class="nav-item px-3">
-        <NavLink class="nav-link" href="fetchdata">
-        <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
-        </NavLink>
-        </div>*@
-    </nav>
-</div>
+@if (UserSession == "1")
+{
+    <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+        <nav class="flex-column">
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                    <span class="oi oi-home" aria-hidden="true"></span> Home
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="samurai">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Samurai
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="horse">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Horse
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="clan">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Clan
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="quote">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Quote
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="blade">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Blade
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="battle">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Battle
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="battleschema">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> BATTLE SCHEMA
+                </NavLink>
+            </div>
+            <div class="nav-item px-3">
+                <button @onclick="LogOut">Log out</button>
+            </div>
+        </nav>
+    </div>
+}
 
 @code {
     private bool collapseNavMenu = true;
 
-    public LoginModel loginModel;
+    private string UserSession;
 
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
@@ -88,10 +77,17 @@
 
     public async void LogOut()
     {
-        localStorage.ClearAsync();
+        LoginModel loginModel = new();
         loginModel.Email = await localStorage.GetItemAsync<string>("Email");
         loginModel.Password = await localStorage.GetItemAsync<string>("Password");
         logout.UserLogOut(loginModel);
+        localStorage.ClearAsync();
         navManager.NavigateTo("/");
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        UserSession = await localStorage.GetItemAsync<string>("UserSession");
+        StateHasChanged();
     }
 }
