@@ -38,7 +38,7 @@
 </table>
 
 <div class="bottomSection">
-    Slå op om en samurai har en hest (ved ID): 
+    Slå op om en samurai har en hest (ved ID):
     <input type="text" @bind="SearchId" />
     <button @onclick="Search">Search</button>
 </div>
@@ -121,13 +121,13 @@
     {
         try
         {
-            IDResult = samurai.ReadSamuraisHouse(SearchId);
+            IDResult = samurai.ReadAliveSamuraisHouse(SearchId);
         }
         catch
         {
             try
             {
-                IDResult = samurai.ReadOneSamurai(SearchId);
+                IDResult = samurai.ReadOneAliveSamurai(SearchId);
             }
             catch
             {
