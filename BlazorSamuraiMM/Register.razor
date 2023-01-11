@@ -5,7 +5,7 @@
 <PageTitle>Register</PageTitle>
 
 <div class="topSection">
-    <h3>Create a user</h3>
+    <h3>Create a login</h3>
     <button @onclick="Back">Back</button>
 </div>
 
@@ -16,15 +16,15 @@
         @*For at vores validering på modelleren kan bruges skal vi tilføje følgende*@
         <DataAnnotationsValidator />
     </div>
-    <label>Email:</label>
-    <input class="" @bind="loginModel.Email" />
-
-    <label>Password:</label>
-    <input class="" @bind="loginModel.Password" />
-    <div class="formButton">
-        <button type="submit">Confirm</button>
+    <div class="row">
+        <label>Email:</label>
+        <input class="form-control" @bind="loginModel.Email" />
+        <label>Password:</label>
+        <input class="form-control" @bind="loginModel.Password" />
+        <div class="formButton">
+            <button type="submit">Confirm</button>
+        </div>
     </div>
-
 </EditForm>
 
 @code {
@@ -37,7 +37,7 @@
     public void CreateUser()
     {
         //kør hvis det rigtigt
-        try 
+        try
         {
             //kør metode
             login.CreateLogin(loginModel);

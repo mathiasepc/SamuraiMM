@@ -5,27 +5,29 @@
 
 <PageTitle>Index</PageTitle>
 
-<div class="loginSection">
-    <EditForm Model="@loginModel" OnValidSubmit="GetLogin">
-        @*For at vores beskreder fra vores validering kan vises*@
-        <div class="errorBox">
-            <ValidationSummary />
-            @*For at vores validering på modelleren kan bruges skal vi tilføje følgende*@
-            <DataAnnotationsValidator />
-        </div>
+<div class="topSection">
+    <h3>Please login or create an account.</h3>
+    <button @onclick="Register">Register</button>
+</div>
+
+
+<EditForm Model="@loginModel" OnValidSubmit="GetLogin">
+    @*For at vores beskreder fra vores validering kan vises*@
+    <div class="errorBox">
+        <ValidationSummary />
+        @*For at vores validering på modelleren kan bruges skal vi tilføje følgende*@
+        <DataAnnotationsValidator />
+    </div>
+    <div class="row">
         <label>Email:</label>
-        <input class="login-form" @bind="loginModel.Email" />
+        <input class="form-control" @bind="loginModel.Email" />
         <label>Password:</label>
-        <input class="login-form" @bind="loginModel.Password" />
+        <input class="form-control" @bind="loginModel.Password" />
         <div class="formButton">
             <button type="submit">Login</button>
         </div>
-
-    </EditForm>
-    <div class="formButton">
-        <button @onclick="Register">Register</button>
     </div>
-</div>
+</EditForm>
 
 @code {
     //istansiere vores List

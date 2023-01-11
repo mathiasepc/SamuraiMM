@@ -1,19 +1,20 @@
 ﻿@inject NavigationManager NavManager
 @page "/loginErrorPage/{url}/{infostring}"
 
-<h3>Something went wrong</h3>
 
-<tr>
-    <td>
-         @infostring
-    </td>
-</tr>
-<button @onclick="@Back">Back</button>
+<div class="topSection">
+    <h3>Something went wrong</h3>
+    <button @onclick="@Back">Back</button>
+</div>
+
+<div class="row">
+    @infostring
+</div>
 
 @code {
 
     [Parameter]
-    public string url{ get; set; }
+    public string url { get; set; }
     [Parameter]
     public string infostring { get; set; }
 

@@ -44,24 +44,6 @@ html, body {
         width: 50%;
     }
 
-.loginSection {
-    background-color: rgba(255,150,50,1);
-    border: solid 2px black;
-    font-weight: bold;
-    margin-left: 15px;
-    width: 21%;
-    padding-top: 10px;
-    padding-bottom: 15px;
-}
-
-.login-form {
-    margin-top: 5px;
-    margin-bottom: 5px;
-    border: none;
-    background-color: silver;
-}
-
-
 .indexTopSection {
     border: 2px solid black;
     color: green;
@@ -97,6 +79,7 @@ p {
     width: 21%;
     padding-top: 10px;
     padding-bottom: 15px;
+    text-align: center;
 }
 
 /*Selve formenens input felter*/
@@ -163,6 +146,7 @@ tr:nth-child(even) {
 tr:nth-child(odd) {
     background-color: #c4c4c4;
 }
+
 /*Teksten på table head teksten*/
 thead {
     font-weight: bold;
