@@ -9,7 +9,7 @@ namespace SamuraiMM.Interfaces
     public interface ILogin
     {
         public string UserLogOut();
-        public bool GetUser(string email, string password);
+        public bool GetUser(LoginModel loginModel);
         public void CreateLogin(string email, string password);
         public bool ValidateEmail(string Email);
         public List<LoginModel> GetAllUsers();

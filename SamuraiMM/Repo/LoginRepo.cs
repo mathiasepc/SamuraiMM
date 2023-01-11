@@ -10,8 +10,7 @@ namespace SamuraiMM.Repo
 {
     public class LoginRepo : ILogin
     {
-        private string Email = string.Empty;
-        private string Password = string.Empty;
+        private LoginModel loginModel = new();
         //hvis UserSession = 0 er man logget ud. UserSession = 1 logget ind.
         private int UserSession = 0;
 
@@ -62,14 +61,12 @@ namespace SamuraiMM.Repo
         /// <param name="email"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        public bool GetUser(string email, string password)
+        public bool GetUser(LoginModel tempLoginModel)
         {
             //svaret for om man kan logge ind
             bool answer = false;
-
-            //overfører til globale variabler så vi kan logge ud igen
-            Email = email;
-            Password = password;
+            loginModel.Email = tempLoginModel.Email;
+            loginModel.Password = tempLoginModel.Password;
 
             using (SqlConnection connection = new(ADO.ConnectionString))
             {
@@ -78,7 +75,7 @@ namespace SamuraiMM.Repo
                     connection.Open();
 
                     //henter user
-                    SqlCommand command = new($"SELECT Email, Password FROM Login where Email='{Email}' and Password='{Password}';", connection);
+                    SqlCommand command = new($"SELECT Email, Password FROM Login where Email='{tempLoginModel.Email}' and Password='{tempLoginModel.Password}';", connection);
 
                     SqlDataReader reader = command.ExecuteReader();
 
@@ -89,7 +86,7 @@ namespace SamuraiMM.Repo
                     string? passwordTemp = (string)reader["Password"].ToString();
 
                     //matcher indtastet data med data'en i data for at se om man eksistere
-                    if (emailTemp == Email && passwordTemp == Password)
+                    if (emailTemp == loginModel.Email && passwordTemp == loginModel.Password)
                     {
                         SetUserSession();
 
