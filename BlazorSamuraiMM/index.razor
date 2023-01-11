@@ -1,10 +1,53 @@
 ﻿@page "/"
+@inject ILogin login
+@inject NavigationManager navManager
 
 <PageTitle>Index</PageTitle>
 
-<div class="indexTopSection">
-<h1>WELCOME</h1>
-    <p>PLEASE SELECT WHAT YOU WANT TO LOOK UP</p>
+<EditForm Model="@loginModel" OnValidSubmit="GetUser">
+    @*For at vores beskreder fra vores validering kan vises*@
+    <div class="errorBox">
+        <ValidationSummary />
+        @*For at vores validering på modelleren kan bruges skal vi tilføje følgende*@
+        <DataAnnotationsValidator />
+    </div>
+    <label>Email:</label>
+    <input class="" @bind="loginModel.Email" />
+    <label>Password:</label>
+    <input class="" @bind="loginModel.Password" />
+    <div class="formButton">
+        <button type="submit">Login</button>
+    </div>
+   
+
+</EditForm>
+<div class="formButton">
+    <button @onclick="Back">Register</button>
 </div>
 
-@*<SurveyPrompt Title="How is Blazor working for you?" />*@
+@code {
+    //istansiere vores List
+    LoginModel loginModel = new();
+
+
+    /// <summary>
+    /// overrider er så vi overskriver dataen hver gang
+    /// gør klar til udprint
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        //indsæt
+
+    }
+
+    public void GetUser()
+    {
+        login.GetUser(loginModel);
+    }
+
+    public void Back()
+    {
+
+    }
+
+}
