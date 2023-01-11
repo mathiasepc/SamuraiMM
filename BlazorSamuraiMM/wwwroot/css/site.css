@@ -44,6 +44,24 @@ html, body {
         width: 50%;
     }
 
+.loginSection {
+    background-color: rgba(255,150,50,1);
+    border: solid 2px black;
+    font-weight: bold;
+    margin-left: 15px;
+    width: 21%;
+    padding-top: 10px;
+    padding-bottom: 15px;
+}
+
+.login-form {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border: none;
+    background-color: silver;
+}
+
+
 .indexTopSection {
     border: 2px solid black;
     color: green;

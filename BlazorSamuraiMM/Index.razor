@@ -5,6 +5,7 @@
 
 <PageTitle>Index</PageTitle>
 
+<div class="loginSection">
 <EditForm Model="@loginModel" OnValidSubmit="GetUser">
     @*For at vores beskreder fra vores validering kan vises*@
     <div class="errorBox">
@@ -13,10 +14,9 @@
         <DataAnnotationsValidator />
     </div>
     <label>Email:</label>
-    <input class="" @bind="loginModel.Email" />
-
+    <input class="login-form" @bind="loginModel.Email" />
     <label>Password:</label>
-    <input class="" @bind="loginModel.Password" />
+        <input class="login-form" @bind="loginModel.Password" />
     <div class="formButton">
         <button type="submit">Login</button>
     </div>
@@ -24,6 +24,7 @@
 </EditForm>
 <div class="formButton">
     <button @onclick="Register">Register</button>
+</div>
 </div>
 
 @code {
