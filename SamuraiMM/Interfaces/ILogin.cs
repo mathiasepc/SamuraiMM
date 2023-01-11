@@ -13,6 +13,5 @@ namespace SamuraiMM.Interfaces
         public bool GetUser(LoginModel loginModel);
         public void CreateLogin(LoginModel loginModel);
         public bool ValidateEmail(string Email);
-        public List<LoginModel> GetAllUsers();
     }
 }

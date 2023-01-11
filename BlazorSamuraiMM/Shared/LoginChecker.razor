@@ -3,14 +3,18 @@
 
 @code {
     public string UserSession;
+
+    //kontrollere om man er logget ind
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         UserSession = await localStorage.GetItemAsync<string>("UserSession");
 
+        //hvis man ikke er logget ind
         if(UserSession != "1")
         {
             navManager.NavigateTo("/");
         }
+        //hivs man er
         else
         {
             navManager.NavigateTo("/welcome");

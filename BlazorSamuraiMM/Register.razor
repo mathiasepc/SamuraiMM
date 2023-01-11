@@ -31,13 +31,20 @@
     //istansiere vores List
     LoginModel loginModel = new();
 
+    /// <summary>
+    /// laver en metode som kalder metoden create
+    /// </summary>
     public void CreateUser()
     {
+        //kør hvis det rigtigt
         try 
         {
+            //kør metode
             login.CreateLogin(loginModel);
+            //skift vindue
             navManager.NavigateTo("/");
         }
+        //kør hvis ikke rigtigt
         catch
         {
             string infostring = "Email already exists.";

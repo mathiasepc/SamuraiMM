@@ -11,6 +11,10 @@ namespace SamuraiMM.Repo
     public class LoginRepo : ILogin
     {
         ADOHandler ADO = new();
+
+        /// <summary>
+        /// opret database
+        /// </summary>
         public void CreateTableLogin()
         {
             using (SqlConnection connection = new(ADO.ConnectionString))
@@ -23,27 +27,17 @@ namespace SamuraiMM.Repo
             }
         }
 
-        public bool ValidateEmail(string Email)
-        {
-            string regexEmail = @"^[a-zA-Z0-9.+]+@[a-zA-Z0-9.-]+.[a-zA-Z0-9]{2,4}$";
-            Regex reg = new Regex(regexEmail);
-
-            if (reg.IsMatch(Email))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
+        /// <summary>
+        /// metode for at lave en user
+        /// </summary>
+        /// <param name="loginModel"></param>
         public void CreateLogin(LoginModel loginModel)
         {
             using (SqlConnection connection = new(ADO.ConnectionString))
             {
                 List<LoginModel> loginList = new(GetAllUsers());
                 SqlCommand command = new();
+
                 connection.Open();
 
                 //opretter en temporary liste for at compare
@@ -119,14 +113,18 @@ namespace SamuraiMM.Repo
                 using (SqlConnection connection = new(ADO.ConnectionString))
                 {
                     connection.Open();
-
+                      
                     SqlCommand command = new($"UPDATE Login SET UserSession = 0 WHERE Password={loginModel.Password} and Email={loginModel.Email}", connection);
 
                     command.BeginExecuteNonQuery();
                 }
         }
 
-        public List<LoginModel> GetAllUsers()
+        /// <summary>
+        /// laver en metode som henter alle users
+        /// </summary>
+        /// <returns></returns>
+        private List<LoginModel> GetAllUsers()
         {
             //vi laver en list som vi indsætter data'en i
             List<LoginModel> allLogin = new();
@@ -156,6 +154,22 @@ namespace SamuraiMM.Repo
                 }
                 //returner Listen med Data
                 return allLogin;
+            }
+        }
+
+        //bruger vi ikke endnu
+        public bool ValidateEmail(string Email)
+        {
+            string regexEmail = @"^[a-zA-Z0-9.+]+@[a-zA-Z0-9.-]+.[a-zA-Z0-9]{2,4}$";
+            Regex reg = new Regex(regexEmail);
+
+            if (reg.IsMatch(Email))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
     }

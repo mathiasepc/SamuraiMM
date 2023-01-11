@@ -12,6 +12,7 @@
 
 </div>
 
+@*Hvis man ikke er logget ind, gem*@
 @if (UserSession == "1")
 {
     <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
@@ -64,29 +65,46 @@
 }
 
 @code {
-    private bool collapseNavMenu = true;
-
-    private string UserSession;
-
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+    //opretter variabler
+    private bool collapseNavMenu = true;
+    private string UserSession;
 
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
     }
 
+    //// <summary>
+    /// Vores logud button metode
+    /// </summary>
     public async void LogOut()
     {
+        //opretter en model
         LoginModel loginModel = new();
+
+        //tilføj local storage til model
         loginModel.Email = await localStorage.GetItemAsync<string>("Email");
         loginModel.Password = await localStorage.GetItemAsync<string>("Password");
+
+        //kør metode for at logge ud
         logout.UserLogOut(loginModel);
+
+        //clear cache
         localStorage.ClearAsync();
+
+        //skift vindue
         navManager.NavigateTo("/");
     }
 
+    /// <summary>
+    /// efter render er kørt. tjek for om man er logget ind. Det for at gemme nav menuerne
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
+        //gem session i variable
         UserSession = await localStorage.GetItemAsync<string>("UserSession");
         StateHasChanged();
     }

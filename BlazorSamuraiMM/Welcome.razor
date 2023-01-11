@@ -14,6 +14,11 @@
 
     public string UserInfo;
 
+    /// <summary>
+    /// gemmer i local storage når welcome kører
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         UserInfo = "UserSession: " + await localStorage.GetItemAsync<string>("UserSession") +
