@@ -1,6 +1,7 @@
 ﻿@page "/"
 @inject ILogin login
 @inject NavigationManager navManager
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
 
 <PageTitle>Index</PageTitle>
 
@@ -29,7 +30,6 @@
     //istansiere vores List
     LoginModel loginModel = new();
 
-
     /// <summary>
     /// overrider er så vi overskriver dataen hver gang
     /// gør klar til udprint
@@ -41,13 +41,24 @@
 
     public void GetUser()
     {
-        login.GetUser(loginModel);
+        if (login.GetUser(loginModel))
+        {
+            localStorage.SetItemAsync("UserSession", "1");
+            localStorage.SetItemAsync($"Name", $"{loginModel.Email}");
+            localStorage.SetItemAsync($"Password", $"{loginModel.Password}");
+            navManager.NavigateTo($"/welcome");
+        }
+        else
+        {
+            string infostring = "Wrong login info.";
+            string url = " ";
+            //skift vindue
+            navManager.NavigateTo($"/loginErrorPage/{url}/{infostring}");
+        }
     }
 
     public void Register()
     {
-        
+        navManager.NavigateTo($"/register");
     }
-
-
 }

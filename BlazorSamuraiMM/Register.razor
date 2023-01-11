@@ -1,0 +1,55 @@
+﻿@page "/register"
+@inject ILogin login
+@inject NavigationManager navManager
+
+<PageTitle>Register</PageTitle>
+
+<div class="topSection">
+    <h3>Create a user</h3>
+    <button @onclick="Back">Back</button>
+</div>
+
+<EditForm Model="@loginModel" OnValidSubmit="CreateUser">
+    @*For at vores beskreder fra vores validering kan vises*@
+    <div class="errorBox">
+        <ValidationSummary />
+        @*For at vores validering på modelleren kan bruges skal vi tilføje følgende*@
+        <DataAnnotationsValidator />
+    </div>
+    <label>Email:</label>
+    <input class="" @bind="loginModel.Email" />
+
+    <label>Password:</label>
+    <input class="" @bind="loginModel.Password" />
+    <div class="formButton">
+        <button type="submit">Confirm</button>
+    </div>
+
+</EditForm>
+
+@code {
+    //istansiere vores List
+    LoginModel loginModel = new();
+
+    public void CreateUser()
+    {
+        try 
+        {
+            login.CreateLogin(loginModel);
+            navManager.NavigateTo("/");
+        }
+        catch
+        {
+            string infostring = "Email already exists.";
+            string url = "register";
+            //skift vindue
+            navManager.NavigateTo($"/loginErrorPage/{url}/{infostring}");
+        }
+    }
+
+    public void Back()
+    {
+        navManager.NavigateTo("/");
+    }
+
+}

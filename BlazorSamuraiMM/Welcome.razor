@@ -1,4 +1,5 @@
 ﻿@page "/welcome"
+@inject Blazored.LocalStorage.ILocalStorageService localStorage
 
 <PageTitle>Welcome</PageTitle>
 
@@ -8,3 +9,15 @@
 </div>
 
 @*<SurveyPrompt Title="How is Blazor working for you?" />*@
+
+@code {
+
+    public string UserInfo;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        UserInfo = "UserSession: " + await localStorage.GetItemAsync<string>("UserSession") +
+        "Email : " + await localStorage.GetItemAsync<string>("Email") +
+        "Password : " + await localStorage.GetItemAsync<string>("Password");
+    }
+}
