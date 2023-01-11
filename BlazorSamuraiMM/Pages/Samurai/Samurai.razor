@@ -125,13 +125,15 @@
         }
         catch
         {
-            IDResult = samurai.ReadOneSamurai(SearchId);
-        }
-        finally
-        {
-           
+            try
+            {
+                IDResult = samurai.ReadOneSamurai(SearchId);
+            }
+            catch
+            {
+                IDResult = null;
+            }
         }
     }
-
 
 }

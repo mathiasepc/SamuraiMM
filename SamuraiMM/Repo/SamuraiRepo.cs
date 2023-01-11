@@ -147,6 +147,7 @@ namespace SamuraiMM.Repo
                 con.Open();
 
                 //laver en sql commando
+                
                 SqlCommand cmd = new SqlCommand($"select * from Samurai where id={samuraiID}", con);
 
                 //vi bruger SqlDataReader for at kunne læse data'en fra databasen hvor vi indsætter vores commando
