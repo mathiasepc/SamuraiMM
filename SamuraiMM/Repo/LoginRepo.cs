@@ -31,7 +31,7 @@ namespace SamuraiMM.Repo
 
         public bool ValidateEmail(string Email)
         {
-            string regexEmail = "^[a-zA-Z0-9.+]+@[a-zA-Z0-9.-]+.[a-zA-z0-9]{2,4}$";
+            string regexEmail = @"^[a-zA-Z0-9.+]+@[a-zA-Z0-9.-]+.[a-zA-Z0-9]{2,4}$";
             Regex reg = new Regex(regexEmail);
 
             if (reg.IsMatch(Email))
@@ -150,6 +150,38 @@ namespace SamuraiMM.Repo
             else
             {
                 return "Du skal være logget ind først";
+            }
+        }
+        public List<QuoteModel> ReadAllQuotesWithSamuraiName()
+        {
+            //vi laver en list som vi indsætter data'en i
+            List<LoginModel> allLogin = new();
+
+            using (SqlConnection con = new SqlConnection(ADO.ConnectionString))
+            {
+                con.Open();
+
+                //Laver en SqlCommando der henter quotes samt navne fra samurai
+                SqlCommand command = new SqlCommand("SELECT * FROM Login", con);
+
+                //vi bruger SqlDataReader for at kunne læse data'en fra databasen hvor vi indsætter vores commando
+                SqlDataReader reader = command.ExecuteReader();
+
+                //laver et while loop for at få alt data fra databasen
+                while (reader.Read())
+                {
+                    //laver en midlertidig model for at kunne overfører den ene person til vores List
+                    LoginModel tempLogin = new()
+                    {
+                        Email = reader["Email"].ToString(),
+                        Password = reader["Password"].ToString()
+                    };
+
+                    //overfører den ene person til List
+                    allLogin.Add(tempLogin);
+                }
+                //returner Listen med Data
+                return allLogin;
             }
         }
     }
