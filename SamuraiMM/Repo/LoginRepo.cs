@@ -142,7 +142,7 @@ namespace SamuraiMM.Repo
         /// laver en metode for at logge ud
         /// </summary>
         /// <returns></returns>
-        public string UserLogOut()
+        public string UserLogOut(LoginModel loginModel)
         {
             if (UserSession == 1)
             {

@@ -1,10 +1,18 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
+﻿@inject Blazored.LocalStorage.ILocalStorageService localStorage
+@inject ILogin logout
+@inject NavigationManager navManager
+
+<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="">Samurai Database</a>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
             <span class="navbar-toggler-icon"></span>
         </button>
+@*        <div class="formButton">
+            <button>logout</button>
+        </div>*@
     </div>
+
 </div>
 
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
@@ -49,15 +57,19 @@
                 <span class="oi oi-list-rich" aria-hidden="true"></span> BATTLE SCHEMA
             </NavLink>
         </div>
+        <div class="nav-item px-3">
+            <button @onclick="LogOut">Log out</button>
+        </div>
+
         @*        <div class="nav-item px-3">
         <NavLink class="nav-link" href="counter">
         <span class="oi oi-plus" aria-hidden="true"></span> Counter
         </NavLink>
         </div>*@
-@*        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="fetchdata">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
-            </NavLink>
+        @*        <div class="nav-item px-3">
+        <NavLink class="nav-link" href="fetchdata">
+        <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
+        </NavLink>
         </div>*@
     </nav>
 </div>
@@ -65,10 +77,21 @@
 @code {
     private bool collapseNavMenu = true;
 
+    public LoginModel loginModel;
+
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
+    }
+
+    public async void LogOut()
+    {
+        localStorage.ClearAsync();
+        loginModel.Email = await localStorage.GetItemAsync<string>("Email");
+        loginModel.Password = await localStorage.GetItemAsync<string>("Password");
+        logout.UserLogOut(loginModel);
+        navManager.NavigateTo("/");
     }
 }
