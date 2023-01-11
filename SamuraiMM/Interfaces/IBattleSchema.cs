@@ -8,7 +8,6 @@ namespace SamuraiMM.Interfaces
 {
     public interface IBattleSchema
     {
-        public void CreateTableBattleSchema();
         public void InsertBattleSchema(BattleSchemaModel batsam);
         public void DeleteBattleSchema(int ID);
         public void UpdateBattleSchema(BattleSchemaModel batsam, int oldSamuraiID, int oldBattlesID);

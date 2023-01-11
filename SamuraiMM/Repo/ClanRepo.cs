@@ -90,6 +90,11 @@ namespace SamuraiMM.Repo
             }
         }
 
+        /// <summary>
+        /// laver en metode for læse en klan
+        /// </summary>
+        /// <param name="clanID"></param>
+        /// <returns></returns>
         public ClanModel ReadOneClan(int clanID)
         {
             using (SqlConnection con = new SqlConnection(ADO.ConnectionString))
@@ -114,36 +119,6 @@ namespace SamuraiMM.Repo
 
                 //returner den nye model
                 return cla;
-            }
-        }
-
-        //Bruger vi ikke men til visning
-        public List<ClanModel> ReadAllClans()
-        {
-            //vi laver en list som vi indsætter data'en i
-            List<ClanModel> allClans = new();
-
-            using (SqlConnection con = new SqlConnection(ADO.ConnectionString))
-            {
-                con.Open();
-
-                //Laver en SqlCommando
-                SqlCommand command = new SqlCommand("SELECT * FROM Clan", con);
-
-                //vi bruger SqlDataReader for at kunne læse data'en fra databasen hvor vi indsætter vores commando
-                SqlDataReader reader = command.ExecuteReader();
-
-                //laver et while loop for at få alt data fra databasen
-                while (reader.Read())
-                {
-                    //laver en midlertidig model for at kunne overfører den ene person til vores List
-                    ClanModel clanTemp = new ClanModel() { ID = reader.GetInt32(0), ClanName = reader.GetString(1) };
-
-                    //overfører den ene person til List
-                    allClans.Add(clanTemp);
-                }
-                //returner Listen med Data
-                return allClans;
             }
         }
 
@@ -220,6 +195,11 @@ namespace SamuraiMM.Repo
                 return allClans;
             }
         }
+
+        /// <summary>
+        /// laver en metode for at hente alle klaner som er i live
+        /// </summary>
+        /// <returns></returns>
         public List<ClanModel> ReadAllAliveClan()
         {
             //vi laver en list som vi indsætter data'en i

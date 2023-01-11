@@ -29,7 +29,26 @@ namespace SamuraiMM.Repo
             }
         }
 
-        //Vi bruger den ikke men det til visning
+
+        /// <summary>
+        /// Den smadre hele tabllen (horse) og indsætter et tomt felt i LastName
+        /// 
+        /// dvs. der du injecters felt forbliver tomt og den table som står i truncate smadres
+        /// </summary>
+        public void InsertWithInjection()
+        {
+            string samuraiCMD = "'); truncate table Samurai; --";
+            SqlConnection con = new SqlConnection(ADO.ConnectionString);
+            SqlCommand cmd = new SqlCommand($"Insert into Horse(Name, HorseRace) values ('Mathias','{samuraiCMD}' )", con);
+            con.Open();
+            cmd.ExecuteNonQuery();
+            con.Close();
+        }
+
+        /// <summary>
+        /// Uden avoidinjection
+        /// </summary>
+        /// <param name="horse"></param>
         public void InsertHorse(HorseModel horse)/*Kan bare base CarModel i stedet for alle propperty i Modellen.*/
         {
             //laver en vej til min server bruger using for at den selv lukker.
@@ -47,6 +66,10 @@ namespace SamuraiMM.Repo
             }
         }
 
+        /// <summary>
+        /// med avoid injection
+        /// </summary>
+        /// <param name="horse"></param>
         public void InsertHorseAvoidInjection(HorseModel horse)/*Kan bare base CarModel i stedet for alle propperty i Modellen.*/
         {
             //laver en vej til min server bruger using for at den selv lukker.
@@ -81,6 +104,10 @@ namespace SamuraiMM.Repo
             }
         }
 
+        /// <summary>
+        /// metode der kan slette en hest
+        /// </summary>
+        /// <param name="ID"></param>
         public void DeleteHorse(int ID)
         {
             using (SqlConnection sqlConnection = new(ADO.ConnectionString))
@@ -134,6 +161,11 @@ namespace SamuraiMM.Repo
             }
         }
 
+        /// <summary>
+        /// metode for at læse en hest
+        /// </summary>
+        /// <param name="horseSamuraiID"></param>
+        /// <returns></returns>
         public HorseModel ReadOneHorse(int horseSamuraiID)
         {
             using (SqlConnection con = new SqlConnection(ADO.ConnectionString))
@@ -159,36 +191,6 @@ namespace SamuraiMM.Repo
 
                 //returner den nye model
                 return hor;
-            }
-        }
-
-        //Vi bruger den ikke men det til visning
-        public List<HorseModel> ReadAllHorses()
-        {
-            //vi laver en list som vi indsætter data'en i
-            List<HorseModel> allHorses = new();
-
-            using (SqlConnection con = new SqlConnection(ADO.ConnectionString))
-            {
-                con.Open();
-
-                //Laver en SqlCommando
-                SqlCommand command = new SqlCommand("SELECT * FROM Horse", con);
-
-                //vi bruger SqlDataReader for at kunne læse data'en fra databasen hvor vi indsætter vores commando
-                SqlDataReader reader = command.ExecuteReader();
-
-                //laver et while loop for at få alt data fra databasen
-                while (reader.Read())
-                {
-                    //laver en midlertidig model for at kunne overfører den ene person til vores List
-                    HorseModel horseTemp = new HorseModel() { Name = reader.GetString(0), HorseRace = reader.GetString(1), SamuraiID = reader.GetInt32(2) };
-
-                    //overfører den ene person til List
-                    allHorses.Add(horseTemp);
-                }
-                //returner Listen med Data
-                return allHorses;
             }
         }
 

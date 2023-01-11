@@ -8,13 +8,10 @@ namespace SamuraiMM.Interfaces
 {
     public interface IHorse
     {
-        public void CreateTableHorse();
-        public void InsertHorse(HorseModel horse);
         public void InsertHorseAvoidInjection(HorseModel horse);
         public void DeleteHorse(int ID);
         public void UpdateHorse(HorseModel horse, int ID);
         public HorseModel ReadOneHorse(int ID);
-        public List<HorseModel> ReadAllHorses();
         public List<HorseModel> ReadAllHorsesAndSamurai();
     }
 }

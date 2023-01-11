@@ -155,36 +155,6 @@ namespace SamuraiMM.Repo
             }
         }
 
-        //bruger vi ikke men til visning
-        public List<BladeModel> ReadAllBlades()
-        {
-            //vi laver en list som vi indsætter data'en i
-            List<BladeModel> allBlades = new();
-
-            using (SqlConnection con = new SqlConnection(ADO.ConnectionString))
-            {
-                con.Open();
-
-                //Laver en SqlCommando
-                SqlCommand command = new SqlCommand("SELECT * FROM Blade", con);
-
-                //vi bruger SqlDataReader for at kunne læse data'en fra databasen hvor vi indsætter vores commando
-                SqlDataReader reader = command.ExecuteReader();
-
-                //laver et while loop for at få alt data fra databasen
-                while (reader.Read())
-                {
-                    //laver en midlertidig model for at kunne overfører den ene person til vores List
-                    BladeModel bladeTemp = new BladeModel() { ID = reader.GetInt32(0), Name = reader.GetString(1), Description = reader.GetString(2), SamuraiID = reader.GetInt32(3) };
-
-                    //overfører den ene person til List
-                    allBlades.Add(bladeTemp);
-                }
-                //returner Listen med Data
-                return allBlades;
-            }
-        }
-
         /// <summary>
         /// henter alle blades som er tilknyttet en samurai
         /// </summary>

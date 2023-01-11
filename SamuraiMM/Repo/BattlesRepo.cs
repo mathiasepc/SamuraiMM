@@ -163,6 +163,10 @@ namespace SamuraiMM.Repo
             }
         }
 
+        /// <summary>
+        /// henter alle battle som ikke er slettet
+        /// </summary>
+        /// <returns></returns>
         public List<BattleModel> ReadAllAliveBattles()
         {
             //vi laver en list som vi indsætter data'en i

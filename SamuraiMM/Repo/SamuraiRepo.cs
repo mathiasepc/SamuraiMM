@@ -37,21 +37,6 @@ namespace SamuraiMM.Repo
         }
 
         /// <summary>
-        /// Den smadre hele tabllen (horse) og indsætter et tomt felt i LastName
-        /// 
-        /// dvs. der du injecters felt forbliver tomt og den table som står i truncate smadres
-        /// </summary>
-        public void InsertWithInjection()
-        {
-            string samuraiCMD = "'); truncate table Horse; --";
-            SqlConnection con = new SqlConnection(ADO.ConnectionString);
-            SqlCommand cmd = new SqlCommand($"Insert into Samurai(FirstName, LastName) values ('Mathias','{samuraiCMD}' )", con);
-            con.Open();
-            cmd.ExecuteNonQuery();
-            con.Close();
-        }
-
-        /// <summary>
         /// Laver en metode som indsætter i tabellen Samurai
         /// </summary>
         /// <param name="samurai"></param>
@@ -240,6 +225,102 @@ namespace SamuraiMM.Repo
             }
         }
 
+        /// <summary>
+        /// Den læser alle samurai's fra databasen
+        /// </summary>
+        /// <returns></returns>
+        public List<SamuraiModel> ReadAllSamurais()
+        {
+            //vi laver en list som vi indsætter data'en i
+            List<SamuraiModel> allSamurais = new();
+
+            using (SqlConnection con = new SqlConnection(ADO.ConnectionString))
+            {
+                con.Open();
+
+                //Laver en SqlCommando
+                SqlCommand command = new SqlCommand("SELECT * FROM Samurai", con);
+
+                //vi bruger SqlDataReader for at kunne læse data'en fra databasen hvor vi indsætter vores commando
+                SqlDataReader reader = command.ExecuteReader();
+
+                //laver et while loop for at få alt data fra databasen
+                while (reader.Read())
+                {
+                    //laver en midlertidig model for at kunne overfører den ene person til vores List
+                    SamuraiModel samTemp = new SamuraiModel() { ID = reader.GetInt32(0), FirstName = reader.GetString(1), LastName = reader.GetString(2), Birthdate = reader.GetDateTime(3), Deleted = reader.GetInt32(4) };
+
+                    //overfører den ene person til List
+                    allSamurais.Add(samTemp);
+                }
+                //returner Listen med Data
+                return allSamurais;
+            }
+        }
+
+        public List<SamuraiModel> ReadAllAliveSamurais()
+        {
+            //vi laver en list som vi indsætter data'en i
+            List<SamuraiModel> allSamurais = new();
+
+            using (SqlConnection con = new SqlConnection(ADO.ConnectionString))
+            {
+                con.Open();
+
+                //Laver en SqlCommando
+                SqlCommand command = new SqlCommand("SELECT * FROM Samurai where Samurai.Deleted != 2", con);
+
+                //vi bruger SqlDataReader for at kunne læse data'en fra databasen hvor vi indsætter vores commando
+                SqlDataReader reader = command.ExecuteReader();
+
+                //laver et while loop for at få alt data fra databasen
+                while (reader.Read())
+                {
+                    //laver en midlertidig model for at kunne overfører den ene person til vores List
+                    SamuraiModel samTemp = new SamuraiModel() { ID = reader.GetInt32(0), FirstName = reader.GetString(1), LastName = reader.GetString(2), Birthdate = reader.GetDateTime(3), Deleted = reader.GetInt32(4) };
+
+                    //overfører den ene person til List
+                    allSamurais.Add(samTemp);
+                }
+                //returner Listen med Data
+                return allSamurais;
+            }
+        }
+
+        //Vi bruger den ikke men det til visning
+        //
+        //
+        //
+
+
+        public SamuraiModel ReadSamuraisQuotes(int samuraiID)
+        {
+            using (SqlConnection con = new SqlConnection(ADO.ConnectionString))
+            {
+                //laver en sql commando
+                SqlCommand cmd = new SqlCommand($"select * from Samurai, Quotes where Quotes.SamuraiId={samuraiID} AND Samurai.Id = {samuraiID}", con);
+
+                con.Open();
+
+                //vi bruger SqlDataReader for at kunne læse data'en fra databasen hvor vi indsætter vores commando
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                //vi laver en nu model hvor vi indsætter værdierne
+                SamuraiModel sam = new SamuraiModel();
+
+                //vi laver en list som vi kan putte værdierne ind i
+                sam.Quotes = new List<QuoteModel>();
+                while (reader.Read())
+                {
+                    //de forskellige værdier fra databasen
+                    sam.ID = Convert.ToInt32(reader["id"]);
+                    sam.FirstName = reader["FirstName"].ToString();
+                    sam.LastName = reader["LastName"].ToString();
+                    sam.Quotes.Add(new QuoteModel() { QuoteText = reader["QuoteText"].ToString() });
+                }
+                return sam;
+            }
+        }
 
         public SamuraiModel ReadOneSamuraisProps(int tempsamuraiID)
         {
@@ -315,127 +396,6 @@ namespace SamuraiMM.Repo
             }
         }
 
-        /// <summary>
-        /// Den læser alle samurai's fra databasen
-        /// </summary>
-        /// <returns></returns>
-        public List<SamuraiModel> ReadAllSamurais()
-        {
-            //vi laver en list som vi indsætter data'en i
-            List<SamuraiModel> allSamurais = new();
-
-            using (SqlConnection con = new SqlConnection(ADO.ConnectionString))
-            {
-                con.Open();
-
-                //Laver en SqlCommando
-                SqlCommand command = new SqlCommand("SELECT * FROM Samurai", con);
-
-                //vi bruger SqlDataReader for at kunne læse data'en fra databasen hvor vi indsætter vores commando
-                SqlDataReader reader = command.ExecuteReader();
-
-                //laver et while loop for at få alt data fra databasen
-                while (reader.Read())
-                {
-                    //laver en midlertidig model for at kunne overfører den ene person til vores List
-                    SamuraiModel samTemp = new SamuraiModel() { ID = reader.GetInt32(0), FirstName = reader.GetString(1), LastName = reader.GetString(2), Birthdate = reader.GetDateTime(3), Deleted = reader.GetInt32(4) };
-
-                    //overfører den ene person til List
-                    allSamurais.Add(samTemp);
-                }
-                //returner Listen med Data
-                return allSamurais;
-            }
-        }
-
-        public List<SamuraiModel> ReadAllDeadSamurais()
-        {
-            //vi laver en list som vi indsætter data'en i
-            List<SamuraiModel> allSamurais = new();
-
-            using (SqlConnection con = new SqlConnection(ADO.ConnectionString))
-            {
-                con.Open();
-
-                //Laver en SqlCommando
-                SqlCommand command = new SqlCommand("SELECT * FROM Samurai where Samurai.Deleted = 2", con);
-
-                //vi bruger SqlDataReader for at kunne læse data'en fra databasen hvor vi indsætter vores commando
-                SqlDataReader reader = command.ExecuteReader();
-
-                //laver et while loop for at få alt data fra databasen
-                while (reader.Read())
-                {
-                    //laver en midlertidig model for at kunne overfører den ene person til vores List
-                    SamuraiModel samTemp = new SamuraiModel() { ID = reader.GetInt32(0), FirstName = reader.GetString(1), LastName = reader.GetString(2), Birthdate = reader.GetDateTime(3), Deleted = reader.GetInt32(4) };
-
-                    //overfører den ene person til List
-                    allSamurais.Add(samTemp);
-                }
-                //returner Listen med Data
-                return allSamurais;
-            }
-        }
-        public List<SamuraiModel> ReadAllAliveSamurais()
-        {
-            //vi laver en list som vi indsætter data'en i
-            List<SamuraiModel> allSamurais = new();
-
-            using (SqlConnection con = new SqlConnection(ADO.ConnectionString))
-            {
-                con.Open();
-
-                //Laver en SqlCommando
-                SqlCommand command = new SqlCommand("SELECT * FROM Samurai where Samurai.Deleted != 2", con);
-
-                //vi bruger SqlDataReader for at kunne læse data'en fra databasen hvor vi indsætter vores commando
-                SqlDataReader reader = command.ExecuteReader();
-
-                //laver et while loop for at få alt data fra databasen
-                while (reader.Read())
-                {
-                    //laver en midlertidig model for at kunne overfører den ene person til vores List
-                    SamuraiModel samTemp = new SamuraiModel() { ID = reader.GetInt32(0), FirstName = reader.GetString(1), LastName = reader.GetString(2), Birthdate = reader.GetDateTime(3), Deleted = reader.GetInt32(4) };
-
-                    //overfører den ene person til List
-                    allSamurais.Add(samTemp);
-                }
-                //returner Listen med Data
-                return allSamurais;
-            }
-        }
-
-        //Vi bruger den ikke men det til visning
-        public SamuraiModel ReadSamuraisQuotes(int samuraiID)
-        {
-            using (SqlConnection con = new SqlConnection(ADO.ConnectionString))
-            {
-                //laver en sql commando
-                SqlCommand cmd = new SqlCommand($"select * from Samurai, Quotes where Quotes.SamuraiId={samuraiID} AND Samurai.Id = {samuraiID}", con);
-
-                con.Open();
-
-                //vi bruger SqlDataReader for at kunne læse data'en fra databasen hvor vi indsætter vores commando
-                SqlDataReader reader = cmd.ExecuteReader();
-
-                //vi laver en nu model hvor vi indsætter værdierne
-                SamuraiModel sam = new SamuraiModel();
-
-                //vi laver en list som vi kan putte værdierne ind i
-                sam.Quotes = new List<QuoteModel>();
-                while (reader.Read())
-                {
-                    //de forskellige værdier fra databasen
-                    sam.ID = Convert.ToInt32(reader["id"]);
-                    sam.FirstName = reader["FirstName"].ToString();
-                    sam.LastName = reader["LastName"].ToString();
-                    sam.Quotes.Add(new QuoteModel() { QuoteText = reader["QuoteText"].ToString() });
-                }
-                return sam;
-            }
-        }
-
-        //Vi bruger den ikke men det til visning
         public List<SamuraiModel> ReadAllSamuraiAndQuotes()
         {
             //vi laver en list som vi indsætter data'en i

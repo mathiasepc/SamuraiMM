@@ -158,6 +158,9 @@ namespace SamuraiMM.Repo
         }
 
         //bruger vi ikke endnu
+        //
+        //
+        //
         public bool ValidateEmail(string Email)
         {
             string regexEmail = @"^[a-zA-Z0-9.+]+@[a-zA-Z0-9.-]+.[a-zA-Z0-9]{2,4}$";
