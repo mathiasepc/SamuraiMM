@@ -1,0 +1,15 @@
+﻿@inject Blazored.LocalStorage.ILocalStorageService localStorage
+@inject NavigationManager navManager
+
+@code {
+    public string UserSession;
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        UserSession = await localStorage.GetItemAsync<string>("UserSession");
+
+        if(UserSession != "1")
+        {
+            navManager.NavigateTo("/");
+        }
+    }
+}
