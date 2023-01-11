@@ -55,8 +55,7 @@ namespace SamuraiMM.Repo
                 {
                     if (loginModel.Email != login.Email)
                     {
-                        command = new($"Insert into Login(Email,Password,UserSession) values('{loginModel.Email}', '{loginModel.Password}', '0')", connection);
-                    
+                        command = new($"Insert into Login(Email,Password,UserSession) values('{loginModel.Email}', '{loginModel.Password}', '0')", connection);        
                     }
                 }
                 //Forcer crash hvis email eksisterer allerede
