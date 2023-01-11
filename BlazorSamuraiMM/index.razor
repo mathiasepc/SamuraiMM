@@ -45,7 +45,7 @@
         if (login.GetUser(loginModel))
         {
             localStorage.SetItemAsync("UserSession", "1");
-            localStorage.SetItemAsync($"Name", $"{loginModel.Email}");
+            localStorage.SetItemAsync($"Email", $"{loginModel.Email}");
             localStorage.SetItemAsync($"Password", $"{loginModel.Password}");
             navManager.NavigateTo($"/welcome");
         }
