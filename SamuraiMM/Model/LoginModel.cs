@@ -9,7 +9,6 @@ namespace SamuraiMM.Model
 {
     public class LoginModel
     {
-        int ID { get; set; }
         //hvis feltet er tomt
         //email validering
         [Required, EmailAddress(ErrorMessage = "Email is wrong example mail: test@test.test")]

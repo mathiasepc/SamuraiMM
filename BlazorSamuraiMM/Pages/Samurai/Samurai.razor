@@ -38,7 +38,7 @@
 </table>
 
 <div class="bottomSection">
-    Søg på en Samurai ved ID: 
+    Slå op om en samurai har en hest (ved ID): 
     <input type="text" @bind="SearchId" />
     <button @onclick="Search">Search</button>
 </div>
@@ -54,36 +54,9 @@
                     <td>FirstName</td>
                     <td>LastName</td>
                     <td>Birthdate</td>
-                    @foreach (var item in IDResult.Quotes)
-                    {
-                        @if (item.QuoteText != null)
-                        {
-                            <td>Quotes</td>
-                        }
-                    }
                     @if (IDResult.Horse != null)
                     {
                         <td>Horse name</td>
-                    }
-                    @if (IDResult.Clan != null)
-                    {
-                        <td>Clan Name</td>
-                    }
-                    @foreach (var item in IDResult.Blades)
-                    {
-                        @if (item.Name != null)
-                        {
-                            <td>Blades</td>
-
-                        }
-                    }
-                    @foreach (var item in IDResult.Battles)
-                    {
-
-                        @if (item.EventTitle != null)
-                        {
-                            <td>Battles</td>
-                        }
                     }
 
                 </tr>
@@ -93,34 +66,9 @@
                     <td>@IDResult.FirstName</td>
                     <td>@IDResult.LastName</td>
                     <td>@IDResult.Birthdate.Year</td>
-                    @if (IDResult.Quotes != null)
-                    {
-                        @foreach (var item in IDResult.Quotes)
-                        {
-                            <td>@item.QuoteText</td>
-                        }
-                    }
                     @if (IDResult.Horse != null)
                     {
                         <td>@IDResult.Horse.Name</td>
-                    }
-                    @if (IDResult.Clan != null)
-                    {
-                        <td>@IDResult.Clan.ClanName</td>
-                    }
-                    @if (IDResult.Blades != null)
-                    {
-                        @foreach (var item in IDResult.Blades)
-                        {
-                            <td>@item.Name</td>
-                        }
-                    }
-                    @if (IDResult.Battles != null)
-                    {
-                        @foreach (var item in IDResult.Battles)
-                        {
-                            <td>@item.EventTitle</td>
-                        }
                     }
                 </tr>
             </tbody>
@@ -171,7 +119,18 @@
 
     private void Search()
     {
-        IDResult = samurai.ReadOneSamuraisProps(SearchId);
+        try
+        {
+            IDResult = samurai.ReadSamuraisHouse(SearchId);
+        }
+        catch
+        {
+            IDResult = samurai.ReadOneSamurai(SearchId);
+        }
+        finally
+        {
+           
+        }
     }
 
 
