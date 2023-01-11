@@ -15,21 +15,20 @@
     <input class="" @bind="loginModel.Email" />
 
     <label>Password:</label>
-    <input class="" @bind="" />
+    <input class="" @bind="loginModel.Password" />
     <div class="formButton">
         <button type="submit">Login</button>
-    </div>
     </div>
 
 </EditForm>
 <div class="formButton">
-    <button @onclick="Back">Register</button>
+    <button @onclick="Register">Register</button>
 </div>
 
 @code {
     //istansiere vores List
-    List<LoginModel> loginList = new();
-    
+    LoginModel loginModel = new();
+
 
     /// <summary>
     /// overrider er så vi overskriver dataen hver gang
@@ -37,13 +36,17 @@
     /// </summary>
     protected override void OnInitialized()
     {
-        //indsæt
-        loginList = login.GetUser();
+
     }
 
     public void GetUser()
     {
+        login.GetUser(loginModel);
+    }
 
+    public void Register()
+    {
+        
     }
 
 
