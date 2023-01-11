@@ -51,13 +51,20 @@ namespace SamuraiMM.Repo
                 SqlCommand command = new();
                 connection.Open();
 
-                var sameMail = loginList.FirstOrDefault(f => f.Email == loginModel.Email);
+                //opretter 
+                List<LoginModel> sameMail = new();
 
-                    if (loginModel.Email != sameMail.Email)
+                sameMail.Add(loginList.FirstOrDefault(f => f.Email == loginModel.Email));
+
+                foreach (var item in sameMail)
+                {
+
+                    if (sameMail.Count() > 0 && item == null || item.Email != loginModel.Email)
                     {
-                        command = new($"Insert into Login(Email,Password,UserSession) values('{loginModel.Email}', '{loginModel.Password}', '0')", connection);        
+                        command = new($"Insert into Login(Email,Password,UserSession) values('{loginModel.Email}', '{loginModel.Password}', '0')", connection);
                     }
-               
+                }
+
                 //Forcer crash hvis email eksisterer allerede
                 command.ExecuteNonQuery();
             }
