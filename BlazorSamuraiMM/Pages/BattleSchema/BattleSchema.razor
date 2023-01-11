@@ -73,8 +73,9 @@
         //kør metode
         battleschema.DeleteBattleSchema(battleSchemaModel.SamuraiID);
 
-        //refresh vindue
-        StateHasChanged();
+        //refresh side
+        NavManager.NavigateTo(" ");
+        NavManager.NavigateTo("/battleSchema");
     }
 
 }

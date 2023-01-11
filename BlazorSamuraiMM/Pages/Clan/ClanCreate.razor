@@ -28,6 +28,9 @@
 </EditForm>
 
 @code {
+    //istansiere vores model
+    ClanModel clanModel = new();
+
     /// <summary>
     /// vores tilbage knap
     /// </summary>
@@ -36,9 +39,6 @@
         //skift vindue
         NavManager.NavigateTo("/clan");
     }
-
-    //istansiere vores model
-    ClanModel clanModel = new();
 
     /// <summary>
     /// vores indsæt metode

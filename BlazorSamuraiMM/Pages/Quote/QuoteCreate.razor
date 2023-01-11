@@ -45,6 +45,7 @@
 @code {
     //istansiere vores List
     List<SamuraiModel> samuraiList = new();
+    QuoteModel quoteModel = new();
 
     /// <summary>
     /// overrider er så vi overskriver dataen hver gang
@@ -63,10 +64,7 @@
         //skift vindue
         NavManager.NavigateTo("/quote");
     }
-
-    //istansiere model
-    QuoteModel quoteModel = new();
-
+  
     /// <summary>
     /// laver vores indsæt metode
     /// </summary>

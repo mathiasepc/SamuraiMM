@@ -103,8 +103,9 @@
         //kør metode
         clan.DeleteClan(clanModel.ID);
 
-        //refresh
-        StateHasChanged();
+        //refresh side
+        NavManager.NavigateTo(" ");
+        NavManager.NavigateTo("/clan");
     }
 
 }

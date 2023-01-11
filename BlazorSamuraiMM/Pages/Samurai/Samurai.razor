@@ -82,6 +82,7 @@
     int SearchId;
     SamuraiModel IDResult;
     List<SamuraiModel> NameResult = new();
+    int session;
 
     /// <summary>
     /// overrider er så vi overskriver dataen hver gang
@@ -91,8 +92,6 @@
     {
         //indsæt
         samuraiList = samurai.ReadAllSamurais();
-        //get user session
-        //if user session = 0
     }
 
     /// <summary>
@@ -112,11 +111,14 @@
     {
         //kør metode
         samurai.DeleteSamurai(samuraiModel.ID);
-
-        //refresh
-        StateHasChanged();
+        //refresh side
+        NavManager.NavigateTo(" ");
+        NavManager.NavigateTo("/samurai");
     }
 
+    /// <summary>
+    /// Vores search function
+    /// </summary>
     private void Search()
     {
         try

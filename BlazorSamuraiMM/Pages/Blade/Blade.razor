@@ -73,8 +73,9 @@
         //kør metode
         blade.DeleteBlade(bladeModel.ID);
 
-        //refresh vindue
-        StateHasChanged();
+        //refresh side
+        NavManager.NavigateTo(" ");
+        NavManager.NavigateTo("/blade");
     }
 
 }

@@ -70,8 +70,9 @@
         //kør metode
         horse.DeleteHorse(horseModel.SamuraiID);
 
-        //refresh
-        StateHasChanged();
+        //refresh side
+        NavManager.NavigateTo(" ");
+        NavManager.NavigateTo("/horse");
     }
 
 }

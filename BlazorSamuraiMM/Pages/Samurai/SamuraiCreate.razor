@@ -50,7 +50,9 @@
 
 
 @code {
+    //istansiere vores model
     public List<ClanModel> clanAlive = new();
+    SamuraiModel samuraiModel = new();
 
     /// <summary>
     /// overrider er så vi overskriver dataen hver gang
@@ -69,11 +71,6 @@
         //skift vindue
         NavManager.NavigateTo("/samurai");
     }
-
-
-
-    //istansiere vores model
-    SamuraiModel samuraiModel = new();
 
     /// <summary>
     /// vores indsæt i tabellen metode

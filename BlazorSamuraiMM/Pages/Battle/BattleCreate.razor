@@ -33,8 +33,10 @@
 
 </EditForm>
 
-
 @code {
+    //istansiere vores model
+    BattleModel battleModel = new();
+
     /// <summary>
     /// for vores tilbage knap
     /// </summary>
@@ -43,9 +45,6 @@
         //skift vindue
         NavManager.NavigateTo("/battle");
     }
-
-    //istansiere vores model
-    BattleModel battleModel = new();
 
     /// <summary>
     /// Vores insæt i tabellen metode
