@@ -59,7 +59,7 @@ namespace SamuraiMM.Repo
 
                 foreach (var item in sameMail)
                 {
-                    //Opretter hvis tempmail listen har en count på 0 og item er null eller hvis emailen ikke allerede findes
+                    //Opretter hvis tempmail listen er større end 0 og item er null eller hvis emailen ikke allerede findes
                     if (sameMail.Count() > 0 && item == null || item.Email != loginModel.Email)
                     {
                         command = new($"Insert into Login(Email,Password,UserSession) values('{loginModel.Email}', '{loginModel.Password}', '0')", connection);
